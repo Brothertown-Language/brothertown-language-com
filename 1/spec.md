@@ -41,10 +41,10 @@ minimal publishable surface; the seven-section site is not built here.
   minimal; the vendored `d3c3nt`) remain open for later issues — this issue
   ships the sibling-continuity baseline.
 - **R-4** — The minimal publishable surface: `home` (landing), `about`, and
-  `blog` (empty section, feed-capable). Navigation lists only the sections
-  that exist (the no-stub rule settled in the brainstorm). The remaining
-  site sections — dictionary, lessons, apps, methodology/reference — land
-  under their own issues.
+  `blog` (empty — posts arrive under later issues). Navigation lists only the
+  sections that exist (the no-stub rule settled in the brainstorm). The
+  remaining site sections — dictionary, lessons, apps, methodology/reference —
+  land under their own issues.
 - **R-5** — A tracked SOP at `docs/sop-site-setup.md` covering: (a) the local
   development loop (`./zola serve`, build, check); (b) Zola-pin maintenance
   (`ZOLA_VERSION` ↔ the local download, keep them matched); (c) Cloudflare
@@ -68,11 +68,12 @@ minimal publishable surface; the seven-section site is not built here.
 |----|-----------|-------|-----------|
 | SC-1 | `./build.sh` exits 0 and produces `public/index.html` | behavioral | run `./build.sh`; assert exit 0; assert the file exists |
 | SC-2 | `ZOLA_VERSION` exists and `build.sh` downloads exactly the pinned version | structural | inspect the script; confirm the downloaded-version line in the build log |
-| SC-3 | `config.toml` carries feeds, search index (content included), and the three taxonomies | structural | file check against R-1's list |
+| SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, search index (content included), and the three taxonomies | structural | file check against R-1's list |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty |
 | SC-5 | The built site surfaces home/about/blog and its navigation exposes no content-less sections | behavioral | build; grep the output's nav for section links |
 | SC-6 | No stub/placeholder pages exist in the built output | behavioral | grep the built output for placeholder markers (e.g. `TODO`, `lorem`) |
 | SC-7 | The SOP covers local loop, pin maintenance, Pages wiring, domain attach, verification gates, and dated platform facts | structural | content check against R-5's list |
+| SC-8 | The SOP's publish procedure includes the draft-gate and the sensitivity/PII audit steps (R-6's binding, made testable as an SOP deliverable) | structural | content check against R-6 |
 
 ## Out of scope
 
