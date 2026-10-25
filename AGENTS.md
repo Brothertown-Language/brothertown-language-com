@@ -31,13 +31,15 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   downloads the pinned release and builds. Worked precedent:
   michael-conrad.com (zola 0.22.1 on Pages v3, main builds with `./build.sh`).
 
-## Layout (target state after issue 1)
+## Layout
 
 - `config.toml` — Zola config (feeds, search index, taxonomies)
 - `ZOLA_VERSION` — the pinned Zola version
 - `build.sh` — CI build entry: downloads the pinned Zola, builds to `public/`
-- `content/<section>/…` — sections with `_index.md`: home, dictionary,
-  lessons, apps, methodology, blog, about
+- `content/<section>/…` — section folders with `_index.md`. Issue 1 lands
+  home, about, and blog; the remaining sections (dictionary, lessons, apps,
+  methodology/reference) land under their own issues — the no-stub rule keeps
+  content-less sections out of the navigation until their content exists.
 - `themes/` — vendored theme files as plain tracked files, never submodules
 - `templates/`, `sass/`, `static/` — Zola standard
 

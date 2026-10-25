@@ -9,6 +9,9 @@
 # Agent deck (local clone, gitignored by design)
 .opencode/
 
+# Issue store worktree (orphan issues-data branch — managed by local-issues)
+.issues/
+
 # JetBrains
 /.idea/
 
