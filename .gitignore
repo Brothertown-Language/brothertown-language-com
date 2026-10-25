@@ -1,0 +1,28 @@
+# Zola build output
+/public/
+/static/processed_images/
+
+# Scratch
+/temp/
+!/temp/.gitkeep
+
+# Agent deck (local clone, gitignored by design)
+.opencode/
+
+# JetBrains
+/.idea/
+
+# Toolchain binaries (pinned downloads)
+/uv
+/zola
+/zola.1
+/zola-build
+/zola-check
+/zola-completion
+/zola-init
+/zola-serve
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
