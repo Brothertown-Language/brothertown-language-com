@@ -70,10 +70,10 @@ minimal publishable surface; the seven-section site is not built here.
 | SC-2 | `ZOLA_VERSION` exists and `build.sh` downloads exactly the pinned version | structural | inspect the script; confirm the downloaded-version line in the build log |
 | SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, search index (content included), and the three taxonomies | structural | file check against R-1's list |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty |
-| SC-5 | The built site surfaces home/about/blog and its navigation exposes no content-less sections | behavioral | build; grep the output's nav for section links |
-| SC-6 | No stub/placeholder pages exist in the built output | behavioral | grep the built output for placeholder markers (e.g. `TODO`, `lorem`) |
+| SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `{/`,  `/about/`, `/blog/`}; assert no dictionary/lessons/apps/methodology links |
+| SC-6 | The built output's page set is exactly the closed expected surface: home landing, about page, blog section index (plus taxonomy/atom-standard artifacts); nothing else | structural | enumerate the built pages; compare against the closed expected list |
 | SC-7 | The SOP covers local loop, pin maintenance, Pages wiring, domain attach, verification gates, and dated platform facts | structural | content check against R-5's list |
-| SC-8 | The SOP's publish procedure includes the draft-gate and the sensitivity/PII audit steps (R-6's binding, made testable as an SOP deliverable) | structural | content check against R-6 |
+| SC-8 | The SOP's publish procedure includes all three of R-6's rules as its steps: the draft-gate, the image-path existence check, and the sensitivity/PII audit | structural | content check against R-6 |
 
 ## Out of scope
 
