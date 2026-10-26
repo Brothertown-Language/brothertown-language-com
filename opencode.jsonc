@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true
+    }
+  },
+  "permission": {
+    "cloudflare_*": "deny"
+  },
+  "agent": {
+    "cloudflare-ops": {
+      "description": "Read-only Cloudflare inspection for brothertown-language.com (DNS records, Pages status, account identity) via the cloudflare MCP",
+      "mode": "subagent",
+      "permission": {
+        "cloudflare_*": "allow"
+      }
+    }
+  }
+}
