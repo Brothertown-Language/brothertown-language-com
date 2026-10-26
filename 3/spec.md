@@ -83,14 +83,17 @@ account; the agent never executes it without explicit instruction.
   matches the runbook is re-verified against the cited docs — memory and
   cached pages are not grounds — by whoever edits the runbook page, developer
   or agent, before that page is edited; the maintenance rule is stated on the
-  facts-log page. Dashboard navigation steps SHALL route through the docs'
-  own deep links (`dash.cloudflare.com/?to=/:account/…` URLs as published on
-  the cited pages) as the stable, label-independent surface: sidebar labels
-  vary across dashboard rollouts (observed 2026-10-26 on this account: no
-  "Workers & Pages" sidebar option — the executor's observation is an
-  operative UI fact, recorded with its date), and when an executor-observed
-  label diverges from a doc nav string, the observed label recorded with its
-  date is the UI fact of record.
+  facts-log page. Routing doctrine, from the observed UI facts: the
+  dashboard's "Workers & Pages" sidebar option is absent on this account and
+  the docs' own `dash.cloudflare.com/?to=/:account/workers-and-pages` deep
+  link does not work there (both observed by the developer, 2026-10-26) —
+  sidebar labels and sidebar-derived deep links are drifted surfaces following
+  the 2026-10-12 unified-dashboard-navigation rollout — so the runbook's
+  PRIMARY executable route SHALL be the label-independent Wrangler CLI path
+  (commands and config keys grounded in the current docs' command blocks) and
+  the dashboard paths SHALL be carried as labeled alternates with their
+  doc-dated strings, never as the only route; executor-observed UI labels
+  recorded with their date are the UI facts of record when they diverge.
 - **R-3** — The runbook SHALL record the platform selection with its
   evidence: Cloudflare's current "Start new projects with Workers"
   recommendation (dated quote + URL) and the voluntary, deadline-free
@@ -130,19 +133,28 @@ account; the agent never executes it without explicit instruction.
   existing-Worker connect sequence (Worker → **Settings** → **Builds** →
   **Connect**), carrying the documented caution that the dashboard's Worker
   name must match the `name` in the Wrangler configuration file or the build
-  fails. The runbook SHALL state that controlling the Zola version by pin +
-  download is grounded in the current Workers Builds docs — not in sibling
-  precedent.
+  fails. The page SHALL carry the label-independent CLI deployment path as the
+  primary route (a scoped "Edit Cloudflare Workers" API token +
+  `CLOUDFLARE_ACCOUNT_ID` + `npx wrangler deploy`), with the dashboard
+  connect flow as the labeled alternate (its labels doc-dated, untested on
+  this account's rollout). The runbook SHALL state that controlling the Zola
+  version by pin + download is grounded in the current Workers Builds docs —
+  not in sibling precedent.
 - **R-7** — The runbook SHALL document the custom-domain attach for
   `brothertown-language.com` given the pre-provisioned state (domain
-  registered; DNS zone on Cloudflare): Workers dashboard → Settings >
-  Domains & Routes > Add > Custom Domain; automatic DNS-record creation on
-  zones the account owns; the documented caution that a custom domain cannot
-  be created on a hostname with an existing conflicting CNAME record or on a
-  zone the account does not own; exact-hostname matching (the apex does not
-  cover `www` and vice versa) with the redirect-rule pattern for the
-  uncovered hostname; and workers.dev coexistence with both disable paths
-  (Settings toggle or `"workers_dev": false`).
+  registered; DNS zone on Cloudflare), in two routes: (a) the label-
+  independent configuration route — `custom_domain = true` on the pattern
+  under `routes` (plus `"workers_dev": false`) in `wrangler.jsonc`, deployed
+  with `npx wrangler deploy`: Cloudflare provisions the DNS records and the
+  certificate automatically on deploy, no dashboard navigation; (b) the
+  dashboard route (Worker → Settings > Domains & Routes > Add > Custom
+  Domain) as the labeled alternate. Both carry the documented caution that a
+  custom domain cannot be created on a hostname with an existing conflicting
+  CNAME record or on a zone the account does not own; exact-hostname matching
+  (the apex does not cover `www` and vice versa) with the redirect-rule
+  pattern for the uncovered hostname (configurable as a second route pattern
+  or a redirect rule); and workers.dev coexistence with both disable paths
+  (config `"workers_dev": false` or the dashboard toggle).
 - **R-8** — The runbook SHALL document HTTPS verification: Workers custom
   domains provision per-hostname Advanced Certificates (not Universal SSL
   certificates) with certificate issuance and DNS record creation handled
@@ -275,7 +287,9 @@ independently under current docs rather than by cargo cult.
 | Git-integration management: Worker → **Settings > Builds** → **Git Repository** → **Manage**; the GitHub App is named "Cloudflare Workers & Pages", shared between Workers and Pages; PR comments + check runs monitor builds | developers.cloudflare.com/workers/ci-cd/builds/git-integration/ (+ …/github-integration/) | 2026-10-01 / 2026-10-15 | high |
 | Dashboard Workers-creation walkthrough (same flow as the Builds page's connect-a-new-Worker steps) | developers.cloudflare.com/workers/get-started/dashboard/ | 2026-06-25 | high |
 | Static-site deployment without git-builds: C3 CLI (`npm create cloudflare@latest`, "Static site" template) then `npx wrangler deploy`; CI users set the "deploy command" in build settings | developers.cloudflare.com/workers/static-assets/get-started/ | 2026-08-25 | high |
-| UI fact of record: the developer's dashboard (2026-10-26) shows NO "Workers & Pages" sidebar option — sidebar labels vary across dashboard rollouts; the docs pages' own deep links (`dash.cloudflare.com/?to=/:account/workers-and-pages`) are the stable routing surface carried by the runbook's navigation steps | developer observation (dashboard, 2026-10-26); deep links as published on the cited docs pages (builds, git-integration, get-started/dashboard) | 2026-10-26 | high |
+| UI fact of record: the developer's dashboard (2026-10-26) shows NO "Workers & Pages" sidebar option AND the docs' own deep link (`dash.cloudflare.com/?to=/:account/workers-and-pages`) does not work on it — sidebar labels and sidebar-derived routes are drifted surfaces; Cloudflare's combined dashboard navigation rolled 2026-10-12 ("Unified dashboard navigation", all customers). The runbook's primary executable route is the label-independent wrangler CLI (commands + config keys grounded in the docs' command blocks); dashboard paths carry as labeled alternates | developer observation ×2 (dashboard, 2026-10-26) · developers.cloudflare.com/changelog/post/2026-10-12-unified-dashboard-navigation/ · docs pages still routing via workers-and-pages (wholesale doc lag: builds, get-started/dashboard, custom-domains) | 2026-10-26 | high |
+| Label-independent deployment: wrangler + scoped API token — "Edit Cloudflare Workers" token template + CLOUDFLARE_ACCOUNT_ID; `npx wrangler deploy` deploys assets-only Workers | developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/ | 2026-10-18 | high |
+| Config-file custom domains: `custom_domain = true` on each `routes` pattern provisions the domain, its DNS records, and its certificate on deploy, without dashboard navigation | developers.cloudflare.com/workers/configuration/routing/custom-domains/ (config section) | 2026-10-26 | high |
 | Build image Ubuntu 24.04 x86_64; Node 24.21.0 default, 22.23.2 preinstalled; Zola NOT preinstalled; curl/wget/unzip/zstd present; update policy | developers.cloudflare.com/workers/ci-cd/builds/build-image/ | 2026-10-24 | high |
 | Builds limits: free 3,000 min/mo, 1 concurrent, 20-min timeout | developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/ | 2026-05-29 | high |
 | Wrangler configuration reference (new URL); mandatory `name` + `compatibility_date`; asset fields incl. `html_handling`, `not_found_handling`, `.assetsignore` | developers.cloudflare.com/workers/wrangler/configuration/ | 2026-10-20 | high |
