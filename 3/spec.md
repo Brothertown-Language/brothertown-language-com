@@ -25,31 +25,65 @@ the repo, build, deploy, attach the provisioned domain, verify HTTPS, and undo
 Dashboard-side operations are developer-executed (production/access
 operations are not agent-reachable without explicit instruction, per issue
 #1's scope record); a runbook is the record that makes them repeatable and
-verifiable.
+verifiable. On 2026-10-26 the developer directed where that record lives: in
+the repository's wiki, properly organized — not as an in-repo `docs/` file.
+The wiki is enabled and verified live 2026-10-26 (`has_wiki: true` via the
+GitHub API; the wiki remote `Brothertown-Language/brothertown-language-com.wiki.git`
+reachable by `git ls-remote`).
 
 ## Scope
 
-The deliverable is the tracked runbook document itself. It documents the
-cloud-side setup and operation procedure for the developer-executor and the
-agent-runnable verification gates; the in-repo deployment artifacts it
-consumes (`wrangler.jsonc`, build entry, `ZOLA_VERSION`, built `public/`)
-belong to the base-setup issue #1 as revised to these same directives.
-Dashboard execution happens on the developer's Cloudflare account; the agent
-never executes it without explicit instruction.
+The deliverable is the runbook page set hosted in the repository's wiki
+(`Brothertown-Language/brothertown-language-com.wiki`), organized for
+operation per the developer's directive (2026-10-26). The wiki is operated
+through a local checkout at `wiki/` — a gitignored sub-repo, never a
+submodule — per the deck's wiki-operations card. The wiki is public (the
+repository is public, and a public repository's wiki is available to the
+public), and by default only repository-level write access can edit it;
+wiki publishes are direct-publish — no branch, PR, or hook gates a push —
+so publish follows verify-before-push discipline. The page set documents
+the cloud-side setup and operation procedure for the developer-executor
+and the agent-runnable verification gates; the in-repo deployment
+artifacts it consumes (`wrangler.jsonc`, build entry, `ZOLA_VERSION`,
+built `public/`) belong to the base-setup issue #1 as revised to these
+same directives. The wiki page set is the single record of truth for
+cloud-side operation: the repository carries no second copy of the
+runbook. Dashboard execution happens on the developer's Cloudflare
+account; the agent never executes it without explicit instruction.
 
 ## Requirements
 
-- **R-1** — The repository SHALL carry a tracked runbook at
-  `docs/runbook-cloudflare-workers-setup.md` covering prerequisites and blast
-  radius, deployment-unit facts, Workers Builds git-connection setup, the
-  build pipeline, the custom-domain attach, HTTPS verification gates,
-  rollback, and teardown — organized so the executor can run each section
-  top-to-bottom without leaving the document.
+- **R-1** — The repository's wiki SHALL host the runbook as an organized,
+  navigable page set (flat layout per the deck's wiki-operations card),
+  exactly these pages:
+  - `_Sidebar.md` — the wiki's site-wide navigation panel, listing the
+    runbook pages in their read order: overview and prerequisites →
+    deployment unit and build pipeline → domain attach and HTTPS
+    verification → rollback and teardown → facts log;
+  - `Home.md` — the wiki's entry page, indexing the runbook pages and their
+    read order;
+  - one runbook page per operational section, at these stable hyphenated
+    page names: `Cloudflare-Workers-Setup-Overview` (platform-selection
+    evidence, prerequisites, blast radius, the executor split, rollback
+    availability); `Cloudflare-Workers-Setup-Build-Pipeline` (git-connection
+    setup, the `wrangler.jsonc` deployment unit, the build entry, version
+    currency); `Cloudflare-Workers-Setup-Domain-HTTPS` (the custom-domain
+    attach and the HTTPS verification gates);
+    `Cloudflare-Workers-Setup-Rollback-Teardown` (rollback and teardown);
+    `Cloudflare-Runbook-Facts-Log` (the facts log — source URL plus
+    verification date per fact, and the maintenance rule);
+  - each page runnable top-to-bottom for its own operational phase, so the
+    executor of that phase is never sent to another page mid-step;
+  - internal links in the `[[Page Name]]` syntax; no page carries YAML
+    frontmatter; and the repository carries no in-repo copy of the runbook
+    (`docs/runbook*` or otherwise — the wiki page set is the single record).
 - **R-2** — Every operative Cloudflare platform fact in the runbook SHALL
   carry an inline primary-source URL and its verification date (live fetches,
   2026-10-26), plus a maintenance rule: a dashboard step that no longer
-  matches the runbook is re-verified against the cited docs before the
-  runbook is edited — memory and cached pages are not grounds.
+  matches the runbook is re-verified against the cited docs — memory and
+  cached pages are not grounds — by whoever edits the runbook page, developer
+  or agent, before that page is edited; the maintenance rule is stated on the
+  facts-log page.
 - **R-3** — The runbook SHALL record the platform selection with its
   evidence: Cloudflare's current "Start new projects with Workers"
   recommendation (dated quote + URL) and the voluntary, deadline-free
@@ -120,14 +154,24 @@ never executes it without explicit instruction.
 - **R-11** — The runbook SHALL state each configuration choice as an explicit
   decision point — condition → branch with the deciding evidence — and SHALL
   NOT use open "adjust as appropriate" language anywhere.
+- **R-12** — Wiki edits of the runbook follow the deck's wiki-operations
+  card, whoever performs them: the `wiki/` checkout is pulled and reconciled
+  against the remote tip before any page is touched; every publish is
+  preceded by a diff review plus the card's publish checks — `[[...]]`
+  targets resolve to real pages, `_Sidebar.md` and `_Footer.md` are updated
+  or intentionally untouched, no YAML frontmatter, and no secrets,
+  credentials, account identifiers, or PII in any published page; commits
+  push immediately after editing; the wiki is never force-pushed, and remote
+  edits (human web-UI edits are likely) are integrated, never discarded
+  wholesale.
 
 ## Success criteria
 
 | ID | Criterion | Class | Instrument |
 |----|-----------|-------|-----------|
-| SC-1 | The runbook is tracked at `docs/runbook-cloudflare-workers-setup.md` | structural | `git ls-files docs/` lists it; the file exists |
-| SC-2 | Prerequisites + blast radius precede the first cloud-side write step and enumerate: the Cloudflare-account prerequisite, the domain/zone already-on-Cloudflare fact, repo-side prerequisites (wrangler.jsonc, build entry, `ZOLA_VERSION`, built `public/`), the agent/developer executor split, and rollback availability | structural | doc-structure audit: locate the first dashboard-write step; assert the section precedes it and carries each enumerated item |
-| SC-3 | Every operative platform fact carries an inline primary-source URL plus verification date; the facts log and the re-verify-before-edit maintenance rule are present | structural | fact-by-fact citation audit over the whole document |
+| SC-1 | The runbook page set exists in the repository wiki exactly as R-1 names it: `_Sidebar.md`, `Home.md`, and the five pages `Cloudflare-Workers-Setup-Overview`, `Cloudflare-Workers-Setup-Build-Pipeline`, `Cloudflare-Workers-Setup-Domain-HTTPS`, `Cloudflare-Workers-Setup-Rollback-Teardown`, `Cloudflare-Runbook-Facts-Log`, operated through the `wiki/` gitignored sub-repo checkout (never a submodule) | structural | in the `wiki/` checkout, `git ls-files` lists `Home.md`, `_Sidebar.md`, and the five page files; the repository's `.gitignore` matches `wiki/`; no wiki entry exists in `.gitmodules` |
+| SC-2 | Prerequisites + blast radius precede the first cloud-side write step — in the page set's read order (`_Sidebar.md`) — and enumerate: the Cloudflare-account prerequisite, the domain/zone already-on-Cloudflare fact, repo-side prerequisites (wrangler.jsonc, build entry, `ZOLA_VERSION`, built `public/`), the agent/developer executor split, and rollback availability | structural | read-order audit: in the `_Sidebar.md` order, the overview page carrying prerequisites + blast radius precedes every later page carrying a dashboard-write step; assert the overview page carries each enumerated item |
+| SC-3 | Every operative platform fact carries an inline primary-source URL plus verification date; the facts-log page and the re-verify-before-edit maintenance rule are present | structural | fact-by-fact citation audit over the whole page set |
 | SC-4 | The platform-selection record cites the dated Workers recommendation (quote + URL) and labels every superseded Pages-era/sibling mechanic as historical context | structural | audit the selection record for the dated quote; check every sibling/Pages-era reference for its historical-context label |
 | SC-5 | The `wrangler.jsonc` section shows the assets-only shape — `name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, no script/binding — matching the cited configuration reference | structural | field-by-field comparison against the cited reference (2026-10-20) |
 | SC-6 | Version facts recorded with dates (Zola 0.23.6 / 2026-09-12 + asset name; wrangler 4.152.0; Node 24.21.0 default / 22.23.2 preinstalled; image Ubuntu 24.04 x86_64) plus the refresh procedure naming its sources | structural | cross-check each value and date against the cited sources; assert the procedure names npm `dist-tags`, the GitHub releases API, and the build-image page |
@@ -138,6 +182,9 @@ never executes it without explicit instruction.
 | SC-11 | Every configuration choice is condition → branch with deciding evidence; zero "adjust as appropriate" phrasing | structural | audit the named choices (production branch, build command, workers.dev disable, www policy, promotion policy, GH Actions alternative) plus a full-text sweep for open-ended instruction |
 | SC-12 | Every step carries its executor mark (developer-run vs agent-runnable) | structural | step-by-step marking audit |
 | SC-13 | The agent-runnable gates run exactly as written and produce the runbook's stated expected outputs | behavioral | execute the gates at the runbook's stated checkpoint (prerequisites in force: issue-#1 artifacts deployed, domain attached); assert outputs match |
+| SC-14 | Navigation integrity: `_Sidebar.md` links every runbook page in the R-1 read order; `Home.md` indexes them; every `[[...]]` target in the page set resolves to an existing page | structural | link sweep over the checkout: enumerate the `[[...]]` targets in all pages including `_Sidebar.md` and `Home.md`; assert each resolves to an existing page file; assert `_Sidebar.md` and `Home.md` enumerate exactly the five runbook pages in the R-1 order |
+| SC-15 | Single record: the repository tracks no in-repo copy of the runbook | structural | `git ls-files` over the main repository lists no file whose name matches `*runbook*` (case-insensitive), and `docs/` carries no runbook file |
+| SC-16 | Page hygiene: no page carries a YAML frontmatter block, and no page carries secrets, credentials, account identifiers, or PII | structural | per-page content sweep: assert no leading bare `---` frontmatter block on any page; apply the repository's sensitivity/PII audit rule (AGENTS.md content rules) to each page |
 
 ## Out of scope
 
@@ -161,23 +208,37 @@ preinstalled; 20-minute build timeout); custom-domain attach with automatic
 DNS-record creation on the existing zone; per-hostname Advanced Certificates
 with automatic DCV; instant rollback; teardown with the documented
 certificate caution. Structure follows the operational-runbook discipline
-(prerequisites → procedure → verification → rollback), decision points
-explicit, executor marks per step, facts log carrying source + date per
-fact. The pinned-Zola build entry is grounded in the current Workers Builds
-docs (Zola absent from the image; arbitrary build commands supported; no Zola
-override hook exists) — the same shape the sibling used, arrived at
+(prerequisites → procedure → verification → rollback) arranged as the wiki
+page set of R-1 — `_Sidebar.md` navigation, `Home.md` entry, one page per
+operational phase — with decision points explicit, executor marks per step,
+and the facts log on its own page carrying source + date per fact. Wiki
+operations follow the deck's wiki-operations card (verified present in this
+repo's deck copy 2026-10-26: `.opencode/skills/wiki-operations/` with its
+provisioning, layout-and-syntax, and publish-discipline references —
+checkout at `wiki/` as a gitignored sub-repo, verify-before-push publishing
+because a wiki push is direct-publish, `[[...]]` link syntax, no
+frontmatter). The pinned-Zola build entry is grounded in the current Workers
+Builds docs (Zola absent from the image; arbitrary build commands supported;
+no Zola override hook exists) — the same shape the sibling used, arrived at
 independently under current docs rather than by cargo cult.
 
 ## Dependencies
 
-- Runbook authoring requires no repo files; the document lands independently.
+- Runbook authoring requires no issue-#1 artifacts; the page set lands
+  independently in the wiki. The only repo-side footprint this issue's
+  implementation carries is the `wiki/` gitignore entry the checkout
+  provisioning requires (installed before the clone, per the
+  wiki-operations card).
 - The runbook's execution gates require issue #1's revised deployment
   artifacts to exist and the domain attach to have happened (SC-13's stated
   checkpoint).
+- Issue #1's SOP delegates to this runbook's wiki page set (its spec revised
+  2026-10-26), so the page set lands before (or with) that SOP.
 - Ordering note for the developer: issue #1's implementation should not start
   until its spec's platform revision (Pages → Workers Static Assets, per
   these same directives) is decided — otherwise issue #1 lands Pages-shaped
-  artifacts this runbook then disavows.
+  artifacts this runbook then disavows. (Decided: issue #1's spec carries the
+  Workers basis as of 2026-10-26.)
 
 ## Facts of record (verified 2026-10-26)
 
@@ -199,6 +260,9 @@ independently under current docs rather than by cargo cult.
 | Universal SSL context (apex + first-level subdomains only) supporting the Advanced-Certificate comparison | developers.cloudflare.com/ssl/edge-certificates/universal-ssl/ | 2026-08-14 | high |
 | GitHub Actions alternative: `cloudflare/wrangler-action@v4`, scoped API token | developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/ | 2026-04-23 | high |
 | No official Zola guide exists on Workers framework-guides (index fetched; `/workers/framework-guides/zola/` 404) | developers.cloudflare.com/workers/framework-guides/ | fetched 2026-10-26 | high |
+| Wiki enabled on the repository (`has_wiki: true`; `private: false`); wiki remote `Brothertown-Language/brothertown-language-com.wiki.git` reachable (HEAD present) | api.github.com/repos/Brothertown-Language/brothertown-language-com (gh api) ; git ls-remote of the wiki remote | fetched 2026-10-26 | high |
+| A public repository's wiki is available to the public; by default only people with write access to the repository can edit it (open public-repo contributing is off unless enabled); wikis have a soft limit of 5,000 total files | docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis | fetched 2026-10-26 | high |
+| Wiki mechanics of record: `Home`/`_Sidebar`/`_Footer` layout files, `[[Page Name]]` internal links, bare `---` frontmatter renders as a rule on GitHub, flat-vs-hierarchical layout patterns, publish-discipline checks (direct-publish, verify before push), provisioning ladder (gitignored sub-repo, never a submodule) | deck copy: `.opencode/skills/wiki-operations/` (+ its references/), verified present 2026-10-26 | verified 2026-10-26 | high |
 
 Documented gaps carried into the runbook, not papered over: (1) DNS-record
 auto-cleanup on custom-domain detach / Worker delete is undocumented — the
