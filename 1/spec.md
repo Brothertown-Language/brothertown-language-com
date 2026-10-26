@@ -26,13 +26,13 @@ independently mandate the pinned-Zola build entry: the Workers Builds image
 (verified 2026-10-26) preinstalls no Zola and offers no Zola override hook.
 The domain is already provisioned (registered; DNS zone on Cloudflare — dig
 2026-10-25). The cloud-side operational procedure that this issue's SOP
-formerly carried directly is now the tracked runbook of issue
+formerly carried directly is now the wiki-hosted runbook of issue
 `brothertown-language-com#3` — delegated there rather than duplicated.
 
 ## Scope
 
 In-repo deliverables only. Dashboard-side Cloudflare wiring is executed by the
-developer following the tracked runbook of issue #3 (production/access
+developer following the wiki-hosted runbook of issue #3 (production/access
 operations are not agent reachable without explicit instruction). No content
 sections beyond the minimal publishable surface; the seven-section site is
 not built here.
@@ -99,17 +99,19 @@ not built here.
   (`ZOLA_VERSION` ↔ the local download, kept matched, with the latest stable
   re-verified against the GitHub releases API whenever the site's tooling is
   touched — the refresh sources issue #3's facts log uses); (c) the
-  cloud-side deployment wiring as delegated: the tracked runbook of issue
-  `brothertown-language-com#3` (`docs/runbook-cloudflare-workers-setup.md`,
-  Workers Static Assets: git connection, build pipeline, custom-domain
-  attach, HTTPS verification, rollback, teardown) — the SOP links it and
-  does not duplicate its dashboard steps; (d) the verification gates below;
-  (e) the recorded platform facts with their verification dates, sourced
-  from the runbook's facts-of-record (Workers Static Assets limits: 25 MiB
-  per file, 20,000 files per version on the free tier; free-tier builds
-  limits), plus the big-asset routes for later work as recorded 2026-10-25
-  (R2 same-account route, free 10 GB; itch.io free HTML5 hosting at 200
-  MB/file and 500 MB/project with 1 GB/file platform-download channels).
+  cloud-side deployment wiring as delegated: the wiki-hosted runbook of
+  issue `brothertown-language-com#3` (the repository wiki's runbook page
+  set — `Home`/`_Sidebar` navigation plus one page per operational
+  section; Workers Static Assets: git connection, build pipeline,
+  custom-domain attach, HTTPS verification, rollback, teardown) — the SOP
+  links it and does not duplicate its dashboard steps; (d) the
+  verification gates below; (e) the recorded platform facts with their
+  verification dates, sourced from the runbook's facts-of-record (Workers
+  Static Assets limits: 25 MiB per file, 20,000 files per version on the
+  free tier; free-tier builds limits), plus the big-asset routes for later
+  work as recorded 2026-10-25 (R2 same-account route, free 10 GB; itch.io
+  free HTML5 hosting at 200 MB/file and 500 MB/project with 1 GB/file
+  platform-download channels).
 - **R-6** — The content rules in AGENTS.md bind from delivery: no
   `draft`-flip without explicit publish instruction; image-path existence
   checks before committing front matter; sensitivity/PII audit before any
@@ -147,7 +149,7 @@ not built here.
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists; the vendored revision's provenance is recorded in the SOP — abridge's upstream source URL, the vendored revision identifier, and the date recorded | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty; content check of the SOP for the provenance record (source URL + revision + date) |
 | SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `/`, `/about/`, `/blog/`; assert no dictionary/lessons/apps/methodology links |
 | SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml` (R-1's enabled feeds), `sitemap.xml` and `robots.txt` (Zola's default-true generation), `404.html` (built unconditionally — the vendored theme's template if supplied, otherwise Zola's built-in fallback), the search-index files Zola emits under R-1's pinned `index_format = "elasticlunr_json"` — `search_index.en.json` and `elasticlunr.min.js` (Zola emits the latter for both elasticlunr variants), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled Sass output from the vendored theme's and the site's `sass/` (e.g. abridge's `abridge.css` and syntax-color stylesheets at the output root); static files from the vendored theme's `static/` directories; and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails; and assert the named search-index artifacts are present (the R-1 search pairing is operative, not vacuously absent) |
-| SC-7 | The SOP covers the local loop, pin maintenance with refresh sources, delegates the cloud-side deployment to the tracked runbook of issue #3 (path stated, no duplicated dashboard steps), carries the verification gates, and records platform facts with dates from the runbook's facts table plus the big-asset routes | structural | content check against R-5's list |
+| SC-7 | The SOP covers the local loop, pin maintenance with refresh sources, delegates the cloud-side deployment to the wiki-hosted runbook of issue #3 (wiki link stated, no duplicated dashboard steps), carries the verification gates, and records platform facts with dates from the runbook's facts table plus the big-asset routes | structural | content check against R-5's list |
 | SC-8 | The SOP's publish procedure includes all three of R-6's rules as its steps: the draft-gate, the image-path existence check, and the sensitivity/PII audit | structural | content check against R-6 |
 | SC-9 | The site carries abridge's visitor-facing mode switcher configured with named defaults consistent across the code paths that set them — `$abridgeMode` and `$switcherDefault` set in the site's `sass/abridge.scss` override (the `COPY-TO-ROOT-SASS` pattern), and `js_switcher_default` in the config `[extra]`, consistent with each other per the theme's documented contract — plus the palette parameter (`$color` named template or a site-defined palette) | structural | file checks: `sass/abridge.scss` exists carrying `$abridgeMode`, `$switcherDefault`, and a palette parameter; config `[extra]` carries `js_switcher_default`; assert the override's `$switcherDefault` value equals the config's `js_switcher_default` value |
 | SC-10 | `ZOLA_VERSION` equals the latest stable Zola release verified against the GitHub releases API at implementation start (v0.23.6 as of 2026-10-26) | structural | compare the file's value to the releases API's latest non-prerelease tag at the verification run; equality required |
@@ -161,7 +163,7 @@ not built here.
 - Audio production; branding beyond the site title; blog posts; game/app
   embedding; itch.io or R2 asset routes (recorded for later issues).
 - The dashboard-side Cloudflare execution itself (runbook-documented — issue
-  #3's `docs/runbook-cloudflare-workers-setup.md`; developer-run).
+  #3's wiki runbook page set; developer-run).
 
 ## Approach
 
@@ -191,8 +193,8 @@ re-deriving them.
 - Issue `brothertown-language-com#3`'s runbook spec: the same 2026-10-26
   directives; its validation verdict (PASS, zero findings, fresh-context,
   2026-10-26) grounds the Workers facts this spec inherits by reference.
-- Landing order: issue #3's runbook document needs to land before (or with)
-  the SOP — R-5(c)'s delegation link targets its path.
+- Landing order: issue #3's wiki runbook page set needs to land before (or
+  with) the SOP — R-5(c)'s delegation link targets that wiki page set.
 - The developer's Cloudflare account for the dashboard wiring steps
   (runbook-guided — issue #3).
 
