@@ -53,26 +53,33 @@ wiki-operations card — direct-publish, verify before push).
   Verification: re-run SC-10's enumerated audit + SC-11's decision-point audit
   for this choice.
 - **P-5 — SC-9.** Deliverable: Domain-HTTPS HTTPS-section truth-up. RED:
-  SC-9's audit fails — "issuance takes a few minutes" is an unsourced timing
-  claim (current docs publish no issuance-time SLA), and the automatic-DCV
-  mechanism (authoritative DNS) is unstated. GREEN: re-word to the documented
-  state: certificates and DNS records are issued/created automatically because
-  Cloudflare is the authoritative DNS; no issuance-time SLA is published, so
-  the gate outcome decides empirically — re-run the probe, retry decision
-  point until green or escalate. Verification: re-run SC-9's audit (claims
-  match the cited pages; no unsourced timing).
+  SC-9's audit fails on three grounds — "issuance takes a few minutes" is an
+  unsourced timing claim (current docs publish no issuance-time SLA); the
+  automatic-DCV mechanism (authoritative DNS) is unstated; and the
+  no-ACM-subscription fact is absent ("no separate Advanced Certificate
+  Manager subscription is required" — the custom-domains page, 2026-09-29,
+  the spec's own fact row). GREEN: re-word to the documented state: per-hostname
+  Advanced Certificates (not Universal SSL; no ACM subscription required) and
+  DNS records are issued/created automatically because Cloudflare is the
+  authoritative DNS; no issuance-time SLA is published, so the gate outcome
+  decides empirically — re-run the probe, retry decision point until green or
+  escalate. Verification: re-run SC-9's audit (claims match the cited pages;
+  no unsourced timing; the no-ACM fact present).
 - **P-6 — SC-3 + SC-4.** Deliverable: Facts-Log page completion. RED: the
   page-set fact-by-fact audit fails — rows missing for the operative facts the
-  pages now carry (no Zola override hook; preview deployments / noindex), the
-  GH-Actions-alternative fact row (SC-11's spec facts-of-record hold it as a
-  row: wrangler-action@v4 + scoped token, page 2026-10-18), and the builds
-  limits row (free 3,000 min/mo, 1 concurrent, 20-min timeout, page
-  2026-05-29). GREEN: add the rows with source URL + verification date each.
-  Verification: row-set audit vs the spec's facts-of-record operative subset;
-  SC-4's historical-label spot-audit on the overview page still holds.
-- **P-7 — SC-2 + SC-5 + SC-6 + SC-11 + SC-12 + SC-15 + SC-16 + SC-17 +
-  SC-18(prep).** Deliverable: final full-suite audit pass over the
-  remediated page set. RED: any instrument fails: SC-2 read-order + enumerated
+  pages now carry (no Zola override hook; preview deployments / noindex), plus
+  the two facts-of-record rows absent from the page: the GH-Actions-alternative
+  fact (`cloudflare/wrangler-action@v4` + scoped API token — spec
+  facts-of-record row, page 2026-10-18) and the builds-limits row (free 3,000
+  min/mo, 1 concurrent, 20-min timeout — page 2026-05-29). GREEN: add the rows
+  with source URL + verification date each; and flag the builds-limits page as
+  the oldest page in the set (the spec's documented-gaps note (4) states that
+  disposition). Verification: row-set audit — every named row is present on
+  the page (asserted against this item's own RED demands, not just the spec
+  table), dated, with the oldest-page flag present; SC-4's historical-label
+  spot-audit on the overview page still holds.
+- **P-7 — SC-2 + SC-5 + SC-6 + SC-11 + SC-12 + SC-15 + SC-16 + SC-17.**
+  Deliverable: final full-suite audit pass over the remediated page set. RED: any instrument fails: SC-2 read-order + enumerated
   prereq items; SC-5 field-by-field wrangler shape; SC-6 version facts + the
   refresh procedure naming npm `dist-tags`, the GitHub releases API, and the
   build-image page; SC-11 named-choice branches + zero open-ended language;
