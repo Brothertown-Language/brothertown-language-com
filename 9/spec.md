@@ -123,10 +123,15 @@ out of scope.
   not required by this post.
 - **Publish gate**: landing the post with `draft = false` in the PR is not a
   draft-flip; the human merge is the publish instruction.
-- **Feed author nuance** (verified against Zola's page docs, 2026-10-26):
-  feed templates use the *first* author only — so feed entries credit
-  *Brothertown Language* (the main author) while the post page's byline
-  carries all four. This is the intended display split, not a defect.
+- **Feed author behavior** (verified empirically against the pinned Zola
+  v0.23.6 binary, 2026-10-26 clean-room differential; Zola's current web
+  docs state a first-author-only rule that does NOT match the pinned
+  binary): a feed entry renders `<author><name>` for every entry of the
+  page's top-level `authors` list — the post's feed entry credits all four
+  registry strings — falling back to the config `author` when the field is
+  absent. abridge ships no custom feed template, so the behavior comes from
+  the binary. Feed entry listing all four authors is the intended outcome;
+  no success criterion depends on a single-author feed.
 - **Two author mechanisms, one value set**: the top-level `authors` field
   (feed author) and the `[taxonomies] authors` key (byline + facet source)
   are distinct in current Zola; this post carries both with identical values
