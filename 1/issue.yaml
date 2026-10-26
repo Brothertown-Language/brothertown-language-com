@@ -1,8 +1,10 @@
 title: Base Zola site setup (Zola + Cloudflare Workers static assets, domain attach)
-status: open
+status: closed
 labels:
 - needs-approval
 body: ''
 created_at: '2026-10-25T21:55:22+00:00'
-updated_at: '2026-10-26T02:13:15+00:00'
+updated_at: '2026-10-26T19:24:21+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/1
+closed_at: '2026-10-26T19:24:21+00:00'
+close_reason: completed
