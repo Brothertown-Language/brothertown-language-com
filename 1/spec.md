@@ -40,7 +40,13 @@ not built here.
 ## Requirements
 
 - **R-1** — A buildable Zola skeleton lands at the repository root:
-  `config.toml` with `base_url = "https://brothertown-language.com"`, feed
+  `zola.toml` at the repository root — the configuration file of record per
+  the current Zola configuration docs (verified 2026-10-26: "To change the
+  configuration, edit the zola.toml file"; the file was previously named
+  `config.toml`, which Zola loads only as a fallback when `zola.toml` does
+  not exist — under the 2026-10-26 directives the repo carries the current
+  name, not the legacy fallback) — with `base_url =
+  "https://brothertown-language.com"`, feed
   generation enabled, search index including title/description/content —
   pinned to abridge's documented pairing, verified in the theme's config
   2026-10-26, delivered through the site config because abridge's own
@@ -134,7 +140,9 @@ not built here.
   becomes the Workers Static Assets 25 MiB/file and 20,000-files-per-version
   limits per issue #3's facts table; the "Pages Build System v3 does not
   ship Zola" build-entry ground with its sibling worked-precedent reference
-  becomes the Workers Builds grounding per R-2) — so the repo's standing
+  becomes the Workers Builds grounding per R-2; the Layout section's
+  `config.toml` line reflects the `zola.toml` configuration file of record
+  per R-1) — so the repo's standing
   record stops pointing future sessions (AGENTS.md is session-injected) at
   the superseded basis; nothing beyond the reconciliation's changed lines
   changes in AGENTS.md.
@@ -145,7 +153,7 @@ not built here.
 |----|-----------|-------|-----------|
 | SC-1 | `./build.sh` exits 0 and produces `public/index.html` | behavioral | run `./build.sh`; assert exit 0; assert the file exists |
 | SC-2 | `ZOLA_VERSION` exists and `build.sh` downloads exactly the pinned version | structural | inspect the script; confirm the downloaded-version line in the build log |
-| SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, the search index with R-1's pinned pairing (`build_search_index = true` at top level; `index_format = "elasticlunr_json"`, `include_title = true`, `include_description = true`, `include_content = true` in `[search]`; `search_library = "elasticlunr"` in `[extra]`), the three taxonomies, and `compile_sass = true` (top level) | structural | file check against R-1's list, including the section placements it states |
+| SC-3 | `zola.toml` at the repository root sets `base_url` to `https://brothertown-language.com` and carries feeds, the search index with R-1's pinned pairing (`build_search_index = true` at top level; `index_format = "elasticlunr_json"`, `include_title = true`, `include_description = true`, `include_content = true` in `[search]`; `search_library = "elasticlunr"` in `[extra]`), the three taxonomies, and `compile_sass = true` (top level) | structural | file check against R-1's list, including the section placements it states |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists; the vendored revision's provenance is recorded in the SOP — abridge's upstream source URL, the vendored revision identifier, and the date recorded | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty; content check of the SOP for the provenance record (source URL + revision + date) |
 | SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `/`, `/about/`, `/blog/`; assert no dictionary/lessons/apps/methodology links |
 | SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml` (R-1's enabled feeds), `sitemap.xml` and `robots.txt` (Zola's default-true generation), `404.html` (built unconditionally — the vendored theme's template if supplied, otherwise Zola's built-in fallback), the search-index files Zola emits under R-1's pinned `index_format = "elasticlunr_json"` — `search_index.en.json` and `elasticlunr.min.js` (Zola emits the latter for both elasticlunr variants), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled Sass output from the vendored theme's and the site's `sass/` (e.g. abridge's `abridge.css` and syntax-color stylesheets at the output root); static files from the vendored theme's `static/` directories; and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails; and assert the named search-index artifacts are present (the R-1 search pairing is operative, not vacuously absent) |
@@ -154,7 +162,7 @@ not built here.
 | SC-9 | The site carries abridge's visitor-facing mode switcher configured with named defaults consistent across the code paths that set them — `$abridgeMode` and `$switcherDefault` set in the site's `sass/abridge.scss` override (the `COPY-TO-ROOT-SASS` pattern), and `js_switcher_default` in the config `[extra]`, consistent with each other per the theme's documented contract — plus the palette parameter (`$color` named template or a site-defined palette) | structural | file checks: `sass/abridge.scss` exists carrying `$abridgeMode`, `$switcherDefault`, and a palette parameter; config `[extra]` carries `js_switcher_default`; assert the override's `$switcherDefault` value equals the config's `js_switcher_default` value |
 | SC-10 | `ZOLA_VERSION` equals the latest stable Zola release verified against the GitHub releases API at implementation start (v0.23.6 as of 2026-10-26) | structural | compare the file's value to the releases API's latest non-prerelease tag at the verification run; equality required |
 | SC-11 | `wrangler.jsonc` exists at the repository root with the R-7 fields and no Worker script/binding | structural | file check against R-7's field list (`name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, absent `main`/bindings) |
-| SC-12 | AGENTS.md's decisions-of-record reflect the 2026-10-26 basis with no operative Pages-era wording in the changed lines — Workers Static Assets hosting, the abridge theme of record added, the big-asset cap line stated against the Workers Static Assets limits, the build-entry ground stated against the Workers Builds docs; nothing outside R-8's reconciliation scope changed | structural | content check of AGENTS.md's decisions-of-record against R-8's stated scope (no operative Pages/Zulma-era wording remains in the changed lines); diff-scope check that only the reconciliation's lines differ |
+| SC-12 | AGENTS.md's decisions-of-record reflect the 2026-10-26 basis with no operative Pages-era wording in the changed lines — Workers Static Assets hosting, the abridge theme of record added, the big-asset cap line stated against the Workers Static Assets limits, the build-entry ground stated against the Workers Builds docs, and the Layout section's config-file line stating `zola.toml` per R-1; nothing outside R-8's reconciliation scope changed | structural | content check of AGENTS.md's decisions-of-record and Layout config-file line against R-8's stated scope (no operative Pages/Zulma-era wording remains in the changed lines; the config-file line names `zola.toml`); diff-scope check that only the reconciliation's lines differ |
 
 ## Out of scope
 
