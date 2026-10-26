@@ -65,17 +65,34 @@ already configured in `zola.toml` from issue #1).
   those two bullets changes in this issue.
 - **R-7** — `docs/languages.md` is a **lookup table**: per language, the
   common name(s) for lookup (aliases normalized into the canonical row) ·
-  the **official ISO 639-3 name** · the **3-letter ISO code**. Codes come
-  from the corpus's `data/csv/languages.csv` cross-checked to the ISO 639-3
-  registry — industry standard, never bespoke; varieties without an ISO
-  code carry their Glottocode from the data of record (e.g. Montauk). The
-  table covers the corpus's language inventory (`∃` rows, aliases joined);
-  retired-code notes from the data ride in-line (e.g. "ISO `mof` retired
-  for Mohegan"). Cited forms use the "Common [iso]" pattern —
-  `Mohegan-Pequot [xpq]` (the developer's "Mohegan [xpt]" example was
-  illustrative; the ISO-registry pairing is `xpq`). New languages join the
-  table by editing it when the data of record or a citation brings them
-  in. R-5's inventory names it alongside `authors.md`.
+  the **official ISO 639-3 name** · the **3-letter ISO code**. Codes and
+  ISO names come from the corpus's `data/csv/languages.csv` cross-checked
+  **exhaustively** (all rows — the set is static ~44; an exhaustive check
+  costs no more than a sample) against the **ISO 639-3 registry** (its
+  published download table / per-code pages) — industry standard, never
+  bespoke; varieties without an ISO code carry their Glottocode from the
+  data of record (e.g. Montauk). Retired-code notes ride in-line (e.g.
+  "ISO `mof` retired for Mohegan" per change request 2009-013's split,
+  confirmed on the registry's xpq page). **Naming determination
+  (online research, 2026-10-26)**: the ISO registry names are both the
+  official standard and the de-facto standard for the site's language set —
+  the held scholarly corpus texts corroborate them (Mohegan-Pequot ~84
+  occurrences vs Pequot-Mohegan 4, the inverse form appearing essentially
+  only in Glottolog's own export; Narragansett 883× vs "Narrangansett" 1;
+  Goddard/Mithun "Massachusett" for the wam variety), and for the one
+  community-flavored case ISO itself registered the community name
+  **Wampanoag [wam]** (matching the corpus's display name; scholarly
+  "Massachusett" rides as an alias). So the name of record per row = ISO
+  registry name; Glottolog canonicals and scholarly/community alternates
+  ride the lookup/alias columns. Cited forms use the "Common [iso]"
+  pattern — `Mohegan-Pequot [xpq]` (the developer's "Mohegan [xpt]"
+  example was illustrative; the ISO-registry pairing is `xpq`). The table
+  covers the corpus's language inventory (`∃` rows — 44 at the surveyed
+  snapshot — aliases joined). New languages join the table by editing it
+  when the data of record or a citation brings them in. R-5's inventory
+  names it alongside `authors.md`. The corpus survey snapshots are pinned:
+  repository `Brothertown-Language/algonquian-library`, tip-of-survey
+  commit recorded in the registry's provenance note.
 
 ## Success criteria
 
@@ -86,7 +103,7 @@ already configured in `zola.toml` from issue #1).
 | SC-3 | The coupling rule (R-3) and growth rule (R-4) are stated in the registry | structural | content check |
 | SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5, with the inventory naming `sop-site-setup.md`, `authors.md`, and `languages.md` | structural | content check |
 | SC-5 | `/AGENTS.md` carries the two R-6 bullets; `git diff` shows only those lines added | structural | content check + diff-scope check |
-| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's `∃` language rows with aliases joined to their canonical rows, codes sampled against the ISO 639-3 registry / `languages.csv`, no bespoke codes | structural | content check + sampled-code verification |
+| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's `∃` language rows with aliases joined to their canonical rows, and **every** ISO name/code pair in the table matches the ISO 639-3 registry (exhaustive check via the registry's download table / per-code pages — no sampling); no bespoke codes | structural | content check + exhaustive ISO-registry cross-check of all rows |
 
 ## Out of scope
 
@@ -119,7 +136,27 @@ re-deriving.
   doc that tracks authors cited..."; "so that tags for each author exist for
   ad-hoc faceting"); "one main author + guest authors: michael + craig +
   keith"; "Dr." styling for Cunningham and Kopris (developer correction);
-  "shorter is better" (project byline string = `Brothertown Language`).
+  "shorter is better" (project byline string = `Brothertown Language`);
+  the languages lookup-table requirement ("only a lookup table", common
+  names + official ISO name + 3-letter code, "industry standard, not
+  bespoke", model concept "Mohegan [xpt]"; scope = the corpus's full
+  language inventory, "don't artificially limit the language list").
+- Corpus survey pin: repository `Brothertown-Language/algonquian-library`,
+  tip-of-2026-10-26 snapshot (commit recorded in `docs/authors.md`'s
+  provenance note at implementation), held in working state at
+  `/tmp/opencode/corpus-survey` for implementation; the registry tables
+  re-derive from `git fetch` + `data/csv/languages.csv` at refresh time.
+- **Naming-determination sources (2026-10-26)**: ISO 639-3 registry pages
+  xpq (Mohegan-Pequot; CR 2009-013, effective 2010-01-18), qyp (Quiripi; CR
+  2008-038, effective 2009-01-16), wam (Wampanoag — community name
+  registered); corpus-held literature usage counts across
+  `algonquian-library/docs/research/` texts (Mohegan-Pequot 84:4,
+  Narragansett 883:1, Quiripi/Wampano mixed — Rudes 1998 titles "Wampano
+  (Quiripi)", Ethnologue/ISO "Quiripi"); Glottolog naming rationale
+  (doculect anchoring + database-unique canonical names — Bosque-Gil et al.
+  2022, *Semantic Web*, §3.3; live languoid page wamp1250 carrying the
+  ISO qyp mapping box); Wikipedia article titles consistent with ISO
+  (Mohegan-Pequot / Narragansett / Quiripi / Massachusett).
 - Source post expert list: michael-conrad.com "Brothertown Community
   Language Initiative" (2026-01-28, fetched 2026-10-26) — Cunningham
   (Language Keeper, lead linguist), Kopris (advisor/contributor), Bruchac
