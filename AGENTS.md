@@ -64,6 +64,9 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 
 - Never flip `draft = true` → `false` without an explicit developer
   instruction to publish.
+- Author keywords are minted only in `docs/authors.md` (the author registry
+  of record) — a bylined or cited name never mints a keyword on the page
+  itself; blog-post bylines/authors follow the registry's role notes.
 - Text content is Markdown; `config.toml` and front matter are TOML.
 - Images live in `static/images/`, post folders, or app folders — never
   ad-hoc paths. A `featured_image` pointing at a missing file fails the Zola
