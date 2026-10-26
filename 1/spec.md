@@ -88,6 +88,15 @@ not built here.
   `draft`-flip without explicit publish instruction; image-path existence
   checks before committing front matter; sensitivity/PII audit before any
   publish.
+- **R-7** — The repository carries the assets-only deployment manifest per
+  issue `brothertown-language-com#3`'s R-4: `wrangler.jsonc` at the
+  repository root with `name`, `compatibility_date` set to the
+  implementation's current date per the current configuration reference,
+  `assets.directory "./public"`, and `not_found_handling "404-page"`; no
+  Worker script and no binding — the manifest issue #3's deploy default
+  (`npx wrangler deploy`) requires. Grounded in the current configuration
+  reference (verified 2026-10-26) — the deployment-unit consequence of the
+  Workers pivot (the 2026-10-26 directives).
 
 ## Success criteria
 
@@ -98,11 +107,12 @@ not built here.
 | SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, search index (content included), and the three taxonomies | structural | file check against R-1's list |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty |
 | SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `/`, `/about/`, `/blog/`; assert no dictionary/lessons/apps/methodology links |
-| SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of the config-emitted, explicitly named artifacts: `atom.xml`, `sitemap.xml`, `404.html`, the search-index files Zola emits for R-1's enabled index (`search_index.en.js` and `elasticlunr.min.js` in current Zola), the taxonomy landings (`categories/`, `tags/`, `authors/` paths), the vendored theme's static assets (files emitted from the vendored theme's `static/` directories — e.g. Zulma's CSS and font assets), and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails |
+| SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml`, `sitemap.xml`, `404.html`, `robots.txt` (emitted by Zola's default configuration), the search-index files Zola emits for R-1's enabled index (`search_index.en.js` and `elasticlunr.min.js` in current Zola), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled theme-Sass files Zola emits from the vendored theme's `sass/` directories (e.g. Zulma's `default.css`, `darkly.css` and the other per-theme CSS at the output root); static files from the vendored theme's `static/` directories (Zulma's JS assets and their maps); and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails |
 | SC-7 | The SOP covers the local loop, pin maintenance with refresh sources, delegates the cloud-side deployment to the tracked runbook of issue #3 (path stated, no duplicated dashboard steps), carries the verification gates, and records platform facts with dates from the runbook's facts table plus the big-asset routes | structural | content check against R-5's list |
 | SC-8 | The SOP's publish procedure includes all three of R-6's rules as its steps: the draft-gate, the image-path existence check, and the sensitivity/PII audit | structural | content check against R-6 |
 | SC-9 | The theme configuration carries per-visitor theme selection with a named default (the sibling config's `zulma_allow_theme_selection` + default theme) | structural | file check in `config.toml` |
 | SC-10 | `ZOLA_VERSION` equals the latest stable Zola release verified against the GitHub releases API at implementation start (v0.23.6 as of 2026-10-26) | structural | compare the file's value to the releases API's latest non-prerelease tag at the verification run; equality required |
+| SC-11 | `wrangler.jsonc` exists at the repository root with the R-7 fields and no Worker script/binding | structural | file check against R-7's field list (`name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, absent `main`/bindings) |
 
 ## Out of scope
 
