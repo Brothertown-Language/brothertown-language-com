@@ -43,14 +43,16 @@ not built here.
   `config.toml` with `base_url = "https://brothertown-language.com"`, feed
   generation enabled, search index including title/description/content —
   pinned to abridge's documented pairing, verified in the theme's config
-  2026-10-26: `build_search_index = true` and `index_format =
+  2026-10-26: `build_search_index = true` at the top level (a main-section
+  key — Zola v0.23.6 defines it on the top-level `Config` struct, and the
+  theme's own config carries it there), `index_format =
   "elasticlunr_json"` in `[search]`, and `search_library = "elasticlunr"`
   in `[extra]` (the theme's templates read `config.extra.search_library`;
   Zola v0.23.6 would ignore a `[search]`-section placement of that key) —
   and taxonomies `categories`/`tags`/`authors` (the sibling config's
-  taxonomy set), plus `compile_sass = true` (required for the R-3 theme
-  override mechanism; the Zola v0.23.6 default is false — verified
-  2026-10-26).
+  taxonomy set), plus `compile_sass = true` at the top level (required for
+  the R-3 theme override mechanism; the Zola v0.23.6 default is false —
+  verified 2026-10-26).
 - **R-2** — `ZOLA_VERSION` (file) pins one Zola version; `build.sh` downloads
   exactly that release and builds to `public/`. The pinned-download entry is
   grounded in the current Workers Builds docs (verified 2026-10-26): the build
@@ -130,7 +132,7 @@ not built here.
 |----|-----------|-------|-----------|
 | SC-1 | `./build.sh` exits 0 and produces `public/index.html` | behavioral | run `./build.sh`; assert exit 0; assert the file exists |
 | SC-2 | `ZOLA_VERSION` exists and `build.sh` downloads exactly the pinned version | structural | inspect the script; confirm the downloaded-version line in the build log |
-| SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, the search index with R-1's pinned pairing (`build_search_index = true` + `index_format = "elasticlunr_json"` in `[search]`; `search_library = "elasticlunr"` in `[extra]`), the three taxonomies, and `compile_sass = true` | structural | file check against R-1's list, including the section placements it states |
+| SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, the search index with R-1's pinned pairing (`build_search_index = true` at top level; `index_format = "elasticlunr_json"` in `[search]`; `search_library = "elasticlunr"` in `[extra]`), the three taxonomies, and `compile_sass = true` (top level) | structural | file check against R-1's list, including the section placements it states |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists; the vendored revision's provenance is recorded in the SOP — abridge's upstream source URL, the vendored revision identifier, and the date recorded | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty; content check of the SOP for the provenance record (source URL + revision + date) |
 | SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `/`, `/about/`, `/blog/`; assert no dictionary/lessons/apps/methodology links |
 | SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml` (R-1's enabled feeds), `sitemap.xml` and `robots.txt` (Zola's default-true generation), `404.html` (built unconditionally — the vendored theme's template if supplied, otherwise Zola's built-in fallback), the search-index files Zola emits under R-1's pinned `index_format = "elasticlunr_json"` — `search_index.en.json` and `elasticlunr.min.js` (Zola emits the latter for both elasticlunr variants), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled Sass output from the vendored theme's and the site's `sass/` (e.g. abridge's `abridge.css` and syntax-color stylesheets at the output root); static files from the vendored theme's `static/` directories; and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails; and assert the named search-index artifacts are present (the R-1 search pairing is operative, not vacuously absent) |
