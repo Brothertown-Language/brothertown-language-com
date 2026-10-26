@@ -121,7 +121,7 @@ not built here.
 | SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml`, `sitemap.xml`, `404.html`, `robots.txt` (emitted by Zola's default configuration), the search-index files Zola emits for R-1's enabled index (`search_index.en.js` and `elasticlunr.min.js` in current Zola), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled Sass output from the vendored theme's and the site's `sass/` (e.g. abridge's `abridge.css` and syntax-color stylesheets at the output root); static files from the vendored theme's `static/` directories; and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails |
 | SC-7 | The SOP covers the local loop, pin maintenance with refresh sources, delegates the cloud-side deployment to the tracked runbook of issue #3 (path stated, no duplicated dashboard steps), carries the verification gates, and records platform facts with dates from the runbook's facts table plus the big-asset routes | structural | content check against R-5's list |
 | SC-8 | The SOP's publish procedure includes all three of R-6's rules as its steps: the draft-gate, the image-path existence check, and the sensitivity/PII audit | structural | content check against R-6 |
-| SC-9 | The site carries abridge's visitor-facing mode switcher configured with a named default — `$abridgeMode` set in the site's `sass/abridge.scss` override (the `COPY-TO-ROOT-SASS` pattern), matching `js_switcher_default` in the config — plus the palette parameter (`$color` named template or a site-defined palette) | structural | file checks: `sass/abridge.scss` exists carrying `$abridgeMode` and a palette parameter; the config `[extra]` carries `js_switcher_default` |
+| SC-9 | The site carries abridge's visitor-facing mode switcher configured with named defaults consistent across the code paths that set them — `$abridgeMode` and `$switcherDefault` set in the site's `sass/abridge.scss` override (the `COPY-TO-ROOT-SASS` pattern), and `js_switcher_default` in the config `[extra]`, consistent with each other per the theme's documented contract — plus the palette parameter (`$color` named template or a site-defined palette) | structural | file checks: `sass/abridge.scss` exists carrying `$abridgeMode`, `$switcherDefault`, and a palette parameter; config `[extra]` carries `js_switcher_default`; assert the override's `$switcherDefault` value equals the config's `js_switcher_default` value |
 | SC-10 | `ZOLA_VERSION` equals the latest stable Zola release verified against the GitHub releases API at implementation start (v0.23.6 as of 2026-10-26) | structural | compare the file's value to the releases API's latest non-prerelease tag at the verification run; equality required |
 | SC-11 | `wrangler.jsonc` exists at the repository root with the R-7 fields and no Worker script/binding | structural | file check against R-7's field list (`name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, absent `main`/bindings) |
 
@@ -187,10 +187,12 @@ re-deriving them.
 - Historical (superseded by the 2026-10-26 directives): the sibling
   Pages-era deployment record — `michael-conrad.com`'s `ZOLA_VERSION`
   (0.22.1), `build.sh`, `CLOUDFLARE_UPDATE.md` (Pages v3, Ubuntu 24.04 v3);
-  the Zulma theme baseline (the brainstorm's 2026-10-25 theme choice) —
+  and the Zulma theme baseline (the brainstorm's 2026-10-25 theme choice) —
   macro-based, incompatible with the pinned Zola's Tera 2.0.0, unmaintained
-  upstream since 2024-04-22; and the 2026-10-25 Pages/itch.io platform-fact
-  recordings — retained as historical context only; operative platform facts
-  now live in issue #3's facts table, operative theme facts in R-3.
+  upstream since 2024-04-22 — retained as historical context only. Still
+  operative with their 2026-10-25 verification dates: the big-asset routes
+  recorded that day (R2 same-account route, free 10 GB; itch.io free HTML5
+  hosting at 200 MB/file and 500 MB/project with 1 GB/file platform-download
+  channels) — carried by R-5(e); re-verify at the owning issue's work.
 
 *Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)*
