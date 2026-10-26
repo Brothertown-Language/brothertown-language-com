@@ -136,17 +136,21 @@ account; the agent never executes it without explicit instruction.
   and the Worker-served response) and a `dig` check of the auto-created
   record, with a retry decision point (re-run the probe until green or
   escalate).
-- **R-9** — The runbook SHALL state rollback and teardown ahead of the first
-  cloud-side write action, and SHALL document them in executable detail:
-  instant rollback via Deployments → Rollback (bounded to the 100 most
-  recently published versions; `wrangler versions upload` noted as the
-  not-promoted variant feeding the promotion-policy decision point); teardown
-  sequence: disconnect the build integration → remove the custom domain →
-  inspect zone DNS records and delete any record left behind (documented
+- **R-9** — The runbook SHALL carry rollback awareness ahead of the first
+  cloud-side write action: the overview page states that rollback and
+  teardown are available and locates their executable detail, at a point in
+  the read order that precedes every page carrying a dashboard-write step.
+  The complete executable detail SHALL live on
+  `Cloudflare-Workers-Setup-Rollback-Teardown`: instant rollback via
+  Deployments → Rollback (bounded to the 100 most recently published
+  versions; `wrangler versions upload` noted as the not-promoted variant
+  feeding the promotion-policy decision point); teardown sequence:
+  disconnect the build integration → remove the custom domain → inspect
+  zone DNS records and delete any record left behind (documented
   auto-cleanup behavior absent — verify on detach) → manually remove the
-  leftover Advanced Certificate under SSL/TLS > Edge Certificates (documented
-  caution: the certificate is not auto-deleted) → delete the Worker → verify
-  via curl that the domain no longer serves.
+  leftover Advanced Certificate under SSL/TLS > Edge Certificates
+  (documented caution: the certificate is not auto-deleted) → delete the
+  Worker → verify via curl that the domain no longer serves.
 - **R-10** — The runbook SHALL mark every step's executor: cloud/dashboard
   steps are developer-run; agent-runnable gates (curl, dig, local build
   reproduction) named as such. The agent executes no Cloudflare-side
@@ -170,7 +174,7 @@ account; the agent never executes it without explicit instruction.
 | ID | Criterion | Class | Instrument |
 |----|-----------|-------|-----------|
 | SC-1 | The runbook page set exists in the repository wiki exactly as R-1 names it: `_Sidebar.md`, `Home.md`, and the five pages `Cloudflare-Workers-Setup-Overview`, `Cloudflare-Workers-Setup-Build-Pipeline`, `Cloudflare-Workers-Setup-Domain-HTTPS`, `Cloudflare-Workers-Setup-Rollback-Teardown`, `Cloudflare-Runbook-Facts-Log`, operated through the `wiki/` gitignored sub-repo checkout (never a submodule) | structural | in the `wiki/` checkout, `git ls-files` lists `Home.md`, `_Sidebar.md`, and the five page files; the repository's `.gitignore` matches `wiki/`; no wiki entry exists in `.gitmodules` |
-| SC-2 | Prerequisites + blast radius precede the first cloud-side write step — in the page set's read order (`_Sidebar.md`) — and enumerate: the Cloudflare-account prerequisite, the domain/zone already-on-Cloudflare fact, repo-side prerequisites (wrangler.jsonc, build entry, `ZOLA_VERSION`, built `public/`), the agent/developer executor split, and rollback availability | structural | read-order audit: in the `_Sidebar.md` order, the overview page carrying prerequisites + blast radius precedes every later page carrying a dashboard-write step; assert the overview page carries each enumerated item |
+| SC-2 | Prerequisites + blast radius precede the first cloud-side write step — in the page set's read order (`_Sidebar.md`) — and enumerate: the Cloudflare-account prerequisite, the domain/zone already-on-Cloudflare fact, repo-side prerequisites (wrangler.jsonc, build entry, `ZOLA_VERSION`, built `public/`), the agent/developer executor split, and rollback and teardown availability | structural | read-order audit: in the `_Sidebar.md` order, the overview page carrying prerequisites + blast radius precedes every later page carrying a dashboard-write step; assert the overview page carries each enumerated item |
 | SC-3 | Every operative platform fact carries an inline primary-source URL plus verification date; the facts-log page and the re-verify-before-edit maintenance rule are present | structural | fact-by-fact citation audit over the whole page set |
 | SC-4 | The platform-selection record cites the dated Workers recommendation (quote + URL) and labels every superseded Pages-era/sibling mechanic as historical context | structural | audit the selection record for the dated quote; check every sibling/Pages-era reference for its historical-context label |
 | SC-5 | The `wrangler.jsonc` section shows the assets-only shape — `name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, no script/binding — matching the cited configuration reference | structural | field-by-field comparison against the cited reference (2026-10-20) |
@@ -178,13 +182,14 @@ account; the agent never executes it without explicit instruction.
 | SC-7 | Build-pipeline facts: Zola not preinstalled and no override hook; pinned-download build entry grounded in current docs; deploy command `npx wrangler deploy`; production branch `main`; preview deployments with PR-comment URLs and `noindex` | structural | fact-by-fact audit against the cited build-image/configuration pages |
 | SC-8 | Domain attach: flow path; automatic DNS-record creation; conflicting-CNAME caution; exact-hostname apex/www split with the redirect-rule pattern; workers.dev coexistence plus both disable paths | structural | enumerated-item audit against the cited domain pages |
 | SC-9 | HTTPS: Advanced-Certificate model (not Universal SSL; no ACM subscription); automatic DCV; no-published-SLA noted as empirical; `curl -sv` and `dig` gates with stated expected outputs and a retry decision point | structural | enumerated-item audit; assert the gate commands appear with expected outputs |
-| SC-10 | Rollback (mechanism, 100-version limit, deploy-vs-versions-upload promotion note) and teardown (disconnect builds → detach domain → DNS-record check → manual certificate removal under SSL/TLS > Edge Certificates → delete Worker → verify down) are complete and placed before the first cloud-side write | structural | enumerated-item audit plus section-order check |
+| SC-10 | Rollback awareness precedes the first cloud-side write step in the read order (the overview page states rollback and teardown availability and locates the executable detail), and the complete executable detail is on `Cloudflare-Workers-Setup-Rollback-Teardown`: rollback mechanism, 100-version limit, deploy-vs-versions-upload promotion note, and the teardown sequence (disconnect builds → detach domain → DNS-record check → manual certificate removal under SSL/TLS > Edge Certificates → delete Worker → verify down) | structural | read-order audit: the overview page's rollback/teardown availability statement precedes every later page carrying a dashboard-write step in the `_Sidebar.md` order; plus enumerated-item audit of the Rollback-Teardown page |
 | SC-11 | Every configuration choice is condition → branch with deciding evidence; zero "adjust as appropriate" phrasing | structural | audit the named choices (production branch, build command, workers.dev disable, www policy, promotion policy, GH Actions alternative) plus a full-text sweep for open-ended instruction |
 | SC-12 | Every step carries its executor mark (developer-run vs agent-runnable) | structural | step-by-step marking audit |
 | SC-13 | The agent-runnable gates run exactly as written and produce the runbook's stated expected outputs | behavioral | execute the gates at the runbook's stated checkpoint (prerequisites in force: issue-#1 artifacts deployed, domain attached); assert outputs match |
 | SC-14 | Navigation integrity: `_Sidebar.md` links every runbook page in the R-1 read order; `Home.md` indexes them; every `[[...]]` target in the page set resolves to an existing page | structural | link sweep over the checkout: enumerate the `[[...]]` targets in all pages including `_Sidebar.md` and `Home.md`; assert each resolves to an existing page file; assert `_Sidebar.md` and `Home.md` enumerate exactly the five runbook pages in the R-1 order |
 | SC-15 | Single record: the repository tracks no in-repo copy of the runbook | structural | `git ls-files` over the main repository lists no file whose name matches `*runbook*` (case-insensitive), and `docs/` carries no runbook file |
 | SC-16 | Page hygiene: no page carries a YAML frontmatter block, and no page carries secrets, credentials, account identifiers, or PII | structural | per-page content sweep: assert no leading bare `---` frontmatter block on any page; apply the repository's sensitivity/PII audit rule (AGENTS.md content rules) to each page |
+| SC-17 | Per-phase self-containedness: each page carries the complete step set for the operational phase R-1 assigns it, and a phase's steps never send the executor to another runbook page mid-phase to continue the procedure | structural | page-by-page walkthrough: for each page, walk its steps top-to-bottom against the phase scope R-1 assigns; failure = a required phase step present only on another page, or a mid-phase link to another runbook page that is part of the step sequence |
 
 ## Out of scope
 
