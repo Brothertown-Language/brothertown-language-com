@@ -1,0 +1,94 @@
+# Site configuration of record — Zola (current-name zola.toml, not the
+# legacy config.toml fallback; Zola docs, verified 2026-10-26).
+# SPDX-FileCopyrightText: 2026 Brothertown Language
+# SPDX-License-Identifier: MIT
+
+# do NOT include a trailing slash on the base URL
+base_url = "https://brothertown-language.com"
+
+title = "Brothertown Language"
+theme = "abridge"
+description = "The Brothertown Language project: dictionary, lessons, and apps for the revival of the Brothertown Indian Nation's language."
+author = "Brothertown Language"
+
+default_language = "en"
+compile_sass = true # required: the sass/abridge.scss theme-override mechanism
+minify_html = false
+build_search_index = true
+generate_feeds = true
+
+taxonomies = [
+    {name = "categories", feed = true},
+    {name = "tags", feed = true},
+    {name = "authors", feed = true},
+]
+
+generate_sitemap = true
+generate_robots_txt = true
+
+[search] # options specific to elasticlunr search (current abridge pairing)
+index_format = "elasticlunr_json"
+include_title = true
+include_description = true
+include_content = true
+
+[markdown]
+render_emoji = false
+external_links_target_blank = true
+external_links_no_follow = false
+external_links_no_referrer = false
+smart_punctuation = false
+
+[markdown.highlighting]
+theme = "plastic" # colors are defined in abridge's _colors-syntax.scss, not really the plastic theme
+error_on_missing_language = true
+style = "class"
+
+[extra]
+###############################################################################
+### Navigation — only live sections (no-stub rule): home, about, blog.
+###############################################################################
+menu = [
+    {url = "", name = "Home", slash = true, blank = false, size="s110"},
+    {url = "about", name = "About", slash = true, blank = false, size="s110"},
+    {url = "blog", name = "Blog", slash = true, blank = false, size="s110"},
+]
+menu_footer = [
+    {url = "about", name = "About", slash = true, blank = false, size="s90"},
+    {url = "sitemap.xml", name = "Sitemap", slash = false, blank = true, size="s90"},
+]
+
+toc = false
+recent = false
+series = false
+
+meta_index = { position="bottom", size="s90", author=false, readtime=false, readstring="min", date=true, updated=false, categories_tags=true, divider="" }
+meta_post = { position="top", size="s95", author=true, readtime=false, readstring="min read", date=true, updated=true, categories_tags=true, divider="" }
+
+footer_size = "s80"
+copyright = '© $CURRENT_YEAR Brothertown Language'
+
+title_separator = "|"
+title_addition = "Brothertown Language"
+keywords = "Brothertown, Brothertown Indian Nation, language, Mohegan-Pequot, revival"
+seo = true
+
+feed = true
+
+###############################################################################
+### Resource files / search / theme switcher
+###############################################################################
+
+uglyurls = false
+integrity = true
+js_bundle = true
+
+js_copycode = true
+js_email_encode = false
+js_prestyle = true
+js_switcher = true
+# Must match $switcherDefault in sass/abridge.scss (theme contract).
+js_switcher_default = "dark"
+
+search_library = "elasticlunr"
+stylesheets = ["abridge.css"]

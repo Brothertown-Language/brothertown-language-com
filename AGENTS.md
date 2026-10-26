@@ -9,8 +9,15 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 
 ## Site decisions of record (brainstorm with developer, 2026-10-25)
 
-- Zola static site, Cloudflare Pages hosting, domain `brothertown-language.com`
-  (purchased; DNS on Cloudflare — verified live 2026-10-25).
+- Zola static site, Cloudflare Workers Static Assets hosting (platform of
+  record 2026-10-26 — Cloudflare's current recommendation is "Start new
+  projects with Workers"; cloud-side dashboard wiring follows the repo wiki's
+  Workers runbook, issue 3). Domain `brothertown-language.com` (purchased;
+  zone on Cloudflare — verified live 2026-10-25).
+- Theme of record: **abridge** (`Jieiku/abridge`, MIT; `min_version 0.23.6`
+  — current-Zola compatible, verified 2026-10-26), vendored as plain tracked
+  files under `themes/abridge`; vendored revision and re-vendor procedure in
+  `docs/sop-site-setup.md`.
 - Sections: home, dictionary, lessons (written / written+audio / audio-only),
   apps, methodology/reference, blog, about.
 - Every page is generated from the tracked data of record — dictionary
@@ -20,20 +27,23 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   Apps carry their word lists inside them at release time — no runtime
   dependency on the site. Reference pattern: CherokeeLessons.com's App pages
   plus its self-hosted static game bundles.
-- Big-asset rule: Cloudflare Pages caps a single file at 25 MiB (all plans —
-  verified 2026-10-25, docs). Larger game assets live in Cloudflare R2 (same
-  account) or itch.io hosting (verified 2026-10-25: HTML5 free hosting,
-  200 MB/file and 500 MB/project limits; download files 1 GB/file by default;
-  per-platform download channels via butler — windows/macos/linux/android).
+- Big-asset rule: Workers Static Assets caps an asset at 25 MiB/file, and
+  20,000 files per assets version on the free tier (verified 2026-10-12 —
+  the runbook facts log carries the dated source). Larger game assets live
+  in Cloudflare R2 (same account) or itch.io hosting (verified 2026-10-25:
+  HTML5 free hosting, 200 MB/file and 500 MB/project limits; download files
+  1 GB/file by default; per-platform download channels via butler —
+  windows/macos/linux/android).
 - Zola is pinned by version in `ZOLA_VERSION` (single version of record).
-  Cloudflare Pages Build System v3 does not ship Zola (`CLOUDFLARE_UPDATE.md`
-  in the sibling deployment documents this from live practice) — `build.sh`
-  downloads the pinned release and builds. Worked precedent:
-  michael-conrad.com (zola 0.22.1 on Pages v3, main builds with `./build.sh`).
+  Cloudflare's Workers Builds image preinstalls no Zola and offers no Zola
+  version-override hook (verified against current docs 2026-10-26) —
+  `build.sh` downloads the pinned release and builds.
 
 ## Layout
 
-- `config.toml` — Zola config (feeds, search index, taxonomies)
+- `zola.toml` — Zola config of record (feeds, search index, taxonomies; the
+  current config-file name — the legacy `config.toml` name loads only as a
+  fallback)
 - `ZOLA_VERSION` — the pinned Zola version
 - `build.sh` — CI build entry: downloads the pinned Zola, builds to `public/`
 - `content/<section>/…` — section folders with `_index.md`. Issue 1 lands

@@ -1,0 +1,13 @@
+{
+	// Assets-only deployment manifest — Cloudflare Workers Static Assets.
+	// No Worker script, no bindings: the built site in ./public IS the deploy.
+	// Deployed via `npx wrangler deploy` per the wiki-hosted runbook (issue #3).
+	// SPDX-FileCopyrightText: 2026 Brothertown Language
+	// SPDX-License-Identifier: MIT
+	"name": "brothertown-language-com",
+	"compatibility_date": "2026-10-26",
+	"assets": {
+		"directory": "./public",
+		"not_found_handling": "404-page"
+	}
+}
