@@ -87,12 +87,20 @@ already configured in `zola.toml` from issue #1).
   ride the lookup/alias columns. Cited forms use the "Common [iso]"
   pattern — `Mohegan-Pequot [xpq]` (the developer's "Mohegan [xpt]"
   example was illustrative; the ISO-registry pairing is `xpq`). The table
-  covers the corpus's language inventory (`∃` rows — 44 at the surveyed
-  snapshot — aliases joined). New languages join the table by editing it
-  when the data of record or a citation brings them in. R-5's inventory
-  names it alongside `authors.md`. The corpus survey snapshots are pinned:
-  repository `Brothertown-Language/algonquian-library`, tip-of-survey
-  commit recorded in the registry's provenance note.
+  covers the **corpus's full language inventory** — every real entry row
+  of `languages.csv` (the `∃`-flag marks Nisinoon-dataset membership and
+  is NOT the inventory boundary: the SNEA core rows — Mohegan-Pequot,
+  Quiripi, Mahican, Nanticoke and their group/Proto rows — are real rows
+  without `∃`; 131 real rows + 6 alias rows at the surveyed snapshot, the
+  alias rows joined into their canonical rows' lookup names). New
+  languages join the table by editing it when the data of record or a
+  citation brings them in. R-5's inventory
+  names it alongside `authors.md`. The corpus survey snapshot is pinned:
+  repository `Brothertown-Language/algonquian-library`, commit
+  `7d099119bbacf24b6ddb59d37934fee671116ccf` (2026-10-26). The ISO ground
+  of record for verification: the registry's published code tables
+  (`iso-639-3_Code_Tables_20261015.zip`, whose `Ref_Name` column is the
+  official reference name; fetched 2026-10-26).
 
 ## Success criteria
 
@@ -103,7 +111,7 @@ already configured in `zola.toml` from issue #1).
 | SC-3 | The coupling rule (R-3) and growth rule (R-4) are stated in the registry | structural | content check |
 | SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5, with the inventory naming `sop-site-setup.md`, `authors.md`, and `languages.md` | structural | content check |
 | SC-5 | `/AGENTS.md` carries the two R-6 bullets; `git diff` shows only those lines added | structural | content check + diff-scope check |
-| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's `∃` language rows with aliases joined to their canonical rows, and **every** ISO name/code pair in the table matches the ISO 639-3 registry (exhaustive check via the registry's download table / per-code pages — no sampling); no bespoke codes | structural | content check + exhaustive ISO-registry cross-check of all rows |
+| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's full language inventory — every real entry row of `languages.csv` at the pinned snapshot (131 rows per R-7; alias rows joined) — and **every** ISO name/code pair in the table matches the ISO 639-3 registry's code tables (`iso-639-3_Code_Tables_20261015.zip`, `Ref_Name` column; retired/deprecated codes resolved via the retired-mapping table); no bespoke codes | structural | content check (row count + aliases joined + SNEA-core rows present) + exhaustive ISO-registry cross-check of all ISO-carrying rows against the downloaded code tables |
 
 ## Out of scope
 
