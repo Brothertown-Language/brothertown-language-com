@@ -1,8 +1,8 @@
-title: Base Zola site setup (Zola + Cloudflare Pages, domain attach)
+title: Base Zola site setup (Zola + Cloudflare Workers static assets, domain attach)
 status: open
 labels:
 - needs-approval
 body: ''
 created_at: '2026-10-25T21:55:22+00:00'
-updated_at: '2026-10-25T21:55:30+00:00'
+updated_at: '2026-10-26T02:13:15+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/1
