@@ -12,6 +12,9 @@
 # Issue store worktree (orphan issues-data branch — managed by local-issues)
 .issues/
 
+# Wiki checkout (gitignored sub-repo — never a submodule; runbook, issue #3)
+/wiki/
+
 # JetBrains
 /.idea/
 
