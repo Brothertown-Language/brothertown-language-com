@@ -9,6 +9,9 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 
 ## Site decisions of record (brainstorm with developer, 2026-10-25)
 
+- **Cloudflare facts of record: `docs/cloudflare-facts.md`** — consult
+  before any Cloudflare, build, deploy, or CI work; rows are dated and
+  sourced and kept current in place via PR (never from session memory).
 - Zola static site, Cloudflare Workers Static Assets hosting (platform of
   record 2026-10-26 — Cloudflare's current recommendation is "Start new
   projects with Workers"; cloud-side dashboard wiring follows the repo wiki's
@@ -86,6 +89,10 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   `init` first (bootstrap worktrees), then `sync` for currency. Never edit
   store YAML by hand; every numbered command uses the qualified
   `brothertown-language-com#N` form.
+- `.issues/**` is workflow state only — never depended on as remaining or
+  being available; the records work depends on live in tracked repository
+  files, such as the Cloudflare facts of record, `docs/cloudflare-facts.md`
+  (developer correction, 2026-10-26).
 
 ## Agent deck
 
