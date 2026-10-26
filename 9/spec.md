@@ -45,12 +45,17 @@ out of scope.
   *Brothertown Language* (agent-authored default — the `zola.toml` `author`
   value stays exactly as-is), **guest authors** *Michael Conrad*, *Dr.
   Craig Kopris*, *Dr. Keith Cunningham*. Both Zola mechanisms carry the
-  same four registry strings: the page's top-level `authors` list (byline
-  and feed author) and the page's `[taxonomies] authors` list (the facet
-  source — Zola emits `/authors/<slug>/` term pages from it, slugified term
-  form per Zola's default `slugify.taxonomies = "on"`). The built byline
-  renders all four. If the vendored theme lacks multi-author byline
-  support, a bounded template override ships within this issue.
+  same four registry strings: the page's top-level `authors` list (feed
+  author) and the page's `[taxonomies] authors` list (byline source — the
+  theme's byline component loops `page.taxonomies.authors` — and facet
+  source). **Authors-taxonomy templates ship here:** the vendored theme
+  carries no authors term/list templates (categories/ and tags/ only —
+  verified against the vendored tree and upstream), so Zola v0.23.6 fails
+  the build with `taxonomy_single.html not found` once an authors term
+  exists (empirically verified 2026-10-26 against the pinned build). This
+  issue adds site-level `templates/authors/` (single + list) mirroring the
+  theme's categories/tags templates; the vendored theme's own files are not
+  modified. The built byline renders all four.
 - **R-4** — The body is a **project-voice adaptation** that preserves the
   source's facts and section shape: call for collaboration; project goals
   (1000-word lexicon, grammar sketch, teaching materials — freely
@@ -88,7 +93,8 @@ out of scope.
 |----|-----------|-------|-----------|
 | SC-1 | `./build.sh` exits 0 and `public/blog/brothertown-community-language-initiative/index.html` exists | behavioral | run `./build.sh`; assert exit 0; assert the file exists |
 | SC-2 | The built post's byline renders all four author strings (`Brothertown Language`, `Michael Conrad`, `Dr. Craig Kopris`, `Dr. Keith Cunningham`) | behavioral | extract the author/byline markup from the built post page; assert all four strings appear within it |
-| SC-3 | An authors-facet page exists for each post author and lists the post | behavioral | assert `public/authors/<keyword>/index.html` for each of the four registry keywords; assert each page links the post |
+| SC-3 | The authors facets render: the `/authors/` taxonomy index plus a term page for each of the four registry keywords, each term page linking the post | behavioral | assert `public/authors/index.html` and `public/authors/<keyword>/index.html` for each of the four keywords; assert each term page links the post |
+| SC-14 | Site-level `templates/authors/` term and list templates exist, mirroring the theme's categories/tags pattern; the vendored theme's files are unchanged | structural | file check of the added templates + `git status`/diff shows no modifications under `themes/abridge/` |
 | SC-4 | Front matter date is 2026-01-28 and no other date indication exists in the post's source | structural | file check: `date` set to 2026-01-28 in unquoted TOML date form; no `updated` key; no other date strings in front matter or body |
 | SC-5 | Taxonomy matches R-6's set | structural | file check of front matter |
 | SC-6 | The body contains a link-back to the original post URL | structural | file check for the URL in the post source |
@@ -122,10 +128,17 @@ out of scope.
   *Brothertown Language* (the main author) while the post page's byline
   carries all four. This is the intended display split, not a defect.
 - **Two author mechanisms, one value set**: the top-level `authors` field
-  (byline/feed author) and the `[taxonomies] authors` key (facet source) are
-  distinct in current Zola; this post carries both with identical values so
-  byline, feed authorship, and facets all render from the same registry
+  (feed author) and the `[taxonomies] authors` key (byline + facet source)
+  are distinct in current Zola; this post carries both with identical values
+  so byline, feed authorship, and facets all render from the same registry
   strings.
+- **Authors taxonomy rendered only once terms exist** (empirically verified
+  2026-10-26 against the pinned Zola v0.23.6 + vendored theme): the base
+  site built cleanly with the empty authors taxonomy; a page introducing
+  authors terms makes Zola render term (and list) pages, which fail without
+  templates — hence R-3's template requirement. The theme's byline, by
+  contrast, already handles multiple authors (it loops
+  `page.taxonomies.authors`), so no byline override is needed.
 
 ## Out of scope
 
@@ -151,8 +164,10 @@ provenance carried by the link-back rather than the byline. The registry
 - `brothertown-language-com#8` (author registry) — provides the byline
   strings and keyword record; lands before or with this issue in the same
   PR scope.
-- The blog section, `authors` taxonomy, and feeds from issue #1's landed
-  base site (merged, PR #7) — this issue touches no section scaffolding.
+- The blog section, `authors` taxonomy configuration, and feeds from issue
+  #1's landed base site (merged, PR #7): only the taxonomy *configuration*
+  landed there — the term-page templates the facets need do not exist
+  anywhere (site or theme) and ship under this issue's R-3.
 
 ## References
 
