@@ -27,7 +27,7 @@ Traceability, both directions: SC-1 ← R-1; SC-2 ← R-2; SC-3 ← R-3; SC-4 �
 |----|-----------|-------|-----------|
 | SC-1 | The repository root contains `opencode.jsonc` | structural | file check (repo tree) |
 | SC-2 | The file declares the MCP service exactly: `mcp.cloudflare`, `type: "remote"`, `url: "https://mcp.cloudflare.com/mcp"`, `enabled: true` | structural | content read against the specified values |
-| SC-3 | OAuth is the auth mechanism; the file contains no embedded tokens | structural | content read (no token/credential material present); the repo's existing detect-secrets hook on commit |
+| SC-3 | OAuth is the auth mechanism; the file contains no embedded tokens | structural | content read (no token/credential material present) |
 | SC-4 | The cloudflare MCP's perm default is DENIED in the file | structural | content read of the deny |
 | SC-5 | The sub-agent is declared inline in the root `opencode.jsonc`; its perms are ALLOWED for all tools of the MCP; read-only scope | structural | content read of the allow (plus R-5's credential/scope-widening absence in the same read) |
 
@@ -78,7 +78,7 @@ Operational notes (actor split):
 - The implementer writes and PRs the file; the developer merges (human gate).
 - Config is read once at opencode start (documented v1 behavior): a restart applies the change.
 - The developer runs the OAuth authorization once at setup (browser consent; `opencode mcp auth cloudflare`), selecting read-only permissions at Cloudflare's consent screen — the endpoint's protection metadata names the scopes it demands (`user:read account:read`, verified live 2026-10-26). The agent never authorizes and never widens scope; a mid-session scope challenge (the server's documented `insufficient_scope` re-auth request) surfaces to the consent screen — that decision is human, never the agent's.
-- The repository's existing branch-first workflow and hooks hold throughout (the file lands via PR; the detect-secrets hook covers the commit).
+- The repository's existing branch-first workflow and hooks hold throughout (the file lands via PR; the repo's commit/push hooks are the trunk-protection pair — the hook inventory as of 2026-10-26 includes no automated secret-scanning hook, so SC-3's content read is the instrument that carries the no-embedded-tokens check).
 
 ## Facts of record (verified 2026-10-25/26)
 
