@@ -10,16 +10,24 @@ bylines (the `authors` page field), the `authors` taxonomy facets, and ad-hoc
 author-mention tags. Nothing in the repository fixes the canonical form of
 each author's name, so styling choices drift: "Dr. Keith Cunningham" vs
 "Keith Cunningham" produce different keywords, different facet URLs, and
-fragmented filtering. The developer directive (2026-10-26): keep a repo doc
+fragmented filtering. The same consistency problem holds for **language
+names** in cited forms ("Mohegan [xpt]"-style pairings): Glottolog's
+canonical names diverge from the ISO 639-3 registry ("Pequot-Mohegan" vs
+"Mohegan-Pequot"; "Narrangansett"; "Wampano" vs "Quiripi"), so cited forms
+need a fixed lookup ground (developer directive, 2026-10-26: keep a repo doc
 that tracks authors cited so a consistent keyword is used for consistent
-tagging, so that tags for each author exist for ad-hoc faceting. The same
-directive requires properly-maintained agent-facing guidance: a scoped
-`/docs/AGENTS.md` (there is none) and a currency pass on the root AGENTS.md's
-pointers so future sessions find and obey the registry.
+tagging, so tags for each author exist for ad-hoc faceting; plus the
+languages lookup table: "lists common names (for lookup) and the official
+ISO name with 3 letter ISO code... similar in concept to 'Mohegan [xpt]' but
+industry standard, not bespoke" — itself "only a lookup table", the corpus's
+full language inventory, not a limited subset). The directive also requires
+a scoped `/docs/AGENTS.md` (there is none) and a currency pass on the root
+AGENTS.md's pointers so future sessions find and obey the registry.
 
 ## Scope
 
-In-repo deliverables only: `docs/authors.md`, `/docs/AGENTS.md`, and the
+In-repo deliverables only: `docs/authors.md` (author registry),
+`docs/languages.md` (languages lookup table), `/docs/AGENTS.md`, and the
 author-registry pointers in the root `AGENTS.md`. No content pages, no
 template work, no taxonomy configuration changes (the `authors` taxonomy is
 already configured in `zola.toml` from issue #1).
