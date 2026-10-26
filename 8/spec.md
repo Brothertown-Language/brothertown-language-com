@@ -55,6 +55,20 @@ already configured in `zola.toml` from issue #1).
   keywords are minted only in `docs/authors.md` (never on a page), and
   blog-post bylines/authors follow the registry's role notes. Nothing beyond
   those two bullets changes in this issue.
+- **R-7** — A **languages table of record** exists at `docs/languages.md`
+  (developer addition, 2026-10-26): per language, it lists the common name(s)
+  for lookup and the **official ISO 639-3 name with the 3-letter ISO code**
+  — industry standard, never bespoke — so cited forms carry the
+  "Common [iso]" convention (the developer's example concept
+  "Mohegan [xpt]"; codes themselves come from the data of record, e.g.
+  Mohegan-Pequot `xpq` per the corpus's `languages.csv`/Glottolog 5.3
+  languoids). The table grounds each row in the corpus's
+  `data/csv/languages.csv` (ISO + Glottocode columns, including its
+  alias/retired-code notes — e.g. Massachusett → Wampanoag, "ISO `mof`
+  retired for Mohegan") cross-checked against the held
+  `glottolog-5.3-algonquian-languoids.csv`; varieties without an ISO code
+  (e.g. Montauk) carry their Glottocode or a explicit placeholder, never an
+  invented code. R-5's inventory names it alongside `authors.md`.
 
 ## Success criteria
 
@@ -63,8 +77,9 @@ already configured in `zola.toml` from issue #1).
 | SC-1 | `docs/authors.md` exists and carries an entry for each of the five seed authors with all four fields | structural | content check of the file for the five entries and their fields |
 | SC-2 | Each entry pairs its display string with a stated keyword in slug form (e.g. `Dr. Keith Cunningham` → `dr-keith-cunningham`) | structural | content check of all five pairings |
 | SC-3 | The coupling rule (R-3) and growth rule (R-4) are stated in the registry | structural | content check |
-| SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5 | structural | content check |
+| SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5, with the inventory naming `sop-site-setup.md`, `authors.md`, and `languages.md` | structural | content check |
 | SC-5 | `/AGENTS.md` carries the two R-6 bullets; `git diff` shows only those lines added | structural | content check + diff-scope check |
+| SC-6 | `docs/languages.md` exists: a per-language table with common lookup names, the official ISO 639-3 name, the 3-letter ISO code (and Glottocode where the data of record carries it); SNEA-relevant rows present with codes verifiable against the corpus's `languages.csv`/Glottolog 5.3 files (e.g. Mohegan-Pequot `xpq`, Narragansett `xnt`, Nanticoke `nnt`, Eastern Abenaki `aaq`); no bespoke codes | structural | content check of the table; spot-verify sampled codes against the data of record |
 
 ## Out of scope
 
@@ -72,7 +87,9 @@ The back-dated blog entry (separate spec, brothertown-language-com#9);
 future roster additions (they follow R-4's rule); any template or config
 change; renaming the site default author string (the config's
 `author = "Brothertown Language"` is correct as-is per the developer's
-"shorter is better" ruling, 2026-10-26).
+"shorter is better" ruling, 2026-10-26). The languages table duplicates no
+44-language Nisinoon dataset — it records the site's language set of record
+and points at the corpus data for the full holdings.
 
 ## Approach
 
