@@ -65,42 +65,46 @@ already configured in `zola.toml` from issue #1).
   those two bullets changes in this issue.
 - **R-7** — `docs/languages.md` is a **lookup table**: per language, the
   common name(s) for lookup (aliases normalized into the canonical row) ·
-  the **official ISO 639-3 name** · the **3-letter ISO code**. Codes and
-  ISO names come from the corpus's `data/csv/languages.csv` cross-checked
-  **exhaustively** (all rows — the set is static ~44; an exhaustive check
-  costs no more than a sample) against the **ISO 639-3 registry** (its
-  published download table / per-code pages) — industry standard, never
-  bespoke; varieties without an ISO code carry their Glottocode from the
-  data of record (e.g. Montauk). Retired-code notes ride in-line (e.g.
-  "ISO `mof` retired for Mohegan" per change request 2009-013's split,
-  confirmed on the registry's xpq page). **Naming determination
-  (online research, 2026-10-26)**: the ISO registry names are both the
-  official standard and the de-facto standard for the site's language set —
-  the held scholarly corpus texts corroborate them (Mohegan-Pequot ~84
-  occurrences vs Pequot-Mohegan 4, the inverse form appearing essentially
-  only in Glottolog's own export; Narragansett 883× vs "Narrangansett" 1;
-  Goddard/Mithun "Massachusett" for the wam variety), and for the one
-  community-flavored case ISO itself registered the community name
-  **Wampanoag [wam]** (matching the corpus's display name; scholarly
-  "Massachusett" rides as an alias). So the name of record per row = ISO
-  registry name; Glottolog canonicals and scholarly/community alternates
-  ride the lookup/alias columns. Cited forms use the "Common [iso]"
-  pattern — `Mohegan-Pequot [xpq]` (the developer's "Mohegan [xpt]"
-  example was illustrative; the ISO-registry pairing is `xpq`). The table
-  covers the **corpus's full language inventory** — every real entry row
-  of `languages.csv` (the `∃`-flag marks Nisinoon-dataset membership and
-  is NOT the inventory boundary: the SNEA core rows — Mohegan-Pequot,
-  Quiripi, Mahican, Nanticoke and their group/Proto rows — are real rows
-  without `∃`; 131 real rows + 6 alias rows at the surveyed snapshot, the
-  alias rows joined into their canonical rows' lookup names). New
+  the **official ISO 639-3 name** · the **3-letter ISO code**. Grounds: the
+  corpus's `data/csv/languages.csv` (survey pin: repository
+  `Brothertown-Language/algonquian-library`, commit
+  `7d099119bbacf24b6ddb59d37934fee671116ccf`, 2026-10-26) and the ISO 639-3
+  registry's published code tables
+  (`iso-639-3_Code_Tables_20261015.zip` — the `Ref_Name` column is the
+  official reference name; the Retirements table carries the deprecated
+  mappings; fetched 2026-10-26). The table covers the **corpus's full
+  language inventory** — every real entry row of `languages.csv`: 131 real
+  rows + 97 non-entry rows (96 "see"-pointer alias rows, ALL joined into
+  their canonical rows' lookup names, and 1 name-duplicate stub row) at the
+  pinned snapshot; the `∃`-flag marks Nisinoon-dataset membership and is
+  NOT the inventory boundary (the SNEA core rows — Mohegan-Pequot `xpq`,
+  Quiripi `qyp`, Mahican `mjy`, Nanticoke `nnt` and their group/Proto rows
+  — are real rows without `∃`). Name of record per row: the ISO registry's
+  Ref_Name — the naming determination (online research, 2026-10-26) found
+  ISO names both official and de-facto standard: the held scholarly corpus
+  texts corroborate (Mohegan-Pequot ~84 occurrences vs Pequot-Mohegan 4 —
+  the inverse essentially only in Glottolog's own export; Narragansett 883×
+  vs "Narrangansett" 1; Goddard/Mithun use "Massachusett" for the wam
+  variety), and for the one community-flavored case ISO itself registered
+  the community name **Wampanoag [wam]** (matching the corpus's display;
+  scholarly "Massachusett" rides as an alias). Glottolog canonicals and
+  scholarly/community alternates ride the lookup/alias columns. Three row
+  classes carry ISO codes: (a) 639-3 individual/language pairs (verified
+  against the 639-3 code set); (b) ISO 639-5 family codes where the data
+  of record carries a 639-5 collection code instead of a 639-3 code
+  (Algonquian `alg`, Proto_Algonquian `alg`, Proto_Algic `aql`) — carried
+  in-line, explicitly labeled as 639-5 family codes (they fail no check:
+  SC-6 verifies them against ISO 639-5, not 639-3); (c) varieties without
+  an ISO code — Glottocode only per the data of record (e.g. Montauk
+  `mont1269`). Retired-code notes ride in-line (e.g. "ISO `mof` retired
+  for Mohegan" — Retirements split 2009-013 into `xpq` + `xnt`, effective
+  2010-01-18, confirmed against the registry's Retirements table). Cited
+  forms use the "Common [iso]" pattern — `Mohegan-Pequot [xpq]` (the
+  developer's "Mohegan [xpt]" example was illustrative; the ISO-registry
+  pairing is `xpq`, `xpt` being an unrelated code — Punthamara). New
   languages join the table by editing it when the data of record or a
-  citation brings them in. R-5's inventory
-  names it alongside `authors.md`. The corpus survey snapshot is pinned:
-  repository `Brothertown-Language/algonquian-library`, commit
-  `7d099119bbacf24b6ddb59d37934fee671116ccf` (2026-10-26). The ISO ground
-  of record for verification: the registry's published code tables
-  (`iso-639-3_Code_Tables_20261015.zip`, whose `Ref_Name` column is the
-  official reference name; fetched 2026-10-26).
+  citation brings them in. R-5's inventory names it alongside
+  `authors.md`.
 
 ## Success criteria
 
@@ -111,7 +115,7 @@ already configured in `zola.toml` from issue #1).
 | SC-3 | The coupling rule (R-3) and growth rule (R-4) are stated in the registry | structural | content check |
 | SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5, with the inventory naming `sop-site-setup.md`, `authors.md`, and `languages.md` | structural | content check |
 | SC-5 | `/AGENTS.md` carries the two R-6 bullets; `git diff` shows only those lines added | structural | content check + diff-scope check |
-| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's full language inventory — every real entry row of `languages.csv` at the pinned snapshot (131 rows per R-7; alias rows joined) — and **every** ISO name/code pair in the table matches the ISO 639-3 registry's code tables (`iso-639-3_Code_Tables_20261015.zip`, `Ref_Name` column; retired/deprecated codes resolved via the retired-mapping table); no bespoke codes | structural | content check (row count + aliases joined + SNEA-core rows present) + exhaustive ISO-registry cross-check of all ISO-carrying rows against the downloaded code tables |
+| SC-6 | `docs/languages.md` exists as a lookup table covering the corpus's full inventory — every real entry row of `languages.csv` at the pinned snapshot (131 joined rows; 96 alias pointers joined into canonical lookup names; the stub row dropped) — with every ISO-carrying row matching its registry ground: 639-3 pairs against `iso-639-3_Code_Tables_20261015.zip`'s Ref_Name column, 639-5 family codes (alg/aql rows) explicitly labeled and matching ISO 639-5; retired codes resolved via the Retirements table (mof → xpq/xnt split); no bespoke codes anywhere | structural | content check (row coverage: 131 entry rows, all 96 alias lookups present, SNEA-core rows present, stub dropped) + exhaustive ISO cross-check (all 639-3 pairs against the downloaded code set; 639-5 codes against ISO 639-5) |
 
 ## Out of scope
 
