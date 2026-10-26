@@ -55,14 +55,25 @@ not built here.
   visually identical pattern is historical context only; this ground is
   current-docs, not precedent-carryover (the 2026-10-26 directives).
 - **R-3** — The theme vendored under `themes/` as plain tracked files (never
-  submodules): baseline Zulma with per-visitor theme selection (the sibling
-  config's `zulma_allow_theme_selection` + default theme). The Zulma baseline
-  is the brainstorm's recorded choice (2026-10-25), carried as a decision —
-  not inherited by default; per the 2026-10-26 directive the implementation
-  vendors Zulma's current revision and records its source URL and revision
-  date rather than assuming the sibling's copy is correct. Alternatives named
-  in the brainstorm (purpose-built minimal; the vendored `d3c3nt`) remain
-  open for later issues.
+  submodules): **abridge** (upstream `Jieiku/abridge`, MIT license,
+  `theme.toml` `min_version = "0.23.6"` — current-Zola compatible, verified
+  2026-10-26), selected from a browser-verified comparison of 2026-10-26
+  (candidate demos rendered with Chromium; dark/light toggles activated and
+  their DOM mechanisms observed; Zulma and its forks excluded — macro-based,
+  incompatible with the pinned Zola's Tera 2.0.0). Visitor-facing dark/light
+  switching: abridge's built-in switcher (Dark/Light/Auto/Switcher modes,
+  localStorage persistence — rendered and verified 2026-10-26, observed
+  surface flip `#fff`→`#111`). The color scheme stays adjustable by
+  documented parameters: the site copies abridge's
+  `COPY-TO-ROOT-SASS/abridge.scss` pattern to its `sass/` root and overrides
+  the theme's SASS variables via `@use … with` (`$abridgeMode`,
+  `$switcherDefault`, `$color` named palette or a site-defined template) —
+  the palette itself is CSS custom-property pairs set by the theme's
+  paired `light(...)`/`dark(...)` mixins (source verified 2026-10-26). The
+  implementation vendors abridge's current revision and records its source
+  URL and revision date rather than assuming any prior copy is correct (the
+  2026-10-26 directives); the specific palette tones are implementation
+  choices made through those documented override parameters.
 - **R-4** — The minimal publishable surface: `home` (landing), `about`, and
   `blog` (empty — posts arrive under later issues). Navigation lists only the
   sections that exist (the no-stub rule settled in the brainstorm). The
@@ -107,10 +118,10 @@ not built here.
 | SC-3 | `config.toml` sets `base_url` to `https://brothertown-language.com` and carries feeds, search index (content included), and the three taxonomies | structural | file check against R-1's list |
 | SC-4 | The theme is vendored as tracked plain files; no theme submodule exists | structural | `git ls-files themes/` non-empty; `.gitmodules` absent or empty |
 | SC-5 | The built site's navigation links expose exactly the live sections — home, about, blog — and no links to content-less sections | behavioral | enumerate anchor hrefs in the built nav; compare to the closed set `/`, `/about/`, `/blog/`; assert no dictionary/lessons/apps/methodology links |
-| SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml`, `sitemap.xml`, `404.html`, `robots.txt` (emitted by Zola's default configuration), the search-index files Zola emits for R-1's enabled index (`search_index.en.js` and `elasticlunr.min.js` in current Zola), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled theme-Sass files Zola emits from the vendored theme's `sass/` directories (e.g. Zulma's `default.css`, `darkly.css` and the other per-theme CSS at the output root); static files from the vendored theme's `static/` directories (Zulma's JS assets and their maps); and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails |
+| SC-6 | The built output's content pages are exactly the three authored surfaces — home landing (`index.html`), about (`about/index.html`), blog section index (`blog/index.html`); every other built file is one of: the config-emitted, explicitly named artifacts — `atom.xml`, `sitemap.xml`, `404.html`, `robots.txt` (emitted by Zola's default configuration), the search-index files Zola emits for R-1's enabled index (`search_index.en.js` and `elasticlunr.min.js` in current Zola), the taxonomy landings (`categories/`, `tags/`, `authors/` paths); the compiled Sass output from the vendored theme's and the site's `sass/` (e.g. abridge's `abridge.css` and syntax-color stylesheets at the output root); static files from the vendored theme's `static/` directories; and static/image assets from the repo's `static/` | structural | enumerate the built output; assert every file falls in the named classes — any file outside them fails |
 | SC-7 | The SOP covers the local loop, pin maintenance with refresh sources, delegates the cloud-side deployment to the tracked runbook of issue #3 (path stated, no duplicated dashboard steps), carries the verification gates, and records platform facts with dates from the runbook's facts table plus the big-asset routes | structural | content check against R-5's list |
 | SC-8 | The SOP's publish procedure includes all three of R-6's rules as its steps: the draft-gate, the image-path existence check, and the sensitivity/PII audit | structural | content check against R-6 |
-| SC-9 | The theme configuration carries per-visitor theme selection with a named default (the sibling config's `zulma_allow_theme_selection` + default theme) | structural | file check in `config.toml` |
+| SC-9 | The site carries abridge's visitor-facing mode switcher configured with a named default — `$abridgeMode` set in the site's `sass/abridge.scss` override (the `COPY-TO-ROOT-SASS` pattern), matching `js_switcher_default` in the config — plus the palette parameter (`$color` named template or a site-defined palette) | structural | file checks: `sass/abridge.scss` exists carrying `$abridgeMode` and a palette parameter; the config `[extra]` carries `js_switcher_default` |
 | SC-10 | `ZOLA_VERSION` equals the latest stable Zola release verified against the GitHub releases API at implementation start (v0.23.6 as of 2026-10-26) | structural | compare the file's value to the releases API's latest non-prerelease tag at the verification run; equality required |
 | SC-11 | `wrangler.jsonc` exists at the repository root with the R-7 fields and no Worker script/binding | structural | file check against R-7's field list (`name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, absent `main`/bindings) |
 
@@ -130,9 +141,11 @@ Cloudflare Workers Static Assets per Cloudflare's current recommendation —
 issue #3's selection record carries the dated evidence; the build entry pins
 the latest stable Zola with `ZOLA_VERSION` as the single version of record,
 grounded in the current Workers Builds docs (R-2) rather than in the
-sibling's pattern; Zulma remains the vendored theme baseline of the
-2026-10-25 brainstorm with its current revision verified and recorded at
-vendor time (R-3); a curated navigation (the sibling's menu pattern as a
+sibling's pattern; the vendored theme baseline is abridge — verified current-Zola compatible and
+selected from the 2026-10-26 browser-verified comparison, its current revision
+recorded at vendor time, with the site's mode and palette parameters carried
+in abridge's documented `sass/abridge.scss` override file so later re-toning
+touches one file (R-3); a curated navigation (the sibling's menu pattern as a
 decision-of-record shape) so the no-stub rule holds mechanically; the SOP
 carries the local loop, pin maintenance, verification gates, and dated
 platform facts, delegating the cloud-side dashboard procedures to the
@@ -162,17 +175,22 @@ re-deriving them.
   Advanced Certificates, rollback, static-assets limits).
 - Zola pin of record: v0.23.6 latest stable (GitHub releases API, fetched
   2026-10-26; published 2026-09-12).
-- Zulma theme + per-visitor theme selection: both sibling sites'
-  `config.toml` (`zulma_allow_theme_selection`, taxonomy set, menu curation
-  via `zulma_menu`) — the recorded brainstorm shape, verified current at
-  vendor time (R-3).
+- Theme of record (verified 2026-10-26): abridge — upstream `Jieiku/abridge`
+  (README; `theme.toml` `min_version = "0.23.6"`, `license = "MIT"`), demo
+  `abridge.pages.dev`; switcher mechanics and the color-parameter system
+  verified from the rendered demo and the theme's SASS source; selected from
+  a browser-verified multi-theme comparison dated 2026-10-26. The sibling
+  config's taxonomy set and menu-curation shape remain the recorded
+  brainstorm decisions for R-1/R-4.
 - Domain: `brothertown-language.com` NS records on Cloudflare (dig,
   2026-10-25); developer statement 2026-10-26 (provisioned).
 - Historical (superseded by the 2026-10-26 directives): the sibling
   Pages-era deployment record — `michael-conrad.com`'s `ZOLA_VERSION`
   (0.22.1), `build.sh`, `CLOUDFLARE_UPDATE.md` (Pages v3, Ubuntu 24.04 v3);
-  and the 2026-10-25 Pages/itch.io platform-fact recordings — retained as
-  historical context only; operative platform facts now live in issue #3's
-  facts table.
+  the Zulma theme baseline (the brainstorm's 2026-10-25 theme choice) —
+  macro-based, incompatible with the pinned Zola's Tera 2.0.0, unmaintained
+  upstream since 2024-04-22; and the 2026-10-25 Pages/itch.io platform-fact
+  recordings — retained as historical context only; operative platform facts
+  now live in issue #3's facts table, operative theme facts in R-3.
 
 *Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)*
