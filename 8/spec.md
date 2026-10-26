@@ -55,40 +55,19 @@ already configured in `zola.toml` from issue #1).
   keywords are minted only in `docs/authors.md` (never on a page), and
   blog-post bylines/authors follow the registry's role notes. Nothing beyond
   those two bullets changes in this issue.
-- **R-7** — A **languages table of record** exists at `docs/languages.md`
-  (developer addition, 2026-10-26): per language, it lists the common
-  name(s) for lookup and the **official ISO 639-3 name with the 3-letter
-  ISO code** — industry standard, never bespoke — so cited forms carry the
-  "Common [iso]" convention. Grounded in the corpus's
-  `data/csv/languages.csv` (ISO + Glottocode columns, alias/retired-code
-  notes — e.g. Massachusett → Wampanoag, "ISO `mof` retired for Mohegan")
-  cross-checked against the held Glottolog 5.3 languoids for codes; the
-  **ISO name column's source of record is the ISO 639-3 registry**
-  (live-verified at implementation), NOT Glottolog's display names, which
-  diverge from ISO registry names (e.g. Glottolog "Pequot-Mohegan",
-  "Narrangansett" vs ISO "Mohegan-Pequot", "Narragansett"). The
-  developer's example concept `"Mohegan [xpt]"` is superseded by the data
-  of record and disclosed as such: the ISO-verified pairing is **Mohegan-Pequot
-  [xpq]** (`xpt` is an unrelated code — Punthamara — per the ISO registry,
-  verified 2026-10-26). The table's **initial row set is enumerated** (the
-  languages the site's materials and corpus SNEA sources actually cite):
-  Mohegan-Pequot (`xpq`, group row Mohegan-Montauk-Narragansett `mof`
-  retired-note), Narragansett (`xnt`), Wampanoag/Massachusett (`wam`,
-  exonyms Massachusett + Natick), Montauk (`mont1269` GC, no ISO),
-  Quiripi (`qyp`, aliases incl. Wampano/Naugatuck/Quinnipiac/Unquachog),
-  Mahican (`mjy`, Stockbridge `stoc1242` GC note), Eastern Abenaki (`aaq`,
-  Penobscot `peno1243` GC note), Western Abenaki (`abe`), Nanticoke
-  (`nnt`) and Nanticoke-Conoy (`nant1248` GC) with Piscataway (`psy`),
-  Powhatan (`pim`), Passamaquoddy-Maliseet (`pqm`), Loup A / Nipmuc
-  (`xlo`), Pocumtuc (`pocum1241`-less — GC per data of record or explicit
-  placeholder), plus the family/group rows the site's methodology names:
-  Proto-Algonquian (`alg` per the data's PA row), Eastern Algonquian
-  (`east2700` GC), Southern New England Algonquian subfamily (`sout3237`
-  GC), Delawaran (`dela1253` GC). Varieties without an ISO code carry
-  their Glottocode or an explicit placeholder, never an invented code.
-  Growth: new rows join by editing this table's registry in the same PR
-  that first needs them (the author-registry growth rule applied to
-  languages). R-5's inventory names it alongside `authors.md`.
+- **R-7** — `docs/languages.md` is a **lookup table**: per language, the
+  common name(s) for lookup (aliases normalized into the canonical row) ·
+  the **official ISO 639-3 name** · the **3-letter ISO code**. Codes come
+  from the corpus's `data/csv/languages.csv` cross-checked to the ISO 639-3
+  registry — industry standard, never bespoke; varieties without an ISO
+  code carry their Glottocode from the data of record (e.g. Montauk). The
+  table covers the corpus's language inventory (`∃` rows, aliases joined);
+  retired-code notes from the data ride in-line (e.g. "ISO `mof` retired
+  for Mohegan"). Cited forms use the "Common [iso]" pattern —
+  `Mohegan-Pequot [xpq]` (the developer's "Mohegan [xpt]" example was
+  illustrative; the ISO-registry pairing is `xpq`). New languages join the
+  table by editing it when the data of record or a citation brings them
+  in. R-5's inventory names it alongside `authors.md`.
 
 ## Success criteria
 
@@ -99,7 +78,7 @@ already configured in `zola.toml` from issue #1).
 | SC-3 | The coupling rule (R-3) and growth rule (R-4) are stated in the registry | structural | content check |
 | SC-4 | `/docs/AGENTS.md` covers the four guidance points of R-5, with the inventory naming `sop-site-setup.md`, `authors.md`, and `languages.md` | structural | content check |
 | SC-5 | `/AGENTS.md` carries the two R-6 bullets; `git diff` shows only those lines added | structural | content check + diff-scope check |
-| SC-6 | `docs/languages.md` exists: a per-language table with common lookup names, the official ISO 639-3 name, the 3-letter ISO code (and Glottocode where the data of record carries it), covering exactly R-7's enumerated initial row set; the ISO name/code pairs verified against the ISO 639-3 registry (live check at verification) for the sampled rows — Mohegan-Pequot `xpq`, Narragansett `xnt`, Nanticoke `nnt`, Wampanoag `wam`, Quiripi `qyp`, Eastern Abenaki `aaq`, Western Abenaki `abe`, Mahican `mjy`, Nanticoke `nnt`, Powhatan `pim`, Passamaquoddy-Maliseet `pqm`, Proto-Algonquian `alg`; divergence notes where Glottolog's display name differs; no bespoke codes anywhere | structural | content check of the table; live-registry cross-check of the sampled pairs; absence-of-bespoke-codes check |
+| SC-6 | `docs/languages.md` exists as a lookup table (common lookup names · official ISO 639-3 name · 3-letter ISO code; Glottocode where no ISO exists), covering the corpus's `∃` language rows with aliases joined to their canonical rows, codes sampled against the ISO 639-3 registry / `languages.csv`, no bespoke codes | structural | content check + sampled-code verification |
 
 ## Out of scope
 

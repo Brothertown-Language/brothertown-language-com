@@ -1,9 +1,9 @@
 title: Cloudflare Workers setup runbook (static assets, domain attach, current-docs
   grounding)
-status: open
+status: closed
 labels:
 - needs-approval
 body: ''
 created_at: '2026-10-26T02:02:22+00:00'
-updated_at: '2026-10-26T02:02:49+00:00'
+updated_at: '2026-10-26T20:39:43+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/3
