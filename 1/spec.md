@@ -191,8 +191,9 @@ re-deriving them.
   work follows the repo's trunk existence. (Merged as PR #2, 2026-10-26 —
   satisfied.)
 - Issue `brothertown-language-com#3`'s runbook spec: the same 2026-10-26
-  directives; its validation verdict (PASS, zero findings, fresh-context,
-  2026-10-26) grounds the Workers facts this spec inherits by reference.
+  directives; its facts-of-record table (a dated primary source per fact,
+  verified live 2026-10-26) grounds the Workers facts this spec inherits by
+  reference.
 - Landing order: issue #3's wiki runbook page set needs to land before (or
   with) the SOP — R-5(c)'s delegation link targets that wiki page set.
 - The developer's Cloudflare account for the dashboard wiring steps
