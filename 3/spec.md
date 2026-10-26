@@ -83,17 +83,26 @@ account; the agent never executes it without explicit instruction.
   matches the runbook is re-verified against the cited docs — memory and
   cached pages are not grounds — by whoever edits the runbook page, developer
   or agent, before that page is edited; the maintenance rule is stated on the
-  facts-log page. Routing doctrine, from the observed UI facts: the
-  dashboard's "Workers & Pages" sidebar option is absent on this account and
-  the docs' own `dash.cloudflare.com/?to=/:account/workers-and-pages` deep
-  link does not work there (both observed by the developer, 2026-10-26) —
-  sidebar labels and sidebar-derived deep links are drifted surfaces following
-  the 2026-10-12 unified-dashboard-navigation rollout — so the runbook's
-  PRIMARY executable route SHALL be the label-independent Wrangler CLI path
-  (commands and config keys grounded in the current docs' command blocks) and
-  the dashboard paths SHALL be carried as labeled alternates with their
-  doc-dated strings, never as the only route; executor-observed UI labels
-  recorded with their date are the UI facts of record when they diverge.
+  facts-log page. Routing doctrine, from the developer's directives and
+  observed UI facts: the runbook is DASHBOARD-ONLY — the developer executes
+  no CLI commands; every cloud-side step is a dashboard action, and the
+  tracked build script runs inside Cloudflare's build system, never in the
+  developer's terminal; agent-marked probes (curl, dig, build reproduction)
+  stay agent-executed. The observed surfaces: the dashboard's "Workers &
+  Pages" sidebar option is absent on this account and the docs' own
+  `dash.cloudflare.com/?to=/:account/workers-and-pages` deep link does not
+  work there (both observed 2026-10-26 — sidebar labels and sidebar-derived
+  routes are drifted surfaces following the 2026-10-12 unified-dashboard-
+  navigation rollout, with the docs' nav strings lagging), and the login
+  carries multiple accounts (observed 2026-10-26) — the runbook's
+  prerequisites therefore include identifying the account whose zone carries
+  `brothertown-language.com` and switching to it, because account selection
+  determines both the visible navigation and the zone surfaces. The
+  entry-step pages record the doc-dated strings as unverified-on-this-account
+  and carry a discovery step: the executor identifies the Workers/applications
+  section on their dashboard under the correct account, records the observed
+  label with its date, and the observed label recorded with its date is the
+  UI fact of record — the page then names it.
 - **R-3** — The runbook SHALL record the platform selection with its
   evidence: Cloudflare's current "Start new projects with Workers"
   recommendation (dated quote + URL) and the voluntary, deadline-free
@@ -133,28 +142,20 @@ account; the agent never executes it without explicit instruction.
   existing-Worker connect sequence (Worker → **Settings** → **Builds** →
   **Connect**), carrying the documented caution that the dashboard's Worker
   name must match the `name` in the Wrangler configuration file or the build
-  fails. The page SHALL carry the label-independent CLI deployment path as the
-  primary route (a scoped "Edit Cloudflare Workers" API token +
-  `CLOUDFLARE_ACCOUNT_ID` + `npx wrangler deploy`), with the dashboard
-  connect flow as the labeled alternate (its labels doc-dated, untested on
-  this account's rollout). The runbook SHALL state that controlling the Zola
-  version by pin + download is grounded in the current Workers Builds docs —
-  not in sibling precedent.
+  fails. The runbook SHALL state that controlling the Zola version by pin +
+  download is grounded in the current Workers Builds docs — not in sibling
+  precedent.
 - **R-7** — The runbook SHALL document the custom-domain attach for
   `brothertown-language.com` given the pre-provisioned state (domain
-  registered; DNS zone on Cloudflare), in two routes: (a) the label-
-  independent configuration route — `custom_domain = true` on the pattern
-  under `routes` (plus `"workers_dev": false`) in `wrangler.jsonc`, deployed
-  with `npx wrangler deploy`: Cloudflare provisions the DNS records and the
-  certificate automatically on deploy, no dashboard navigation; (b) the
-  dashboard route (Worker → Settings > Domains & Routes > Add > Custom
-  Domain) as the labeled alternate. Both carry the documented caution that a
-  custom domain cannot be created on a hostname with an existing conflicting
-  CNAME record or on a zone the account does not own; exact-hostname matching
-  (the apex does not cover `www` and vice versa) with the redirect-rule
-  pattern for the uncovered hostname (configurable as a second route pattern
-  or a redirect rule); and workers.dev coexistence with both disable paths
-  (config `"workers_dev": false` or the dashboard toggle).
+  registered; DNS zone on Cloudflare) as dashboard actions performed on the
+  account carrying the domain's zone: Worker → Settings > Domains & Routes >
+  Add > Custom Domain; automatic DNS-record creation on zones the account
+  owns; the documented caution that a custom domain cannot be created on a
+  hostname with an existing conflicting CNAME record or on a zone the account
+  does not own; exact-hostname matching (the apex does not cover `www` and
+  vice versa) with the redirect-rule pattern for the uncovered hostname; and
+  workers.dev coexistence with its dashboard disable path (the Settings
+  toggle).
 - **R-8** — The runbook SHALL document HTTPS verification: Workers custom
   domains provision per-hostname Advanced Certificates (not Universal SSL
   certificates) with certificate issuance and DNS record creation handled
@@ -172,13 +173,14 @@ account; the agent never executes it without explicit instruction.
   `Cloudflare-Workers-Setup-Rollback-Teardown`: instant rollback via
   Deployments → Rollback (bounded to the 100 most recently published
   versions; `wrangler versions upload` noted as the not-promoted variant
-  feeding the promotion-policy decision point); teardown sequence:
-  disconnect the build integration → remove the custom domain → inspect
-  zone DNS records and delete any record left behind (documented
-  auto-cleanup behavior absent — verify on detach) → manually remove the
-  leftover Advanced Certificate under SSL/TLS > Edge Certificates
-  (documented caution: the certificate is not auto-deleted) → delete the
-  Worker → verify via curl that the domain no longer serves.
+  feeding the promotion-policy decision point); teardown sequence: disconnect
+  the build integration → remove the custom domain → inspect zone DNS records
+  and delete any record left behind (documented auto-cleanup behavior absent
+  — verify on detach) → manually remove the leftover Advanced Certificate
+  under SSL/TLS > Edge Certificates (documented caution: the certificate is
+  not auto-deleted) → delete the Worker → verify via curl that the domain no
+  longer serves. All steps are dashboard actions on the account carrying the
+  zone; the agents' verification probes (curl) stay agent-executed.
 - **R-10** — The runbook SHALL mark every step's executor: cloud/dashboard
   steps are developer-run; agent-runnable gates (curl, dig, local build
   reproduction) named as such. The agent executes no Cloudflare-side
@@ -287,9 +289,7 @@ independently under current docs rather than by cargo cult.
 | Git-integration management: Worker → **Settings > Builds** → **Git Repository** → **Manage**; the GitHub App is named "Cloudflare Workers & Pages", shared between Workers and Pages; PR comments + check runs monitor builds | developers.cloudflare.com/workers/ci-cd/builds/git-integration/ (+ …/github-integration/) | 2026-10-01 / 2026-10-15 | high |
 | Dashboard Workers-creation walkthrough (same flow as the Builds page's connect-a-new-Worker steps) | developers.cloudflare.com/workers/get-started/dashboard/ | 2026-06-25 | high |
 | Static-site deployment without git-builds: C3 CLI (`npm create cloudflare@latest`, "Static site" template) then `npx wrangler deploy`; CI users set the "deploy command" in build settings | developers.cloudflare.com/workers/static-assets/get-started/ | 2026-08-25 | high |
-| UI fact of record: the developer's dashboard (2026-10-26) shows NO "Workers & Pages" sidebar option AND the docs' own deep link (`dash.cloudflare.com/?to=/:account/workers-and-pages`) does not work on it — sidebar labels and sidebar-derived routes are drifted surfaces; Cloudflare's combined dashboard navigation rolled 2026-10-12 ("Unified dashboard navigation", all customers). The runbook's primary executable route is the label-independent wrangler CLI (commands + config keys grounded in the docs' command blocks); dashboard paths carry as labeled alternates | developer observation ×2 (dashboard, 2026-10-26) · developers.cloudflare.com/changelog/post/2026-10-12-unified-dashboard-navigation/ · docs pages still routing via workers-and-pages (wholesale doc lag: builds, get-started/dashboard, custom-domains) | 2026-10-26 | high |
-| Label-independent deployment: wrangler + scoped API token — "Edit Cloudflare Workers" token template + CLOUDFLARE_ACCOUNT_ID; `npx wrangler deploy` deploys assets-only Workers | developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/ | 2026-10-18 | high |
-| Config-file custom domains: `custom_domain = true` on each `routes` pattern provisions the domain, its DNS records, and its certificate on deploy, without dashboard navigation | developers.cloudflare.com/workers/configuration/routing/custom-domains/ (config section) | 2026-10-26 | high |
+| UI fact of record (2026-10-26, developer observations): the login carries MULTIPLE accounts; the dashboard shows NO "Workers & Pages" sidebar option; the docs' deep link (`dash.cloudflare.com/?to=/:account/workers-and-pages`) does not work — the combined dashboard navigation rolled 2026-10-12 ("Unified dashboard navigation", all customers) and the docs' nav strings date before it. Runbook steps therefore carry the doc-dated strings as unverified labels plus the discovery step: the executor picks the account whose zone carries the domain, identifies the Workers/applications section, and the observed label recorded with its date is the UI fact of record (each page names it once known) | developer observations ×3 (dashboard, 2026-10-26) · developers.cloudflare.com/changelog/post/2026-10-12-unified-dashboard-navigation/ · docs pages still routing via workers-and-pages (wholesale doc lag: builds, get-started/dashboard, custom-domains) | 2026-10-26 | high |
 | Build image Ubuntu 24.04 x86_64; Node 24.21.0 default, 22.23.2 preinstalled; Zola NOT preinstalled; curl/wget/unzip/zstd present; update policy | developers.cloudflare.com/workers/ci-cd/builds/build-image/ | 2026-10-24 | high |
 | Builds limits: free 3,000 min/mo, 1 concurrent, 20-min timeout | developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/ | 2026-05-29 | high |
 | Wrangler configuration reference (new URL); mandatory `name` + `compatibility_date`; asset fields incl. `html_handling`, `not_found_handling`, `.assetsignore` | developers.cloudflare.com/workers/wrangler/configuration/ | 2026-10-20 | high |
@@ -297,7 +297,7 @@ independently under current docs rather than by cargo cult.
 | Custom domains: flow, automatic DNS creation on owned zones, conflicting-CNAME caution, apex supported, exact-hostname matching, Advanced Certificate per hostname (not Universal SSL), cert-not-auto-deleted caution | developers.cloudflare.com/workers/configuration/routing/custom-domains/ | 2026-09-29 | high |
 | workers.dev default-on; disable paths | developers.cloudflare.com/workers/configuration/routing/workers-dev/ | 2026-09-22 | high |
 | Static-assets limits: 20,000 files/version (free), 25 MiB/file, requests to assets free and unlimited | developers.cloudflare.com/workers/platform/limits/ ; …/static-assets/billing-and-limitations/ | 2026-10-12 / fetched 2026-10-26 | high |
-| Instant rollback; 100-most-recent-versions bound; `wrangler versions upload` not auto-promoted | developers.cloudflare.com/workers/configuration/versions-and-deployments/rollbacks/ ; …/versions-and-deployments/ | 2026-07-15 / 2026-09-22 | high |
+| Instant rollback (Deployments → Rollback; each rollback becomes the new active deployment); 100-most-recent-versions bound; `wrangler versions upload` not auto-promoted | developers.cloudflare.com/workers/configuration/versions-and-deployments/rollbacks/ ; …/versions-and-deployments/ | 2026-07-15 / 2026-09-22 | high |
 | Zola latest stable v0.23.6, published 2026-09-12, asset name for x86_64 glibc | api.github.com/repos/getzola/zola/releases/latest | fetched 2026-10-26 | high |
 | Universal SSL context (apex + first-level subdomains only) supporting the Advanced-Certificate comparison | developers.cloudflare.com/ssl/edge-certificates/universal-ssl/ | 2026-08-14 | high |
 | GitHub Actions alternative: `cloudflare/wrangler-action@v4`, scoped API token | developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/ | 2026-10-18 | high |
