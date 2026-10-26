@@ -115,8 +115,17 @@ account; the agent never executes it without explicit instruction.
   releases and builds into `public/`; deploy command default
   `npx wrangler deploy`; production branch `main`; non-production branches
   build preview deployments (PR-comment preview URLs, `noindex` behavior).
-  The runbook SHALL state that controlling the Zola version by pin + download
-  is grounded in the current Workers Builds docs — not in sibling precedent.
+  The build-pipeline page SHALL document the complete cold-start creation
+  sequence for a git-connected Worker with the current docs' exact nav
+  strings (**Workers & Pages** page → **Create application** → **GitHub** →
+  authenticate if prompted → select the repository → configure the project →
+  **Save and Deploy** → preview at the `workers.dev` subdomain) AND the
+  existing-Worker connect sequence (Worker → **Settings** → **Builds** →
+  **Connect**), carrying the documented caution that the dashboard's Worker
+  name must match the `name` in the Wrangler configuration file or the build
+  fails. The runbook SHALL state that controlling the Zola version by pin +
+  download is grounded in the current Workers Builds docs — not in sibling
+  precedent.
 - **R-7** — The runbook SHALL document the custom-domain attach for
   `brothertown-language.com` given the pre-provisioned state (domain
   registered; DNS zone on Cloudflare): Workers dashboard → Settings >
@@ -179,7 +188,7 @@ account; the agent never executes it without explicit instruction.
 | SC-4 | The platform-selection record cites the dated Workers recommendation (quote + URL) and labels every superseded Pages-era/sibling mechanic as historical context | structural | audit the selection record for the dated quote; check every sibling/Pages-era reference for its historical-context label |
 | SC-5 | The `wrangler.jsonc` section shows the assets-only shape — `name`, `compatibility_date`, `assets.directory "./public"`, `not_found_handling "404-page"`, no script/binding — matching the cited configuration reference | structural | field-by-field comparison against the cited reference (2026-10-20) |
 | SC-6 | Version facts recorded with dates (Zola 0.23.6 / 2026-09-12 + asset name; wrangler 4.152.0; Node 24.21.0 default / 22.23.2 preinstalled; image Ubuntu 24.04 x86_64) plus the refresh procedure naming its sources | structural | cross-check each value and date against the cited sources; assert the procedure names npm `dist-tags`, the GitHub releases API, and the build-image page |
-| SC-7 | Build-pipeline facts: Zola not preinstalled and no override hook; pinned-download build entry grounded in current docs; deploy command `npx wrangler deploy`; production branch `main`; preview deployments with PR-comment URLs and `noindex` | structural | fact-by-fact audit against the cited build-image, configuration, and Previews pages |
+| SC-7 | Build-pipeline facts: Zola not preinstalled and no override hook; pinned-download build entry grounded in current docs; deploy command `npx wrangler deploy`; production branch `main`; preview deployments with PR-comment URLs and `noindex`; the complete cold-start creation sequence AND the existing-Worker connect sequence with the current pages' exact nav strings, plus the Worker-name-match caution | structural | fact-by-fact audit against the cited build-image, configuration, and Previews pages; step-by-step comparison of the creation/connect/disconnect sequences against the cited Builds page (2026-10-15) |
 | SC-8 | Domain attach: flow path; automatic DNS-record creation; conflicting-CNAME caution; exact-hostname apex/www split with the redirect-rule pattern; workers.dev coexistence plus both disable paths | structural | enumerated-item audit against the cited domain pages |
 | SC-9 | HTTPS: Advanced-Certificate model (not Universal SSL; no ACM subscription); automatic DCV; no-published-SLA noted as empirical; `curl -sv` and `dig` gates with stated expected outputs and a retry decision point | structural | enumerated-item audit; assert the gate commands appear with expected outputs |
 | SC-10 | Rollback awareness precedes the first cloud-side write step in the read order (the overview page states rollback and teardown availability and locates the executable detail), and the complete executable detail is on `Cloudflare-Workers-Setup-Rollback-Teardown`: rollback mechanism, 100-version limit, deploy-vs-versions-upload promotion note, and the teardown sequence (disconnect builds → detach domain → DNS-record check → manual certificate removal under SSL/TLS > Edge Certificates → delete Worker → verify down) | structural | read-order audit: the overview page's rollback/teardown availability statement precedes every later page carrying a dashboard-write step in the `_Sidebar.md` order; plus enumerated-item audit of the Rollback-Teardown page |
@@ -255,6 +264,10 @@ independently under current docs rather than by cargo cult.
 | Assets-only static config shape; assets served without Worker code; `not_found_handling "404-page"` | developers.cloudflare.com/workers/static-assets/ | 2026-10-12 | high |
 | Workers Builds: navigation, arbitrary build command, deploy command default `npx wrangler deploy`, preview behavior; PR-comment posting of Preview URLs | developers.cloudflare.com/workers/ci-cd/builds/ ; …/builds/configuration/ | 2026-10-15 / 2026-09-22 | high |
 | Previews (branch-oriented, distinct from Version URLs): workers.dev-form Preview URL carries an `X-Robots-Tag: noindex` response header; custom-domain Preview URLs protected instead via Cloudflare Access | developers.cloudflare.com/workers/previews/ | 2026-09-24 | high |
+| Builds' connect flows: new Worker — **Workers & Pages** page → **Create application** → **GitHub** → (authenticate) → select repository → configure project → **Save and Deploy** → preview at `workers.dev`; existing Worker — **Settings** → **Builds** → **Connect**; disconnect — same path → **Disconnect**; CAUTION: dashboard Worker name must match the Wrangler config `name` or the build fails; autoconfig opens a PR for repos lacking a Wrangler config | developers.cloudflare.com/workers/ci-cd/builds/ | 2026-10-15 | high |
+| Git-integration management: Worker → **Settings > Builds** → **Git Repository** → **Manage**; the GitHub App is named "Cloudflare Workers & Pages", shared between Workers and Pages; PR comments + check runs monitor builds | developers.cloudflare.com/workers/ci-cd/builds/git-integration/ (+ …/github-integration/) | 2026-10-01 / 2026-10-15 | high |
+| Dashboard Workers-creation walkthrough (same flow as the Builds page's connect-a-new-Worker steps) | developers.cloudflare.com/workers/get-started/dashboard/ | 2026-06-25 | high |
+| Static-site deployment without git-builds: C3 CLI (`npm create cloudflare@latest`, "Static site" template) then `npx wrangler deploy`; CI users set the "deploy command" in build settings | developers.cloudflare.com/workers/static-assets/get-started/ | 2026-08-25 | high |
 | Build image Ubuntu 24.04 x86_64; Node 24.21.0 default, 22.23.2 preinstalled; Zola NOT preinstalled; curl/wget/unzip/zstd present; update policy | developers.cloudflare.com/workers/ci-cd/builds/build-image/ | 2026-10-24 | high |
 | Builds limits: free 3,000 min/mo, 1 concurrent, 20-min timeout | developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/ | 2026-05-29 | high |
 | Wrangler configuration reference (new URL); mandatory `name` + `compatibility_date`; asset fields incl. `html_handling`, `not_found_handling`, `.assetsignore` | developers.cloudflare.com/workers/wrangler/configuration/ | 2026-10-20 | high |
