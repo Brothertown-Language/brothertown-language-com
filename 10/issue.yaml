@@ -1,10 +1,12 @@
 title: Cloudflare platform facts of record (always-in-context knowledge for Cloudflare
   work)
-status: open
+status: closed
 labels:
 - needs-approval
 - spec
 body: ''
 created_at: '2026-10-26T20:41:13+00:00'
-updated_at: '2026-10-26T20:41:21+00:00'
+updated_at: '2026-10-26T20:53:11+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/10
+closed_at: '2026-10-26T20:53:11+00:00'
+close_reason: completed
