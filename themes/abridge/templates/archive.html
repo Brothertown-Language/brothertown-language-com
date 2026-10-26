@@ -1,0 +1,86 @@
+{#
+This Template Shows the Posts Grouped by Year: example.com/archive/
+This Template can also be used as the rendering template for Sections, eg: example.com/blog/  example.com/software/
+#}
+
+{% extends "base.html" %}
+
+{%- block seo -%}
+  {{- super() -}}
+  {%- set title %}{{<translate key="Archive" default="Archive" i18n={i18n} />}}{% endset -%}
+  {%- if config.title -%}
+    {%- set title_addition = title_separator ~ config.title -%}
+  {%- else -%}
+    {%- set title_addition = "" -%}
+  {%- endif -%}
+  {%- set description %}{{<translate key="seo_archive" default="Browse the article archive on $SITE." i18n={i18n} />}}{% endset -%}
+  {%- set description = description | replace(from="$SITE", to=config.title or "this site") -%}
+  {{<seo config={config}  title={title}  title_addition={title_addition}  description={description or ""}  page_url={current_url}  page={section} />}}
+{%- endblock seo -%}
+
+{%- block content %}
+    {%- set uglyurls = (config.extra.uglyurls or false) -%}
+    {%- if config.extra.search_library %}{%- if (config.extra.search_library == "offline" or config.extra.search_library == "offlineflexsearch") %}{% set uglyurls = true %}{% endif %}{% endif %}
+    {#- The following line is checking if the template is being used for the archive page or a section #}
+    {%- if current_path is matching(pat="^(/[[:alpha:]][[:alpha:]])?/archive/$") %}
+      {%- if section.extra.sec %}
+        {%- set sec = section.extra.sec ~ "/" %}
+      {%- else %}
+        {%- set sec = "" %}
+      {%- endif %}
+    {%- else %}
+      {%- set langpath = "/" %}
+      {%- if lang != config.default_language %}
+        {%- set langpath = "/" ~ lang ~ "/" %}
+      {%- endif %}
+
+      {%- set sec = current_path | trim_start(pat=langpath) | split(pat="/page/") | first | trim_end(pat="/") %}
+      {%- set sec = sec ~ "/" %}
+    {%- endif %}
+
+    {%- if lang == config.default_language %}
+    {%- set section_item = get_section(path=sec ~ "_index.md") %}
+    {%- else %}
+    {%- set section_item = get_section(path=sec ~ "_index." ~ lang ~ ".md") %}
+    {%- endif %}
+    {%- if sec != "" %}
+      {#- the section always overrides the config -#}
+      {%- if section_item.extra and 'hide_section_dates' in section_item.extra -%}
+        {%- set hide_section_dates = section_item.extra.hide_section_dates -%}
+      {%- elif config.extra.hide_section_dates -%}
+        {%- set hide_section_dates = true -%}
+      {%- endif -%}
+    {%- endif %}
+    <div>
+      {%- if section_item.title %}
+      <h1>{{ section_item.title }}</h1>
+      {%- else %}
+      <h1>{{<translate key="Archive" default="Archive" i18n={i18n} />}}</h1>
+      {%- endif %}
+      {{- section_item.content | safe }}
+      {% set grouped = section_item.pages | group_by(attribute="year") %}
+      {%- if config.extra.archive_reverse %}
+      {% set years = grouped | keys | sort %}
+      {% for year in years %}
+      {% set posts = grouped[year] %}
+      {%- if not hide_section_dates %}
+      <h2 class="tpad">{{ year }}</h2>
+      {%- endif %}
+      {%- for post in posts %}
+      <p><a href="{{ post.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">{{ post.title }}</a>{%- if not hide_section_dates %} - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time>{%- endif %}</p>
+      {%- endfor %}
+      {%- endfor %}
+      {%- else %}
+      {% set years = grouped | keys | sort | reverse %}
+      {% for year in years %}
+      {% set posts = grouped[year] %}
+      {%- if not hide_section_dates %}
+      <h2 class="tpad">{{ year }}</h2>
+      {%- endif %}
+      {%- for post in posts %}
+      <p><a href="{{ post.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">{{ post.title }}</a>{%- if not hide_section_dates %} - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time>{%- endif %}</p>
+      {%- endfor %}
+      {%- endfor %}
+      {%- endif %}
+    </div>
+{%- endblock content %}
