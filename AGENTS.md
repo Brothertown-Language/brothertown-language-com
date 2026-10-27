@@ -4,8 +4,8 @@
 # AGENTS.md — brothertown-language-com
 
 Public Zola static site for the Brothertown Language project. Current state:
-bootstrap — conventions and docs only; the base Zola setup is issue 1 in the
-repository's issue tracker. Humans merge PRs; agents never merge.
+base site landed (issue 1) and live on Cloudflare Workers Static Assets; home,
+about, and blog sections published. Humans merge PRs; agents never merge.
 
 ## Site decisions of record (brainstorm with developer, 2026-10-25)
 
@@ -60,7 +60,7 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 - `themes/` — vendored theme files as plain tracked files, never submodules
 - `templates/`, `sass/`, `static/` — Zola standard
 
-## Commands (after issue 1 lands)
+## Commands
 
 - Build: `./build.sh` → `public/` (gitignored)
 - Validate: `./zola check` — run it after setup and record the warning
@@ -78,7 +78,7 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 - Author keywords are minted only in `docs/authors.md` (the author registry
   of record) — a bylined or cited name never mints a keyword on the page
   itself; blog-post bylines/authors follow the registry's role notes.
-- Text content is Markdown; `config.toml` and front matter are TOML.
+- Text content is Markdown; `zola.toml` and front matter are TOML.
 - Images live in `static/images/`, post folders, or app folders — never
   ad-hoc paths. A `featured_image` pointing at a missing file fails the Zola
   build; check existence before committing front matter.
