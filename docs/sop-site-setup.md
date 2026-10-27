@@ -223,6 +223,64 @@ AGENTS.md):
   here. Never vendor via git submodule; `themes/` files are plain tracked
   files.
 
+## Blog images — crop, zoom, and front-fold layout (recorded 2026-10-27)
+
+In scope for every blog article going forward (developer instruction,
+2026-10-27, during the issue #23 review): blog images may be **cropped and
+zoomed** for layout fit. The rules:
+
+- **Crop/zoom is presentation, not content.** A crop or zoom shapes how an
+  approved image displays — excerpt float, aspect fit, highlighting the
+  subject region — and never manufactures new subject matter; if a crop
+  changes what an image appears to show, it is rejected, not applied.
+- **Credit survives.** Every displayed image keeps its license/source credit
+  line regardless of cropping or zooming; note the edition when it matters
+  (e.g. "cropped from the full title page") so the displayed version is
+  traceable to its credit.
+- **Credit-line register.** A caption names the work and its credit directly
+  — "A Key into the Language of America*, Roger Williams (1643) — via
+  Wikimedia Commons, …" — with no filler legend prefix like "Image:" or
+  "Map:" (developer ruling, 2026-10-27): the label adds narrative noise and
+  says nothing the caption's own content doesn't already say.
+- **Original preserved.** Keep the full uncropped source file alongside the
+  cropped edition in the post/app folder (or record its source URL), so a
+  later re-crop never needs re-sourcing.
+- **Front-fold sizing.** Floated excerpt images are displayed at an explicit
+  size — portrait/tall plates carry a `max-height` cap (≈ 20 rem observed
+  working, front page 1080p) — so the image box stays a minority of the
+  excerpt and never balloons the front-fold block.
+- **Front-fold placement rule of thumb.** The excerpt (fold) shows the
+  standfirst plus the article's opening body paragraphs: fold at the first
+  paragraph break that lands the excerpt text in the ~150–250-word range
+  (roughly 10 rendered list lines at desktop width) — visibly partway into
+  the article proper, never before the first full body paragraph, never at
+  or past the first section heading, and never past about the first quarter
+  of the body. Rationale (observed 2026-10-27, issue #23 review): a fold
+  right after the standfirst reads as an empty teaser; the draft's own fold
+  three paragraphs down crowded the list page — the excerpt should carry
+  enough of the article's opening voice that the list page stands alone.
+- **Float containment.** The excerpt box (`.sum`) establishes a block
+  formatting context (`display: flow-root`, `sass/abridge.scss`) so a
+  floated image div — which nests block-level inside the list template's
+  bare `<p>` — is contained within its own article's fold and cannot bleed
+  into the next article's flow; the floated image (and its legend) is
+  centered within the 25%-wide float box (`text-align: center` on the
+  `.imgfloat`), so a height-capped plate narrower than the box doesn't hug
+  its left edge (observed 2026-10-27).
+- **More-link marker.** The front-fold read-more link is a centered
+  chip — class `more-link` (template: `more ›`, no ellipsis prefix),
+  blocked and auto-centered in the excerpt via `.sum a.more-link`
+  (`sass/abridge.scss`); the theme's bare flush-left `...more` anchor read
+  as inline noise and vanished against the excerpt text (observed
+  2026-10-27).
+- **Title ornament.** Every article title carries a static site-wide quill
+  glyph: a 1em CSS-mask of Bootstrap Icons' `feather` (MIT) inlined as an
+  SVG data-URI in `sass/abridge.scss`, inheriting `currentColor` so it is
+  palette-safe on light and dark themes and font-independent across
+  browsers. Selected and Playwright-verified 2026-10-27; per-article
+  iconography was considered and declined for now (revisit-later ruling,
+  developer 2026-10-27).
+
 ## Platform facts of record
 
 Workers Static Assets limits (per the runbook facts log, verified
