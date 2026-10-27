@@ -63,8 +63,8 @@ This Template can also be used directly for the index eg: example.com/ or as the
           {{ page.content | striptags | truncate(length=150) | markdown(inline=true) | safe }}
         {%- elif page.extra.static_thumbnail %}
         {%- endif %}
-          <a href="{{ page.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">
-            ...{{<translate key="more"  default="more"  i18n={i18n} />}}
+          <a class="more-link" href="{{ page.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">
+            {{<translate key="more"  default="more"  i18n={i18n} />}} ›
           </a>
         </p>
         </div>

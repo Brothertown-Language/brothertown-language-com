@@ -86,10 +86,66 @@
 );
 /* Floated post image (imgfloat shortcode): floats the image left at ~25%
    width so body text wraps beside it, mirroring the source post's layout. */
+/* Front-fold excerpt box (.sum): flow-root establishes a block formatting
+   context, containing each excerpt's floated image div inside its own
+   article — the block-level imgfloat div nests (invalidly) inside the
+   template's bare <p>, so the left float escaped into the next excerpt's
+   flow (observed 2026-10-27; double-nesting bleed). */
+.sum { display: flow-root; }
 .imgfloat {
   display: inline-block;
   float: left;
   max-width: 25%;
   margin-right: 2rem;
+  /* center the lede image (and its legend) within the float box: the
+     height-capped plate's intrinsic width sits narrower than the 25% box
+     and hugged its left edge (observed 2026-10-27). */
+  text-align: center;
+}
+.imgfloat img { width: 100%; height: 100%; }
+/* Caption/legend inside a floated image box: block-level so it starts on
+   its own line below the image — an inline legend flows up beside the
+   image's bottom edge (observed 2026-10-27). */
+.imgfloat em { display: block; }
+/* Static site-wide title ornament (SOP rule, 2026-10-27): a quill before
+   every article title (post h1, front-fold list h2). Decorative and
+   content-free by design — per-article glyph selection was considered and
+   declined (developer revisit-later ruling 2026-10-27). Font-independent:
+   inline SVG data-URI mask (Bootstrap Icons "feather", MIT — one browser's
+   text glyph is another's leaf, observed 2026-10-27: nib U+2712 fell back
+   to a leaf-shaped symbol in the developer's browser). The mask inherits
+   the text color via background-color: currentColor — palette-safe on both
+   themes — sized to the line box (1em) so it never disturbes line height.
+   Direct-child anchor only: body-content headings aren't link-wrapped, so
+   they stay untouched. */
+article h1 > a::before,
+article h2 > a::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.35em;
+  vertical-align: -0.12em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-feather' viewBox='0 0 16 16'%3E %3Cpath d='M15.807.531c-.174-.177-.41-.289-.64-.363a3.8 3.8 0 0 0-.833-.15c-.62-.049-1.394 0-2.252.175C10.365.545 8.264 1.415 6.315 3.1S3.147 6.824 2.557 8.523c-.294.847-.44 1.634-.429 2.268.005.316.05.62.154.88q.025.061.056.122A68 68 0 0 0 .08 15.198a.53.53 0 0 0 .157.72.504.504 0 0 0 .705-.16 68 68 0 0 1 2.158-3.26c.285.141.616.195.958.182.513-.02 1.098-.188 1.723-.49 1.25-.605 2.744-1.787 4.303-3.642l1.518-1.55a.53.53 0 0 0 0-.739l-.729-.744 1.311.209a.5.5 0 0 0 .443-.15l.663-.684c.663-.68 1.292-1.325 1.763-1.892.314-.378.585-.752.754-1.107.163-.345.278-.773.112-1.188a.5.5 0 0 0-.112-.172M3.733 11.62C5.385 9.374 7.24 7.215 9.309 5.394l1.21 1.234-1.171 1.196-.027.03c-1.5 1.789-2.891 2.867-3.977 3.393-.544.263-.99.378-1.324.39a1.3 1.3 0 0 1-.287-.018Zm6.769-7.22c1.31-1.028 2.7-1.914 4.172-2.6a7 7 0 0 1-.4.523c-.442.533-1.028 1.134-1.681 1.804l-.51.524zm3.346-3.357C9.594 3.147 6.045 6.8 3.149 10.678c.007-.464.121-1.086.37-1.806.533-1.535 1.65-3.415 3.455-4.976 1.807-1.561 3.746-2.36 5.31-2.68a8 8 0 0 1 1.564-.173'/%3E %3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-feather' viewBox='0 0 16 16'%3E %3Cpath d='M15.807.531c-.174-.177-.41-.289-.64-.363a3.8 3.8 0 0 0-.833-.15c-.62-.049-1.394 0-2.252.175C10.365.545 8.264 1.415 6.315 3.1S3.147 6.824 2.557 8.523c-.294.847-.44 1.634-.429 2.268.005.316.05.62.154.88q.025.061.056.122A68 68 0 0 0 .08 15.198a.53.53 0 0 0 .157.72.504.504 0 0 0 .705-.16 68 68 0 0 1 2.158-3.26c.285.141.616.195.958.182.513-.02 1.098-.188 1.723-.49 1.25-.605 2.744-1.787 4.303-3.642l1.518-1.55a.53.53 0 0 0 0-.739l-.729-.744 1.311.209a.5.5 0 0 0 .443-.15l.663-.684c.663-.68 1.292-1.325 1.763-1.892.314-.378.585-.752.754-1.107.163-.345.278-.773.112-1.188a.5.5 0 0 0-.112-.172M3.733 11.62C5.385 9.374 7.24 7.215 9.309 5.394l1.21 1.234-1.171 1.196-.027.03c-1.5 1.789-2.891 2.867-3.977 3.393-.544.263-.99.378-1.324.39a1.3 1.3 0 0 1-.287-.018Zm6.769-7.22c1.31-1.028 2.7-1.914 4.172-2.6a7 7 0 0 1-.4.523c-.442.533-1.028 1.134-1.681 1.804l-.51.524zm3.346-3.357C9.594 3.147 6.045 6.8 3.149 10.678c.007-.464.121-1.086.37-1.806.533-1.535 1.65-3.415 3.455-4.976 1.807-1.561 3.746-2.36 5.31-2.68a8 8 0 0 1 1.564-.173'/%3E %3C/svg%3E") no-repeat center / contain;
+}
+/* Front-fold more-link: the template's bare "...more" anchor read as inline
+   noise and vanished against the text (observed 2026-10-27) — restyled as a
+   centered chip marker. The browser auto-closes the template's excerpt <p>
+   at the block imgfloat div, so the anchor can sit directly under .sum —
+   descendant selector covers both positions. currentColor keeps it
+   palette-safe (light + dark themes); the marker glyph is in the template. */
+.sum a.more-link {
+  display: block;
+  width: fit-content;
+  margin: 1rem auto 0.25rem;
+  padding: 0.2rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  font-size: 0.92em;
+  opacity: 0.85;
+  &:hover { opacity: 1; }
 }
 .imgfloat img { width: 100%; height: 100%; }

@@ -78,4 +78,25 @@ if [ "${SITE_BASE_URL:-}" = "relative" ]; then
 elif [ -n "${SITE_BASE_URL:-}" ]; then
   base_args=(--base-url "$SITE_BASE_URL")
 fi
-./zola build --force ${base_args[@]+"${base_args[@]}"} --output-dir public
+
+# Preview builds include draft articles (--drafts): the preview hostname is
+# the developer's review surface, and a `draft = true` article is otherwise
+# invisible there — Cloudflare PR previews have no --drafts knob. Draft
+# inclusion requires a CONFIDENTLY-detected non-main branch: WORKERS_CI_BRANCH,
+# or a git checkout with a real current branch. On a detached/unknown HEAD
+# (typical of some CI checkouts, where rev-parse yields the literal 'HEAD')
+# drafts stay EXCLUDED — ambiguity resolves production-safe. (Verified
+# 2026-10-27, ZOLA_VERSION pin.)
+draft_args=()
+if [ -n "${WORKERS_CI_BRANCH:-}" ]; then
+  det_branch="${WORKERS_CI_BRANCH}"
+elif git symbolic-ref -q HEAD >/dev/null 2>&1; then
+  det_branch="$(git branch --show-current 2>/dev/null || true)"
+fi
+if [ -n "${det_branch:-}" ] && [ "$det_branch" != "HEAD" ] && [ "$det_branch" != "main" ]; then
+  echo "preview build: draft articles included (branch '$det_branch')"
+  draft_args=(--drafts)
+else
+  echo "drafts: excluded (production or unknown branch state)"
+fi
+./zola build --force ${base_args[@]+"${base_args[@]}"} ${draft_args[@]+"${draft_args[@]}"} --output-dir public
