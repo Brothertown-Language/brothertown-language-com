@@ -223,3 +223,47 @@ permissions and a read-only `cloudflare-ops` sub-agent scoped to inspection
 of brothertown-language.com (DNS records, Pages status, account identity).
 The decision of record is closed issue #4 (repo agent config). Verified
 2026-10-26 (`opencode.jsonc` content; issue #4 closed).
+
+### F-14 — Dashboard surface drift (observed facts of record)
+
+Observed by the developer on this account, 2026-10-26, directly on the
+dashboard:
+
+- The login carries **multiple accounts**; navigation starts with selecting
+  the account whose zone carries `brothertown-language.com`.
+- The dashboard sidebar shows **no "Workers & Pages" option**.
+- The docs' own deep link (`dash.cloudflare.com/?to=/:account/workers-and-pages`)
+  **does not work** on this dashboard.
+
+Ground: Cloudflare's combined navigation rolled 2026-10-12
+("Unified dashboard navigation" — all customers,
+https://developers.cloudflare.com/changelog/post/2026-10-12-unified-dashboard-navigation/),
+and every current Cloudflare docs page still routes via the
+`workers-and-pages` URL — a wholesale docs-behind-console lag verified the
+same day (builds, get-started/dashboard, custom-domains pages all re-fetched).
+Consequence-of-record: cloud-side operational steps never assume a sidebar
+label; the wiki runbook's pages carry the doc-dated strings as *expected
+labels* plus a discovery step — the executor's observed label, recorded with
+its date, becomes that page's fact of record. Operational steps for this
+site live in the wiki runbook (closed issue #3 — published page set,
+including its facts log).
+
+### F-15 — Cloudflare status page of record
+
+When any dashboard or cloud-side behavior looks broken, check
+<https://www.cloudflarestatus.com> first — API surfaces:
+`/api/v2/summary.json` (page + per-component state) and
+`/api/v2/incidents.json` (incident list with UTC timestamps).
+
+Anomaly observed 2026-10-26: the page reported a global "Partial System
+Outage" (major indicator) across all regional components while carrying
+**zero open incidents**, with page metadata (`updated_at`) frozen at
+2026-08-27 — a self-inconsistent state recorded here as its own fact:
+treat it as a status-page malfunction observation, not a service verdict;
+trust per-component incident narratives corroborated against actual product
+behavior.
+
+Relevant resolved incidents from 2026-10-26: "Cloudflare Workers build
+delays" (build-queue delays, 15:12–16:03 UTC) and "Delayed, missed, and
+duplicated Workers Cron Triggers" (resolved 2026-10-27T01:15 UTC). Sources:
+the status API above (fetched 2026-10-26).
