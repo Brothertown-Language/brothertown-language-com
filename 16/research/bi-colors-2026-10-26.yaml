@@ -1,0 +1,68 @@
+accessed_date: "2026-10-26"
+pages:
+  - url: "https://brothertownindians.org/"
+    method: "webfetch"
+    note: "WordPress 6.x homepage, theme 'Pressville' v2.6.6 (LSVR), WooCommerce + Ultimate Member; full HTML obtained first fetch (no JS shell); untrusted-content rules followed"
+
+logo:
+  files:
+    - url: "https://brothertownindians.org/wp-content/uploads/2022/05/BIN_logo_tagline800.png"
+      local_path: "/tmp/opencode/bi-colors/BIN_logo_tagline800.png"
+      format: "PNG 8-bit RGBA"
+      dimensions: "800x200 px"
+      note: "site header logo; used as '.header-titlebar__logo-image' inside a[href=/] (homepage HTML line ~500); custom-logo body class wp-custom-logo; max-width 600px in titlebar"
+    - url: "https://brothertownindians.org/wp-content/uploads/2022/03/cropped-Tribe_Icon512-1-180x180.png"
+      local_path: "/tmp/opencode/bi-colors/Tribe_Icon_favicon_180.png"
+      format: "PNG 8-bit RGBA"
+      dimensions: "180x180 px"
+      note: "apple-touch-icon + site icon variants (32/180/192/270 sizes, all cropped-Tribe_Icon512-1-*); circular badge mark, likely 'Tribe' seal"
+  colors_from: "pixels"
+  dominant_colors:
+    # header logo BIN_logo_tagline800.png — Pillow pixel analysis, clusters (24-step buckets),
+    # rep = most-common exact color in cluster, share of opaque px (alpha>=64); transparent px excluded
+    - {hex: "#006973", share_pct: 19.4, note: "dark blue-teal — wordmark/tagline fill (exact-count #006973 itself 17.65%)"}
+    - {hex: "#007A6F", share_pct: 16.0, note: "dark green-teal, second fill shade (exact #00796E-#007D72 family)"}
+    - {hex: "#52B2A6", share_pct: 21.4, note: "light aqua-green family; clusters #48A8A8 10.9% + #60C0A8 7.4% (#54B6AA) + #48C0A8 3.1% (#53B4A8) combined"}
+    - {hex: "#000000", share_pct: 17.7, note: "near-black text/outline; clusters #000000 12.7% + #050D0C 2.5% + #373435 2.5% combined"}
+    - {hex: "#FFFFFF", share_pct: 2.7, note: "white interior marks"}
+    - {hex: "#00423C", share_pct: 3.1, note: "very deep teal shading (clusters #006060 + #004848 + #003030, #00675E rep)"}
+  notes: >
+    Header logo (BIN_logo_tagline800.png) is a two-tone-teal mark + tagline with black text:
+    dark blue-teal #006973 and dark green-teal #007A6F (together ~35.4% of opaque pixels)
+    plus a light aqua-green #52B2A6-family (~21.4%), black (#000000 near-black, ~17.7%),
+    white (#FFFFFF 2.7%), deep-teal shading (#00423C ~3.1%). 3,791 distinct exact colors =
+    JPEG-free source PNG with soft edges; clustering rounds to ~24-step buckets.
+    Favicon (Tribe_Icon, 180x180, 50.4% opaque): dominant filled badge is dark teal
+    #0F8176 (57.0%), with near-black outline #0A0A0A/#1B191A (~14.5%), white marks
+    #FEFEFE/#FFFFFF (~6-7%), and deep-teal shading #1C625B/#1E504B (~2-3%).
+    The favicon teal #0F8176 is a different (darker, greener) dark teal than the logo's
+    #006973/#007A6F family — deliberate two-brand-teal situation worth flagging.
+
+site_scheme:
+  colors:
+    # ---- live scheme: inline <style id="lsvr-pressville-color-scheme-inline-css"> on homepage (customizer-generated), 2026-10-26 ----
+    - {hex: "#545e69", role: "body text / muted slate-gray text", selector: "body, input, select, textarea, .header-menu-primary__item-link--level-0, .widget__title", source: "skins/default.css body rule (verified in file) + inline color-scheme block on https://brothertownindians.org/ homepage"}
+    - {hex: "#2d93c5", role: "primary accent: links, button text/border, active menu marker, pagination current, hover highlight", selector: "a, .c-button, .current-menu-item .header-menu-primary__item-link--level-0:before, .header-search__toggle, .navigation.pagination .page-numbers.current", source: "skins/default.css (70 occurrences) + inline color-scheme block (same values kept)"}
+    - {hex: "#0f889b", role: "secondary accent (site's customizer value): topbar bg, mobile toggle, filled submit buttons, icon/category accents, tags", selector: ".header-topbar, .header-mobile-toggle, .comment-form .submit, .post__tags .post__term-link:hover", source: "inline lsvr-pressville-color-scheme-inline-css on homepage — NOT in skin file (0 occurrences in skins/default.css)"}
+    - {hex: "#cd4335", role: "theme-file default secondary accent (overridden live by #0f889b); same selectors as #0f889b", selector: ".header-topbar { background-color: #cd4335 } (rule verified in skins/default.css)", source: "skins/default.css (66 occurrences) — listed for theme-default completeness only"}
+    - {hex: "#1e2427", role: "dark charcoal: header titlebar bg (where logo sits), page footer bg, heading (h1-h5) text color, blockquote text", selector: ".header-titlebar{background-color:#1e2427}, footer{background-color:#1e2427}, h1,h2,h3,h4,h5{color:#1e2427}", source: "skins/default.css"}
+    - {hex: "#8a949b", role: "muted meta text: footer widget text, post meta, comments, document sizes", selector: "footer{color:#8a949b}, .post__meta, .search-results-page__item-type", source: "skins/default.css"}
+    - {hex: "#e1e7ec", role: "light gridline gray: dropdown submenu borders, search borders, post-grid card bg, map canvas", selector: ".header-menu-primary__submenu, .header-search__input, .blog-post-archive--grid .post, .lsvr_listing-map__canvas", source: "skins/default.css"}
+    - {hex: "#ccd5db", role: "light gray-blue: input borders, topbar text (on accent-bg), breadcrumbs separators", selector: "input,select,textarea{border-color}, .header-topbar{color:#ccd5db}, .breadcrumbs__item-decor:before", source: "skins/default.css"}
+    - {hex: "#265e88", role: "dark blue: alert/contact-form (wpcf7) message text", selector: ".lsvr-alert-message, div.wpcf7-response-output", source: "skins/default.css"}
+    - {hex: "#f6f5f5", role: "near-white: mobile topbar bg", selector: ".header-topbar (max-width:991px media, both inline and skin files)", source: "inline color-scheme block + skins/default.css"}
+    - {hex: "#49525c", role: "slightly darker slate: footer form fields bg", selector: "footer .footer-widget select", source: "skins/default.css (2 occurrences)"}
+    - {hex: "#32373c", role: "WordPress-core default button color (not brand-specific)", selector: ":root .wp-element-button, .wp-block-button__link", source: "wp core classic-theme-styles inline CSS on homepage"}
+    - {hex: "#ffffff", role: "body/page background, text on dark surfaces", selector: "body{background-color:#FFF}", source: "skins/default.css; rgba tints rgba(45,147,197,x)=#2d93c5 and rgba(15,136,155,x)=#0f889b also used for hover fills" }
+  body_bg: "#ffffff (skins/default.css: body{color:#545e69;background-color:#FFF}; general.css body rules carry no different bg)"
+  body_text: "#545e69 (same body rule + inline color-scheme block)"
+
+gaps:
+  - "No og:image meta tag present in the fetched homepage <head> (grep found none) — no social-share image to analyze"
+  - "Favicon original master file (pre-crop, 'Tribe_Icon512-1.png', likely 512x512) URL not discoverable from homepage HTML (only cropped -1-32x32/-1-180x180/-1-192x192/-1-270x270 variants are referenced); analyzed the 180x180 variant only"
+  - "Tribe_Icon colors are for the 180x180 resized crop; larger sizes could shift edge colors slightly (antialiasing), though dominant fill #0F8176 should be identical"
+  - "Not verified whether 'Bingo' / Tribal-Council logos found in page content are official site-brand or third-party logos — excluded from logo analysis as page content, not site chrome"
+  - "Site's live accent colors are customizer values emitted as inline CSS on each page; a future customizer change would change them — recheck before reuse"
+  - "Did not verify rendered (computed) colors in a browser — pixel/CSS analysis only"
+
+provenance: "image analysis and web research performed by Z.ai GLM-5.3-Flash (exact model id: ollama-cloud/glm-5.3-flash), via OpenCode; 2026-10-26"
