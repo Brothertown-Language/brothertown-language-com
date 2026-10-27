@@ -112,6 +112,19 @@ out of scope.
   co-authored byline are convention furniture layered on the adaptation —
   R-4's no-fact-added/dropped/altered rule is unaffected.
 
+- **R-10** — **Site-relative URLs as the SOP default** (developer directive,
+  2026-10-27, from the Workers-preview discovery that absolute permalink URLs
+  in content 404 on preview domains until merge): the SOP of record
+  (`docs/sop-site-setup.md`) gains the convention — site-relative URLs are
+  the default for everything feasible, and domain-absolute URLs appear only
+  where Zola generates them (canonical, feeds, sitemap, search index) or a
+  URL must be absolute by rule. Content-embedded asset references (raw-HTML
+  components, imgfloat-style floats, feature overrides) use site-relative
+  forms (`{{ page.path }}`-rooted or path-relative), never `page.permalink`
+  / `get_url` absolute construction. Implemented on this PR: the post's
+  floated map image ships with the site-relative src, and the SOP carries
+  the convention.
+
 ## Success criteria
 
 | ID | Criterion | Class | Instrument |
@@ -131,6 +144,7 @@ out of scope.
 | SC-12 | The built atom feed contains the post entry | behavioral | built `atom.xml` contains the entry |
 | SC-13 | The built search index contains the post | behavioral | built `search_index.en.json` contains the post |
 | SC-15 | The built post page renders the ending block in convention order: sign-off block, then the hashtag line (one hot-linked hashtag per R-6 site tag, each anchor to `mastodon.social/tags/<tagtext-lowercase>`), then the AI co-authored byline | behavioral | built-output check of the post page: hashtag anchors present, one per R-6 tag, ordered after the sign-off block and before the AI co-authored byline; content check confirms the post source carries the same elements |
+| SC-16 | The SOP (R-10) carries the site-relative-URL convention, and the built post page and front-page feed card ship the floated map image with a site-relative `src` (`/blog/…/Tribal_….png`, no scheme/host) | structural (SOP content + built src) + behavioral (image loads on a Workers preview domain: the preview URL serves the built post page and the image loads there, verified via browser probe before merge) | content check of `docs/sop-site-setup.md` for the convention line; built-output src check on both pages; playwright probe of the deployed preview: `.imgfloat img` `naturalWidth > 0` on the preview domain |
 
 ## Edge cases
 
@@ -221,5 +235,13 @@ provenance carried by the link-back rather than the byline. The registry
   in-article hashtag line (sign-off block → hashtag line → AI co-authored
   byline); community voice. Integrated by the 2026-10-27 spec audit of this
   issue; the integrated wording is binding for the implementation.
+
+- Developer directive, 2026-10-27 (R-10's source): "site-relative needs to
+  be the default SOP for everything feasible. add an SC to adjust SOP" —
+  grounded in the Workers-preview discovery that content embedding absolute
+  permalink URLs (`page.permalink`) 404s on preview domains until merge.
+- Workers Builds preview mechanics, 2026-10-27 (runbook Build Pipeline step
+  7 + facts log): preview build command does not propagate; preview URLs
+  `https://<branch>.brothertown-language.com` (+ workers.dev form).
 
 *Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)*
