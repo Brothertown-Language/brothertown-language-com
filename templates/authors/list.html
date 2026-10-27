@@ -1,0 +1,29 @@
+{%- extends "base.html" -%}
+{%- block seo -%}
+  {{- super() -}}
+  {%- set title %}{{<translate key="Authors" default="Authors" i18n={i18n} />}}{% endset -%}
+  {%- if config.title -%}
+    {%- set title_addition = title_separator ~ config.title -%}
+  {%- else -%}
+    {%- set title_addition = "" -%}
+  {%- endif -%}
+  {%- set description %}{{<translate key="seo_authors" default="Browse all authors on $SITE." i18n={i18n} />}}{% endset -%}
+  {%- set description = description | replace(from="$SITE", to=config.title or "this site") -%}
+  {{<seo config={config}  title={title}  title_addition={title_addition}  description={description or ""}  page_url={current_url}  taxonomy_kind={taxonomy.name}  current_lang={lang} />}}
+{%- endblock seo -%}
+{%- block content %}
+{%- set uglyurls = (config.extra.uglyurls or false) -%}
+{%- if config.extra.search_library -%}{%- if (config.extra.search_library == "offline" or config.extra.search_library == "offlineflexsearch") -%}{%- set uglyurls = true -%}{%- endif -%}{%- endif -%}
+    <div>
+      <div class="c">
+        <h1>{{ terms | length }} {{<translate key="Authors"  default="Authors"  i18n={i18n} />}} </h1>
+        <p>{% for term in terms %} [<a href="#{{ term.name }}">{{ term.name }}</a>]<sup>{{ term.pages | length }}</sup> {% endfor %}</p>
+      </div>
+      {%- for term in terms %}
+      <h2 class="tpad" id="{{ term.name }}"><a href="{{ term.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">{{ term.name }}</a></h2>
+      {%- for page in term.pages %}
+      <p><a href="{{ page.permalink | safe }}{%- if uglyurls %}index.html{%- endif %}">{{ page.title }}</a> - <time datetime="{{ page.date }}">{{ page.date | date(format="%F") }}</time></p>
+      {%- endfor %}
+      {%- endfor %}
+    </div>
+{%- endblock content %}

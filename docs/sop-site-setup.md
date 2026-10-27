@@ -73,6 +73,15 @@ dashboard steps:
 - The dashboard Worker/project name must match wrangler.jsonc's `"name"`
   (`brothertown-language-com`) or the build fails — the runbook carries the
   caution and the connect flows.
+- **Preview deployments need no dashboard configuration** (procedure change,
+  2026-10-27): `build.sh` derives is-production from the branch
+  (`WORKERS_CI_BRANCH`, git fallback) — main keeps the base_url of record;
+  any non-main branch builds domain-neutral (`--base-url /`) and serves
+  correctly on any preview hostname. No per-branch env var, no dashboard
+  step; the runbook's Build Pipeline step 8 records the superseded
+  per-branch/per-value attempts. The preview-mode trade (root-relative
+  feeds/sitemap on those builds) is noted in the Content rules below —
+  preview-surface only.
 - Dashboard navigation is label-drifted on this account (multiple accounts
   under one login; no "Workers & Pages" sidebar option; the docs'
   `workers-and-pages` deep link dead — observed 2026-10-26) — the runbook's
@@ -104,10 +113,11 @@ Run after any tooling, config, theme, or site-structure change:
    contract: the no-JS fallback and the JS switcher must agree).
 5. **Pin currency** — `ZOLA_VERSION` equals the latest stable non-prerelease
    Zola tag from the releases API (re-verified at tooling touch).
-6. **Manifest shape** — `wrangler.jsonc` carries `name`,
-   `compatibility_date` (implementation-current date), `assets.directory
-   ./public`, and `not_found_handling "404-page"`, with no Worker script and
-   no bindings.
+ 6. **Manifest shape** — `wrangler.jsonc` carries `name`,
+    `compatibility_date` (implementation-current date), the `previews` block
+    (required by `npx wrangler preview`, wrangler 4.153.0 — runbook Build
+    Pipeline step 7), `assets.directory ./public`, and `not_found_handling
+    "404-page"`, with no Worker script and no bindings.
 
 ## Pre-PR preview review
 
@@ -155,6 +165,31 @@ AGENTS.md):
    committing front matter — a missing file fails the Zola build.
 3. **Sensitivity / PII audit.** Audit content for sensitive leaks and PII
    before any commit or publish.
+4. **Site-relative URLs (default).** Content-embedded URLs (raw-HTML
+   components, floated/featured images, template-built asset references,
+   shortlinks for page assets) are **site-relative by default** — root-
+   relative forms built from site-relative data (`{{ page.path }}`, Zola's
+   own relative resolution), never absolute `page.permalink` / `get_url`
+   construction. Content that embeds an absolute URL 404s on Workers preview
+   domains (previews serve branches under their own names before the merge)
+   and on any mirror; Zola-generated absolute URLs (canonical, feeds,
+   sitemap, search index) remain absolute at production builds — they are
+   the platform's output, not hand-authored surface. (Developer directive
+   2026-10-27; discovery recorded in the wiki runbook's facts log and issue
+   `brothertown-language-com#9`. Where something genuinely requires a
+   domain-specific absolute URL — the documented exception — the exception
+   is named in the deliverable that needs it.)
+   **Preview build mode:** automatic. `build.sh` derives is-production from
+   the branch — `WORKERS_CI_BRANCH` (the platform-injected default env var;
+   git fallback) — and non-main branches build domain-neutral
+   (`--base-url /`), root-relativizing every template-generated URL so any
+   preview hostname serves correctly; nothing to set per branch (branch
+   hostnames are not stable). Preview-only trade: the generated
+   feeds/sitemap then emit root-relative URLs — preview-surface only;
+   main builds keep the base_url of record; an explicit absolute
+   `SITE_BASE_URL` overrides both. (Verified against the pinned Zola
+   0.23.6 with differential builds: `--base-url /` root-relativizes
+   permalinks/`get_url`; 2026-10-27.)
 
 ## Vendored theme provenance
 
