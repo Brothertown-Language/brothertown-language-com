@@ -73,6 +73,11 @@ dashboard steps:
 - The dashboard Worker/project name must match wrangler.jsonc's `"name"`
   (`brothertown-language-com`) or the build fails — the runbook carries the
   caution and the connect flows.
+- Dashboard navigation is label-drifted on this account (multiple accounts
+  under one login; no "Workers & Pages" sidebar option; the docs'
+  `workers-and-pages` deep link dead — observed 2026-10-26) — the runbook's
+  overview page carries the account-selection step zero and its navigation
+  notes.
 
 ## Verification gates
 
@@ -177,9 +182,13 @@ Workers Static Assets limits (per the runbook facts log, verified
 the free tier; asset requests themselves are free. Workers Builds free tier
 (verified 2026-05-29 — the oldest fact in the runbook's set; re-verify before
 relying on it): 3,000 build-minutes/month, 1 concurrent build, 20-minute
-build timeout. Build image (verified 2026-10-24): Ubuntu 24.04 x86_64 — no
-Zola preinstalled and no Zola version-override hook, which is why `build.sh`
-pins and downloads; curl/wget/unzip are preinstalled.
+build timeout. Build image (verified 2026-10-26 — the page's current state):
+Ubuntu 24.04 x86_64, Node 24.22.1 default / 22.23.4 preinstalled — no Zola
+preinstalled and no Zola version-override hook, which is why `build.sh`
+pins and downloads; curl/wget/unzip are preinstalled. When dashboard or
+cloud behavior looks broken, check the Cloudflare status page first
+(<https://www.cloudflarestatus.com>) — the status-page facts (including
+today's observed anomaly) live in `docs/cloudflare-facts.md`.
 
 Big-asset routes for later work (recorded 2026-10-25; re-verify at the
 owning issue's work):
