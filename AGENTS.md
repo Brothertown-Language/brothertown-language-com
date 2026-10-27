@@ -83,6 +83,11 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   commits and pushes that touch the trunk branch (`main`).
 - Agents open PRs; humans merge. Commit style: conventional prefixes
   (`feat:`, `fix:`, `docs:`, `chore(#N):`).
+- Pre-PR site review: before filing any PR from this repository, the filing
+  agent serves the site (`./zola serve`) and presents the live preview URL to
+  the developer for review; the PR is filed only after that presented review —
+  every PR, docs-only changes included. The served-preview procedure of record
+  is `docs/sop-site-setup.md` (Pre-PR preview review).
 
 ## Issue store
 
