@@ -267,3 +267,23 @@ Relevant resolved incidents from 2026-10-26: "Cloudflare Workers build
 delays" (build-queue delays, 15:12–16:03 UTC) and "Delayed, missed, and
 duplicated Workers Cron Triggers" (resolved 2026-10-27T01:15 UTC). Sources:
 the status API above (fetched 2026-10-26).
+### F-16 — Workers Builds default env vars: no deployment-URL variable
+
+Workers Builds injects these default environment variables into the build
+process (verified against Cloudflare's changelog entry "Access git commit sha
+and branch name as environment variables in Workers Builds", published
+2025-06-10, fetched 2026-10-27): `CI=true`, `WORKERS_CI=1`,
+`WORKERS_CI_BUILD_UUID` (build UUID), `WORKERS_CI_COMMIT_SHA` (commit SHA),
+`WORKERS_CI_BRANCH` (branch name).
+
+**No deployment-URL variable exists among them** — `CF_PAGES_URL` is a
+Cloudflare Pages build variable and is not provided by Workers Builds. A
+per-preview domain therefore cannot be derived at build time from the
+platform. The repo's handling: `build.sh` builds with `--base-url
+"$SITE_BASE_URL"` when the optional override is set (dashboard-builds
+environment variable or local export); unset, it builds exactly as before.
+Preview self-linking via the platform is not achievable today on Workers
+Builds — the pre-PR review gate's local serve (SOP: Pre-PR preview review)
+remains the review surface of record. Sources: the changelog entry above;
+`./zola build --help` (pin v0.23.6 supports `--base-url`, verified
+2026-10-27).

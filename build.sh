@@ -44,4 +44,8 @@ rm -f ./zola
 cp "$zola_bin" ./zola
 chmod +x ./zola
 
-./zola build --force --output-dir public
+# Domain-aware build: Workers Builds provides no deployment-URL variable
+# (docs/cloudflare-facts.md F-16 — CF_PAGES_URL is Pages-only). SITE_BASE_URL,
+# when set (dashboard env var or local export), forces the base URL so
+# deployments self-link consistently; unset, build exactly as before.
+./zola build --force ${SITE_BASE_URL:+--base-url "$SITE_BASE_URL"} --output-dir public
