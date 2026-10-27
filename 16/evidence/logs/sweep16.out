@@ -1,0 +1,16 @@
+assets of record hashes:
+  BIN_logo_tagline800.png: aa8a422eb59851f9b034618a11bdd502e36172dd812e09f71c3f1ea2d80bfa48
+  Tribe_Icon_favicon_180.png: c9c40b869099037018991c60e9ddfa0ff42ee9481a6de003ef3ae8c143a6d484
+
+(a) hash comparisons vs assets of record:
+    hits: NONE
+(b) brothertownindians.org references:
+    hits: NONE
+(c) public/** image dimension overview (logo-aspect + 180x180 candidates):
+    4:1-aspect images: NONE
+    180x180 images  : NONE
+    all site-owned 1:1 images: []
+
+    (site favicon family is the site's own branding — untouched by this change; listed for inspection)
+
+SC-8 RESULT: PASS — no copies, no hotlinks

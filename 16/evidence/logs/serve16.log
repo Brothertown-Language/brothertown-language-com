@@ -1,0 +1,9 @@
+Building site...
+-> Creating 2 pages (0 orphan) and 2 sections
+Done in 114ms.
+
+Listening for changes in /home/muksihs/git/brothertown-language-com/{zola.toml,content,sass,templates,themes}
+Press Ctrl+C to stop
+
+Web server is available at http://127.0.0.1:1024 (bound to 127.0.0.1:1024)
+

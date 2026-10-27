@@ -1,0 +1,70 @@
+--- SC-2: --f1/--c1/--a1 in both blocks ---
+  OK  dark --f1: #e1e7ec (want #e1e7ec)
+  OK  dark --c1: #1e2427 (want #1e2427)
+  OK  dark --a1: #52b2a6 (want #52b2a6)
+  OK  light --f1: #545e69 (want #545e69)
+  OK  light --c1: #ffffff (want #ffffff)
+  OK  light --a1: #006973 (want #006973)
+--- SC-3: direct-anchor fidelity (8 dark + 11 light color cells) ---
+  OK  dark --f1: #e1e7ec (table #e1e7ec)
+  OK  dark --f2: #52b2a6 (table #52b2a6)
+  OK  dark --c1: #1e2427 (table #1e2427)
+  OK  dark --c3: #00423c (table #00423c)
+  OK  dark --c4: #8a949b (table #8a949b)
+  OK  dark --a1: #52b2a6 (table #52b2a6)
+  OK  dark --a3: #2d93c5 (table #2d93c5)
+  OK  dark --a4: #8a949b (table #8a949b)
+  OK  light --f1: #545e69 (table #545e69)
+  OK  light --f2: #1e2427 (table #1e2427)
+  OK  light --c1: #ffffff (table #ffffff)
+  OK  light --c2: #e1e7ec (table #e1e7ec)
+  OK  light --c3: #ccd5db (table #ccd5db)
+  OK  light --c4: #545e69 (table #545e69)
+  OK  light --a1: #006973 (table #006973)
+  OK  light --a3: #265e88 (table #265e88)
+  OK  light --a4: #00423c (table #00423c)
+  OK  light --cg: #0f8176 (table #0f8176)
+  OK  light --cr: #cd4335 (table #cd4335)
+  direct-anchor mismatches: 0
+--- SC-4: derived roles present in compiled blocks ---
+  dark --c2: #1a2f30
+  light --c2: #e1e7ec
+  dark --a2: #6fd4c2
+  light --a2: #007271
+  dark --cg: #13a092
+  light --cg: #0f8176
+  dark --cr: #d97166
+  light --cr: #cd4335
+  light --a2: #007271
+--- SC-5: 28 floored pairs ---
+  OK  dark f1/c1                       #e1e7ec on #1e2427  12.599:1
+  OK  dark f1/c2                       #e1e7ec on #1a2f30  11.280:1
+  OK  dark f2/c1                       #52b2a6 on #1e2427   6.192:1
+  OK  dark f2/c2                       #52b2a6 on #1a2f30   5.543:1
+  OK  dark a1/c1                       #52b2a6 on #1e2427   6.192:1
+  OK  dark a1/c2                       #52b2a6 on #1a2f30   5.543:1
+  OK  dark a2/c1                       #6fd4c2 on #1e2427   8.881:1
+  OK  dark a2/c2                       #6fd4c2 on #1a2f30   7.951:1
+  OK  dark a4/c1                       #8a949b on #1e2427   5.079:1
+  OK  dark a4/c2                       #8a949b on #1a2f30   4.547:1
+  OK  dark a3/c1                       #2d93c5 on #1e2427   4.556:1
+  OK  dark mark c1d-text/c4d-bg        #1e2427 on #8a949b   5.079:1
+  OK  dark cg/c1                       #13a092 on #1e2427   4.841:1
+  OK  dark cr/c1                       #d97166 on #1e2427   4.865:1
+  OK  light f1/c1                      #545e69 on #ffffff   6.600:1
+  OK  light f1/c2                      #545e69 on #e1e7ec   5.293:1
+  OK  light f2/c1                      #1e2427 on #ffffff  15.709:1
+  OK  light f2/c2                      #1e2427 on #e1e7ec  12.599:1
+  OK  light a1/c1                      #006973 on #ffffff   6.426:1
+  OK  light a1/c2                      #006973 on #e1e7ec   5.154:1
+  OK  light a2/c1                      #007271 on #ffffff   5.761:1
+  OK  light a2/c2                      #007271 on #e1e7ec   4.620:1
+  OK  light a4/c1                      #00423c on #ffffff  11.385:1
+  OK  light a4/c2                      #00423c on #e1e7ec   9.131:1
+  OK  light a3/c1                      #265e88 on #ffffff   6.910:1
+  OK  light mark c1-text/c4-bg         #ffffff on #545e69   6.600:1
+  OK  light cg/c1                      #0f8176 on #ffffff   4.749:1
+  OK  light cr/c1                      #cd4335 on #ffffff   4.719:1
+  pairs=28 failures=0
+
+RESULT: ALL GREEN

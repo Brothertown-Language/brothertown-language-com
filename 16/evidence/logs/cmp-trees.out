@@ -1,0 +1,22 @@
+files: base=197 curr=197
+paths only in base   : NONE
+paths only in current: NONE
+content-diff paths   :
+   404.html
+   about/index.html
+   abridge.css
+   authors/brothertown-language/index.html
+   authors/index.html
+   blog/brothertown-community-language-initiative/index.html
+   blog/index.html
+   categories/brothertown-language/index.html
+   categories/index.html
+   index.html
+   search_index.en.json
+   tags/brothertown/index.html
+   tags/community/index.html
+   tags/index.html
+   tags/language-revitalization/index.html
+   tags/snea/index.html
+
+SAME SET, differing files: 16
