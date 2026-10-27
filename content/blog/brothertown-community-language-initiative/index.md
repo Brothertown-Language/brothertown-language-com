@@ -141,11 +141,6 @@ forward.
 Thank you for your time, consideration, and continued support of our shared
 cultural future.
 
-### Comment on Mastodon
-
-You can comment on this post via the original Mastodon thread:
-[thread](https://mastodon.social/@michaelconrad/115971090611921901).
-
 This post was first published at [michael-conrad.com](https://michael-conrad.com/blog/brothertown-community-language-initiative/).
 
 With respect and gratitude,
@@ -159,3 +154,7 @@ Brothertown Community Language Initiative
 [#Community](https://mastodon.social/tags/community)
 
 🤖 Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)
+### Comment on Mastodon
+
+You can comment on this post via Mastodon:
+[View on Mastodon](https://mastodon.social/@michaelconrad/115971090611921901).

@@ -190,6 +190,19 @@ AGENTS.md):
    `SITE_BASE_URL` overrides both. (Verified against the pinned Zola
    0.23.6 with differential builds: `--base-url /` root-relativizes
    permalinks/`get_url`; 2026-10-27.)
+5. **Mastodon discussion back-link.** Every published blog post carries a
+   `### Comment on Mastodon` section, placed at the very end of the article
+   — after the AI co-authored byline, matching the source site's own
+   convention (michael-conrad.com's convention-era posts; observed in its
+   repo 2026-10-27) — anchored to the post's Mastodon discussion thread.
+   This site's form is the plain anchor (no embed markup — the embed was
+   rejected in issue `brothertown-language-com#9`'s spec, R-4/SC-7); the
+   source site's wording, kept verbatim: the line
+   `You can comment on this post via Mastodon:` followed by the plain
+   anchor `[View on Mastodon](<thread-url>)` — the embed's action label as
+   the plain link, never placeholder labels like "thread". A post without a
+   discussion thread omits the section (the rule applies to published posts
+   that have one).
 
 ## Vendored theme provenance
 

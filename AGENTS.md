@@ -107,6 +107,11 @@ about, and blog sections published. Humans merge PRs; agents never merge.
 - Front-matter `date` values use the TOML bare-`Z` UTC form (`YYYY-MM-DDTHH:MM:SSZ`) —
   never the offset-plus-`Z` form (`+00:00Z`), which TOML rejects and fails the build
   (adopted 2026-10-27).
+- Blog posts carry the Mastodon discussion back-link: a `### Comment on
+  Mastodon` section at the very end, after the AI co-authored byline,
+  carrying the source site's wording with the plain `[View on Mastodon]` anchor (embeds are rejected); rule
+  of record: `docs/sop-site-setup.md` Content rules, rule 5 (adopted
+  2026-10-27).
 
 ## Git workflow (hooks enforce it)
 
