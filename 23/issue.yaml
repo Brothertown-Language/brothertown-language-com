@@ -2,8 +2,8 @@ title: '[SPEC] blog-draft-intake: on-demand verbatim import of sibling blog draf
   + agent-editor conformance pipeline'
 status: open
 labels:
-- needs-approval
 - spec
 body: ''
 created_at: '2026-10-27T21:07:13+00:00'
-updated_at: '2026-10-27T21:07:13+00:00'
+updated_at: '2026-10-27T21:08:52+00:00'
+github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/23
