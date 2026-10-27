@@ -122,7 +122,8 @@ account; the agent never executes it without explicit instruction.
   authoring: Zola latest stable v0.23.6 (published 2026-09-12; asset
   `zola-v0.23.6-x86_64-unknown-linux-gnu.tar.gz`); wrangler 4.153.0 (npm
   `dist-tags.latest`); Workers Builds image Ubuntu 24.04 x86_64 with Node
-  24.21.0 default and 22.23.2 also preinstalled — and SHALL record the
+  24.22.1 default and 22.23.4 also preinstalled (the build-image page's
+  2026-10-26 state) — and SHALL record the
   refresh procedure: re-verify latest stable values at each runbook touch by
   checking the same sources (npm `dist-tags`, GitHub releases API,
   build-image page), then update `ZOLA_VERSION` and `compatibility_date`
