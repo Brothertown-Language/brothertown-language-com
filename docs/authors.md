@@ -27,9 +27,9 @@ lists; facet pages live at `/authors/<keyword>/`.
 | Display string | Keyword | Site role | Notes |
 |----------------|---------|-----------|-------|
 | Brothertown Language | `brothertown-language` | main (agent-default) | The project voice. Byline of record for agent-authored materials (developer decision, 2026-10-26); matches the site title and the `author` default in `zola.toml`. |
-| Michael Conrad | `michael-conrad` | human main; guest | Technical and materials support; author of the founding "Brothertown Community Language Initiative" post (michael-conrad.com, 2026-01-28); guest on the ported initiative entry (issue #9). |
-| Dr. Craig Kopris | `dr-craig-kopris` | guest | Advisor/contributor; Powhatan revitalization experience (per the source post). |
-| Dr. Keith Cunningham | `dr-keith-cunningham` | guest | Language Keeper; lead linguist. Nanticoke materials in the corpus library (incl. "A Revised Phonological Analysis of the Heckewelder Vocabulary of Nanticoke", AC56 abstract — source text self-identifies: "Linguist, Nanticoke Indian Tribe"). |
+| Michael Conrad | `michael-conrad` | human main | Technical and materials support; author of the founding "Brothertown Community Language Initiative" post (michael-conrad.com, 2026-01-28). The site's ported initiative entry (issue #9) carries the project-only byline — developer correction, 2026-10-27: a project posting is not attributed to individuals as a writing credit; Conrad is body-credited there, and the link-back line carries source provenance. |
+| Dr. Craig Kopris | `dr-craig-kopris` | cited | Advisor/contributor; Powhatan revitalization experience (per the source post). Body credit only — the ported initiative entry (issue #9) carries the project-only byline (developer correction, 2026-10-27). |
+| Dr. Keith Cunningham | `dr-keith-cunningham` | cited | Language Keeper; lead linguist. Nanticoke materials in the corpus library (incl. "A Revised Phonological Analysis of the Heckewelder Vocabulary of Nanticoke", AC56 abstract — source text self-identifies: "Linguist, Nanticoke Indian Tribe"). Body credit only — the ported initiative entry (issue #9) carries the project-only byline (developer correction, 2026-10-27). |
 | Jesse Bowman Bruchac | `jesse-bowman-bruchac` | cited | Advisor/contributor. Nulhegan Band of the Coosuk Abenaki Nation; director of Middlebury's School of Abenaki (live-verified 2026-10-26). Body credit only — not a guest byline. |
 
 ## Conventions (binding)
