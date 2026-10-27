@@ -109,12 +109,14 @@ gate publication):**
   {{ page.path }}-referenced image 404'd — the R-9 shape
   (`content/blog/<slug>/`, date from front matter) resolves it; image
   requests   200-verified on the preview.
-- **Publication status:** `draft = false` set 2026-10-27 on explicit
-  developer instruction ("mark the article draft = false so the preview
-  works") — the publication flip of record for this article; motive of
-  record: Cloudflare PR previews cannot render a draft-flagged article
-  (Workers Builds has no `--drafts` knob). Standing publish rule otherwise
-  governs.
+- **Publication status:** `draft = true` (current). Briefly flipped to
+  `draft = false` 2026-10-27 on explicit developer instruction (motive of
+  record: Cloudflare PR previews cannot render a draft-flagged article);
+  the same session, the developer asked whether `build.sh` could handle
+  drafts automatically in preview mode — implemented (preview branch builds
+  pass `--drafts`; main/production never does), and the article returned to
+  `draft = true` per the standing publish rule. Verified 2026-10-27:
+  main-detection build excludes the draft; branch preview build includes it.
 - **Edits applied to the derivative (and their basis):** front matter authored
   (TOML, bare-`Z` UTC date); byline registry-consistent (above); provenance
   comment block, draft-review italics line, and editor-facing anchors

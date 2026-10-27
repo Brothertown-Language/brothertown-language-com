@@ -2,7 +2,7 @@
 title = "Where the words come from"
 description = "The Brothertown Language Project needs words for the teaching materials it is building, and the historical record holds no community language to take them from — how it derives them by selection among recorded forms, and why the derivation lives in public, under review."
 date = 2026-10-27T00:00:00Z
-draft = false
+draft = true
 authors = ["Brothertown Language"]
 
 [taxonomies]
