@@ -37,10 +37,16 @@ out of scope.
   the bundle; the image ships with a visible credit that satisfies the
   image's source-license requirements (license and attribution verified
   against the image's source at implementation; exact credit string
-  recorded in the PR).
-- **R-2** — Front matter carries `date = 2026-01-28`, and no other date
+  recorded in the PR); the shipped credit string exactly equals that
+  PR-recorded string (SC-9).
+- **R-2** — Front matter carries `date = 2026-01-28T00:00:00Z` — the TOML
+  bare-`Z` UTC form (`YYYY-MM-DDTHH:MM:SSZ`) mandated for front-matter dates
+  by the repo content rule of record (adopted 2026-10-27), encoding the
+  original posting date per the back-dating directive. No other date
   indication exists for the post: no `updated` key, no republished stamp in
-  prose or front matter. The back-dated date is the post's public date.
+  prose or front matter. The back-dated date is the post's public date (the
+  time component does not surface: the vendored theme renders post dates
+  date-only — verified in the theme template tree, 2026-10-27).
 - **R-3** — Authorship per the registry (issue #8): **main author**
   *Brothertown Language* (agent-authored default — the `zola.toml` `author`
   value stays exactly as-is), **guest authors** *Michael Conrad*, *Dr.
@@ -50,9 +56,12 @@ out of scope.
   theme's byline component loops `page.taxonomies.authors` — and facet
   source). **Authors-taxonomy templates ship here:** the vendored theme
   carries no authors term/list templates (categories/ and tags/ only —
-  verified against the vendored tree and upstream), so Zola v0.23.6 fails
-  the build with `taxonomy_single.html not found` once an authors term
-  exists (empirically verified 2026-10-26 against the pinned build). This
+  verified against the vendored tree and upstream, 2026-10-26), so Zola
+  v0.23.6 fails the build once an authors term exists — the build renders
+  the taxonomy list first: `ERROR Failed to render taxonomy list 'authors'`,
+  reason `Template "taxonomy_list.html" not found` (clean-room reproduced
+  against the pinned binary, 2026-10-27; term pages additionally need the
+  single template — both ship here). This
   issue adds site-level `templates/authors/` (single + list) mirroring the
   theme's categories/tags templates; the vendored theme's own files are not
   modified. The built byline renders all four.
@@ -77,15 +86,31 @@ out of scope.
 - **R-6** — Taxonomy matches the source: category `Brothertown Language`;
   tags `Brothertown`, `Language Revitalization`, `SNEA`, `Community`.
 - **R-7** — The post lands publishable (`draft` false — publication is the
-  human's PR merge; no draft-flip occurs). AI-contribution marking follows
-  repo convention: co-authored commit trailer; the project byline is the
-  human-visible layer per the registry's role notes.
+  human's PR merge; no draft-flip occurs). AI attribution follows the repo's
+  content rules of record (adopted 2026-10-27, which supersede the
+  2026-10-26 commit-trailer-only reading in part): the article carries the
+  ending block per R-9 — sign-off block (project voice, no date — R-2
+  governs all date indications), hashtag line, AI co-authored byline
+  (`Co-authored with AI: OpenCode (<model-id>)`, the repo-standard trailing
+  form) — while the registry byline (R-3) remains the page's author byline
+  and the co-authored commit trailer remains the git-layer marking.
 - **R-8** — The `AGENTS.md` currency pass: the "Current state: bootstrap —
   conventions and docs only" header reflects the landed, live site (base
   site landed via issue #1; hosted on Workers Static Assets); the Commands
   section drops its "(after issue 1 lands)" parenthetical; the Content-rules
   line names `zola.toml` (currently `config.toml`). Nothing outside those
   lines plus issue #8's pointer bullets changes.
+- **R-9** — Published-article social hashtags per the repo content rule
+  (adopted 2026-10-27 from the standards record
+  michael-conrad/michael-conrad.com#6): a `#TagText` line appended after the
+  sign-off block and before the AI co-authored byline — one hashtag per
+  R-6 site tag, each hot-linked to its Mastodon tag page
+  (`https://mastodon.social/tags/<tagtext-lowercase>`): `#Brothertown`,
+  `#LanguageRevitalization`, `#SNEA`, `#Community`. These are topic tags
+  per the 2026-10-27 ruling (topic tags stay regardless of API volume; no
+  carrier-tag API check applies). The hashtag block, sign-off block, and AI
+  co-authored byline are convention furniture layered on the adaptation —
+  R-4's no-fact-added/dropped/altered rule is unaffected.
 
 ## Success criteria
 
@@ -95,16 +120,17 @@ out of scope.
 | SC-2 | The built post's byline renders all four author strings (`Brothertown Language`, `Michael Conrad`, `Dr. Craig Kopris`, `Dr. Keith Cunningham`) | behavioral | extract the author/byline markup from the built post page; assert all four strings appear within it |
 | SC-3 | The authors facets render: the `/authors/` taxonomy index plus a term page for each of the four registry keywords, each term page linking the post | behavioral | assert `public/authors/index.html` and `public/authors/<keyword>/index.html` for each of the four keywords; assert each term page links the post |
 | SC-14 | Site-level `templates/authors/` term and list templates exist, mirroring the theme's categories/tags pattern; the vendored theme's files are unchanged | structural | file check of the added templates + `git status`/diff shows no modifications under `themes/abridge/` |
-| SC-4 | Front matter date is 2026-01-28 and no other date indication exists in the post's source | structural | file check: `date` set to 2026-01-28 in unquoted TOML date form; no `updated` key; no other date strings in front matter or body |
+| SC-4 | Front matter date is `2026-01-28T00:00:00Z` (bare-`Z` UTC form) and no other date indication exists in the post's source | structural | file check: `date` set to `2026-01-28T00:00:00Z` in unquoted TOML bare-`Z` UTC form; no `updated` key; no other date strings in front matter or body |
 | SC-5 | Taxonomy matches R-6's set | structural | file check of front matter |
 | SC-6 | The body contains a link-back to the original post URL | structural | file check for the URL in the post source |
 | SC-7 | No embedded comment block; a plain link to the original Mastodon thread is present | structural | file check: no embed markup; anchor to the thread URL present |
 | SC-8 | The body preserves the source post's project facts (goals, experts and roles, Proto-SNEA stage, source dialects, methodology, funding stance, volunteer asks) | structural | reviewer comparison of the body against the live source page (fetched at verification) |
-| SC-9 | The map image ships in the bundle with a visible, license-conformant credit near it | structural | built-output check (image file under the post path) + content check of the post source for the credit line |
+| SC-9 | The map image ships in the bundle with a visible, license-conformant credit near it | structural | built-output check (image file under the post path) + content check that the post source's credit line adjacent to the image exactly equals the credit string the PR records with the image's source-license determination — the recorded determination is what establishes license conformance; the check verifies the shipped credit matches it |
 | SC-10 | The `AGENTS.md` currency pass is applied within R-8's stated line scope | structural | content check + `git diff` scope check |
 | SC-11 | The built blog index lists the post | behavioral | built `blog/index.html` contains the post's link |
 | SC-12 | The built atom feed contains the post entry | behavioral | built `atom.xml` contains the entry |
 | SC-13 | The built search index contains the post | behavioral | built `search_index.en.json` contains the post |
+| SC-15 | The built post page renders the ending block in convention order: sign-off block, then the hashtag line (one hot-linked hashtag per R-6 site tag, each anchor to `mastodon.social/tags/<tagtext-lowercase>`), then the AI co-authored byline | behavioral | built-output check of the post page: hashtag anchors present, one per R-6 tag, ordered after the sign-off block and before the AI co-authored byline; content check confirms the post source carries the same elements |
 
 ## Edge cases
 
@@ -189,5 +215,11 @@ provenance carried by the link-back rather than the byline. The registry
 - Repo content rules: draft-gate, image-path existence, AI-contribution
   marking (README/AGENTS.md); issue #1's SOP publish procedure.
 - Registry spec: `brothertown-language-com#8` (byline strings, keywords).
+- Repo content rules adopted 2026-10-27 (commit 7578fbe, from the standards
+  record michael-conrad/michael-conrad.com#6): TOML bare-`Z` UTC
+  front-matter date rule; every published article carries site tags plus the
+  in-article hashtag line (sign-off block → hashtag line → AI co-authored
+  byline); community voice. Integrated by the 2026-10-27 spec audit of this
+  issue; the integrated wording is binding for the implementation.
 
 *Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)*
