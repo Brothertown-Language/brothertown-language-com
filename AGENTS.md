@@ -48,7 +48,11 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   current config-file name — the legacy `config.toml` name loads only as a
   fallback)
 - `ZOLA_VERSION` — the pinned Zola version
-- `build.sh` — CI build entry: downloads the pinned Zola, builds to `public/`
+- `build.sh` — CI build entry: downloads the pinned Zola, builds to `public/`. Builds
+  with `--base-url "$SITE_BASE_URL"` when that optional override is set (dashboard
+  environment variable or local export); unset, it builds exactly as before — Workers
+  Builds provides no deployment-URL variable (F-16), so this knob is the only
+  domain-aware lever
 - `content/<section>/…` — section folders with `_index.md`. Issue 1 lands
   home, about, and blog; the remaining sections (dictionary, lessons, apps,
   methodology/reference) land under their own issues — the no-stub rule keeps
@@ -61,7 +65,11 @@ repository's issue tracker. Humans merge PRs; agents never merge.
 - Build: `./build.sh` → `public/` (gitignored)
 - Validate: `./zola check` — run it after setup and record the warning
   baseline; thereafter only ERROR lines matter
-- Preview: `./zola serve` (http://127.0.0.1:1111)
+- Preview: run the review server **in the background** — `./zola serve --drafts --port
+  1111` — and display it by opening the URL with `xdg-open` (draft-review convention
+  adopted 2026-10-27 from the standards record michael-conrad/michael-conrad.com#6;
+  `--drafts` so drafts are reviewable; this integrates with the SOP's pre-PR review
+  gate — serve, then present per `docs/sop-site-setup.md`).
 
 ## Content rules
 
@@ -75,6 +83,30 @@ repository's issue tracker. Humans merge PRs; agents never merge.
   ad-hoc paths. A `featured_image` pointing at a missing file fails the Zola
   build; check existence before committing front matter.
 - Audit content for sensitive leaks and PII before any commit or publish.
+- Social and site tags (adopted 2026-10-27 from the standards record
+  michael-conrad/michael-conrad.com#6): **every published article carries site tags** —
+  the per-page TOML `[taxonomies]` `tags` (keywords) array is populated, not left `[]` —
+  and **its social-media hashtags are included in the article itself**: a `#TagText`
+  line appended after the sign-off block and before the AI co-authored byline, one
+  hashtag per site tag, each hot-linked to its Mastodon tag page
+  (`https://mastodon.social/tags/<tagtext-lowercase>`), using tag text common on
+  Mastodon. Tag text rules (2026-10-27 ruling): **the tag set must reflect what the
+  article is about** — every core theme gets a topic tag; quiet API volume does not
+  exclude topic tags; project identity tags are a documented nascent carve-out; general
+  carrier tags are verified common via the signed-out Mastodon API — `GET
+  api/v1/tags/<tag>` returns a 7-day `history`; uses > 0 marks a live tag; the research
+  record (2026-10-27) shows the precise revitalization/reconstruction hashtags quiet
+  while `#Linguistics` (151 uses) and `#Indigenous` (104) carry that audience; the
+  Algonquian-family tag space (`Algonquian`, `ProtoAlgonquian`, `EasternAlgonquian`,
+  …) is likewise at 0 observed uses — topic tags stay regardless of volume. Re-run the
+  API check before choosing carrier tag text — volumes drift.
+- Community-facing posts avoid a self-centered "me me me" first-person singular:
+  project voice is "we/the project", the author appears by name or role, and
+  first-person plural "our" carries community/heritage references (adopted 2026-10-27
+  from the standards record michael-conrad/michael-conrad.com#6).
+- Front-matter `date` values use the TOML bare-`Z` UTC form (`YYYY-MM-DDTHH:MM:SSZ`) —
+  never the offset-plus-`Z` form (`+00:00Z`), which TOML rejects and fails the build
+  (adopted 2026-10-27).
 
 ## Git workflow (hooks enforce it)
 
