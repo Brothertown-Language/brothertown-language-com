@@ -6,6 +6,9 @@
 	// SPDX-License-Identifier: MIT
 	"name": "brothertown-language-com",
 	"compatibility_date": "2026-10-26",
+	// PR-preview builds run `npx wrangler preview`, which requires this block
+	// (wrangler 4.153.0; empty block suffices — top-level settings stay put).
+	"previews": {},
 	"assets": {
 		"directory": "./public",
 		"not_found_handling": "404-page"

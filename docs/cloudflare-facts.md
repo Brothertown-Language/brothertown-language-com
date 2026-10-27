@@ -209,6 +209,14 @@ https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/
   record's scope to decide.
 - `./zola check` warning baseline lives with the repo commands of record
   (root `AGENTS.md`); only ERROR lines matter post-setup.
+- **PR-preview builds and the `previews` block** (observed 2026-10-27,
+  Workers Build `43b811c1` for PR #19 — log read via the ops surface):
+  PR build checks execute the deploy command `npx wrangler preview`, and
+  Wrangler **4.153.0** errors without a `previews` block in the Wrangler
+  config (`Your Wrangler configuration is missing a previews block…`). The
+  repo's `wrangler.jsonc` therefore carries a `"previews": {}` block. This
+  is unpinned-Wrangler drift (F-9's no-`package.json` state): production
+  `wrangler deploy` is unaffected.
 - Domain attach: `brothertown-language.com` zone on Cloudflare (F-1).
 
 Verified 2026-10-26 (`build.sh`, `ZOLA_VERSION`, `zola.toml`, `.gitignore`
