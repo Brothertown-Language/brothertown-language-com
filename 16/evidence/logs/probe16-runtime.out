@@ -1,0 +1,6 @@
+=== runtime computed-color probes (SC-7), port 1111 ===
+### Result
+"default(dark-preference): {\"htmlClass\":\"\",\"c1\":\"#1e2427\",\"f1\":\"#e1e7ec\",\"a1\":\"#52b2a6\"}"
+### Result
+"toggled: {\"htmlClass\":\"switch\",\"c1\":\"#fff\",\"f1\":\"#545e69\",\"a1\":\"#006973\",\"persisted\":\"switch\"}"
+=== note: byline/tag computed probe (executed 2026-10-27, same instrument): author/tag links rgb(82,178,166)=#52b2a6 on post page dark mode ===

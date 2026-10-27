@@ -1,0 +1,61 @@
+images:
+  - file: /tmp/opencode/sc16-dark-home.png
+    page_identified: home page (blog list "Brothertown Community Language Initiative" with map thumbnail, byline, "..more"); dominant background very dark charcoal (~#1e2427), heading/site-title/nav aqua-teal (~#52b2a6), body text light gray (~#e1e7ec), footer links (About/Sitemap/Zola/Abridge) aqua-teal, orange RSS icon
+    mode_matches_expected: yes — dark ground + aqua-teal headings/brand with light-gray body matches the dark palette of record
+    legibility: all text readable; high contrast throughout
+    anomalies: none structural. Note: the byline/tag link run ("Brothertown Language January 28, 2026 [Brothertown Language] #Brothertown #Language Revitalization #SNEA #Community") renders pale gray/near-white rather than the aqua link color used elsewhere (nav/footer) — readable, but not the expected #52b2a6 link tone for that mode
+  - file: /tmp/opencode/sc16-light-home.png
+    page_identified: same home page in light mode; background white (~#ffffff), site title/heading charcoal (~#1e2427), body slate gray (~#545e69), links dark blue-teal (~#006973), search field light gray (~#e1e7ec)
+    mode_matches_expected: yes — white ground, charcoal headings, slate body, dark-teal links all match the light palette of record
+    legibility: all text readable
+    anomalies: none; layout identical to dark capture (no light/dark reflow)
+  - file: /tmp/opencode/sc16-light-post.png
+    page_identified: blog post page (Byline "Brothertown Language / January 28, 2026", tag links, floated map, "A Call for Collaboration" and "Project Goals" sections); background white, site title/heading/subheadings charcoal (~#1e2427), body slate (~#545e69), byline and tag links dark teal (~#006973)
+    mode_matches_expected: yes — consistent with the light palette
+    legibility: all text readable
+    anomalies: none; capture is cut mid-paragraph at "The project aims to develop:" — viewport cropping, not a rendering defect
+  - file: /tmp/opencode/sc16-dark-post.png
+    page_identified: same blog post page in dark mode; background very dark charcoal (~#1e2427), headings and site title aqua-teal (~#52b2a6), body light gray (~#e1e7ec)
+    mode_matches_expected: yes — matches the dark palette of record
+    legibility: all text readable
+    anomalies: none structural. Same observation as the dark home capture: byline/tag link run renders pale gray/white rather than aqua-teal, while heading/footer links are aqua
+sc9_logo_recreation:
+  visible: no
+  what_you_saw: >-
+    No reproduced, recreated, or hotlinked copy of the Brothertown Indian Nation
+    two-tone-teal logo mark or the circular teal #0f8176 badge appears anywhere in
+    any of the four captures — not in the header, hero/content, or footer. The
+    header branding area shows only a text wordmark site title "Brothertown
+    Language" (styled plain text in the theme heading color), followed by nav
+    links Home/About/Blog, a half-circle dark/light mode toggle icon, and a
+    search input with magnifier icon. The footer shows only an orange RSS icon,
+    About/Sitemap links, the copyright line, and "Powered by Zola & Abridge". No
+    image asset resembling the Nation's mark exists on these pages. (A browser-tab
+    favicon would not be visible in these page-only captures regardless.)
+overall_conclusion: >-
+  All four captures render a fully styled page with no unstyled flash, missing
+  background, or overlapping elements. The two dark-mode captures show the expected
+  very-dark-charcoal ground with aqua-teal headings/brand and light-gray body text,
+  and the two light-mode captures show white ground, charcoal headings, slate body,
+  and dark blue-teal links; layout is identical across modes with no reflow. The
+  only palette deviation worth noting is that the byline/taxonomy-tag link run
+  renders pale gray/white in dark mode instead of the aqua #52b2a6 link color used
+  by nav/footer links — readable, but inconsistent with the stated dark-mode link
+  color. No copy of the Brothertown Indian Nation logo or badge appears anywhere;
+  branding is text-only.
+limitations: >-
+  Static captures only: exact hex values are visual approximations (no pixel
+  sampling performed); scroll regions below the fold on the post pages were not
+  captured if the pages extend past 720px, so footer/link rendering on the post
+  pages specifically is unverified; the browser tab/favicon area is outside these
+  page-only screenshots, so favicon behavior cannot be assessed; link hover states
+  (#6fd4c2 bright-aqua hover in dark mode) cannot be observed in static captures;
+  the pale-vs-aqua tone of the byline/tag links in dark mode is an observation of
+  rendered color class behavior whose underlying CSS rule I did not inspect.
+provenance_note: >-
+  Follow-up computed-color probe (main session, live browser): the byline author
+  link and tag links compute to rgb(82, 178, 166) = #52b2a6 — exactly the mapped
+  dark link role $a1d. The "pale gray" reading came from the near-white date text
+  (#e1e7ec) inside the same byline run; the links themselves carry the mapped
+  palette. Recorded in the implement work record 2026-10-27.
+model: ollama-cloud/glm-5.3-flash via OpenCode general subagent (discharged 2026-10-27)

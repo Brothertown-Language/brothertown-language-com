@@ -1,0 +1,29 @@
+=== served abridge.css mode-block values (dark default + light toggle) ===
+--- :root:not(.switch) (dark default) ---
+--cs:dark
+--f1:#e1e7ec
+--f2:#52b2a6
+--c1:#1e2427
+--c2:#1a2f30
+--c3:#00423c
+--c4:#8a949b
+--a1:#52b2a6
+--a2:#6fd4c2
+--a3:#2d93c5
+--a4:#8a949b
+--cg:#13a092
+--cr:#d97166
+--- :root.switch (toggled light) ---
+--cs:light
+--f1:#545e69
+--f2:#1e2427
+--c1:#fff
+--c2:#e1e7ec
+--c3:#ccd5db
+--c4:#545e69
+--a1:#006973
+--a2:#007271
+--a3:#265e88
+--a4:#00423c
+--cg:#0f8176
+--cr:#cd4335
