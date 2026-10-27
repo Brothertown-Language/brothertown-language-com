@@ -16,7 +16,7 @@ under `content/`.
 
 | Document | Role |
 |----------|------|
-| `sop-site-setup.md` | The site setup and maintenance SOP — local tooling loop, Zola pin, delegated cloud-side deployment, verification gates, publish procedure. |
+| `sop-site-setup.md` | The site setup and maintenance SOP — local tooling loop, Zola pin, delegated cloud-side deployment, verification gates, pre-PR preview review, publish procedure. |
 | `authors.md` | The author-keyword registry of record (issue `brothertown-language-com#8`). Every bylined, faceted, or cited author name is registered here first. |
 | `languages.md` | The languages lookup table (same registry pattern, ISO-registry ground; issue #8). Cited language forms use its "Common [iso]" convention. |
 

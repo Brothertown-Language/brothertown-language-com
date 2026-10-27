@@ -5,7 +5,8 @@
 
 Standard operating procedure for the site's base setup: the local tooling
 loop, the Zola version pin, the delegated cloud-side deployment, the
-verification gates, the publish procedure, and the platform facts of record.
+verification gates, the pre-PR preview review, the publish procedure, and the
+platform facts of record.
 The spec of record is issue `brothertown-language-com#1`.
 
 ## Repository artifacts of record
@@ -102,6 +103,40 @@ Run after any tooling, config, theme, or site-structure change:
    `compatibility_date` (implementation-current date), `assets.directory
    ./public`, and `not_found_handling "404-page"`, with no Worker script and
    no bindings.
+
+## Pre-PR preview review
+
+The normative rule lives in AGENTS.md's Git workflow (agents open PRs; humans
+merge): before filing any PR from this repository — unconditionally, docs-only
+changes included — the filing agent serves the site and presents it for the
+developer's review, and the PR is filed only after that presented review.
+Filing means opening the PR on GitHub via `gh pr create`. This section is the
+procedure of record that rule points at; the gate's first application is
+issue `brothertown-language-com#13`'s own implementing PR. The review does not
+replace the [verification gates](#verification-gates); those run as stated in
+their own section.
+
+1. **Serve** — `./zola serve`. When the working-tree `./zola` binary is
+   absent, run `./build.sh` first (it refreshes `./zola` to the
+   `ZOLA_VERSION` pin).
+2. **Present** — give the developer the preview URL the server is actually
+   answering (default <http://127.0.0.1:1111>; `--port <N>` when 1111 is
+   unavailable) — never an assumed URL — plus the change's rendered surface:
+   the pages/sections the branch touches.
+3. **Drafts** — when the change under review carries draft-flagged content,
+   serve with `./zola serve --drafts` (`serve` excludes drafts by default;
+   the flag only widens this preview). Drafts stay draft: this never touches
+   the [publish procedure](#publish-procedure)'s draft gate.
+4. **Window** — the server runs for the review window only: started for the
+   presentation, kept up while the developer reviews, and stopped once the
+   developer responds to the presentation (further work does not extend the
+   window); no lingering server is left running.
+5. **Record** — the PR body records the presented review (preview URL and the
+   date presented) in its evidence set.
+6. **No-skip clause** — when the server cannot render the branch's site, the
+   agent presents the serve/build failure output in place of the preview; the
+   gate still holds — the PR waits for that presented review. The failure
+   becomes the reviewed content; the presentation requirement is never waived.
 
 ## Publish procedure
 
