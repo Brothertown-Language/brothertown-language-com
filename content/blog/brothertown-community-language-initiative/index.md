@@ -2,10 +2,10 @@
 title = "Brothertown Community Language Initiative"
 description = "An invitation for participation in a community-led project to support the revitalization and reclamation of the Brothertown language."
 date = 2026-01-28T00:00:00Z
-authors = ["Brothertown Language", "Michael Conrad", "Dr. Craig Kopris", "Dr. Keith Cunningham"]
+authors = ["Brothertown Language"]
 
 [taxonomies]
-authors = ["Brothertown Language", "Michael Conrad", "Dr. Craig Kopris", "Dr. Keith Cunningham"]
+authors = ["Brothertown Language"]
 categories = ["Brothertown Language"]
 tags = ["Brothertown", "Language Revitalization", "SNEA", "Community"]
 +++
