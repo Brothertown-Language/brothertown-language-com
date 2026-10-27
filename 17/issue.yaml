@@ -1,9 +1,11 @@
 title: 'Spec: Adopt the blog-posting standards from michael-conrad.com (tags, voice,
   dates, preview, domain-aware build)'
-status: open
+status: closed
 labels:
 - needs-approval
 body: ''
 created_at: '2026-10-27T05:13:10+00:00'
-updated_at: '2026-10-27T05:13:11+00:00'
+updated_at: '2026-10-27T13:29:38+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/17
+closed_at: '2026-10-27T13:29:38+00:00'
+close_reason: completed

@@ -21,7 +21,7 @@ Docs + one build script; zero content or template changes. Local/production buil
 
 | ID | Class | Criterion |
 |---|---|---|
-| SC-1 | structural | AGENTS.md carries R1–R4 recordings; `docs/cloudflare-facts.md` carries the dated R5 row |
+| SC-1 | structural | AGENTS.md carries R1–R4 recordings and the R5 build note; `docs/cloudflare-facts.md` carries the dated R5 row |
 | SC-2 | behavioral | Default build (`SITE_BASE_URL` unset) exit 0, byte-consistent output behavior |
 | SC-3 | behavioral | Override build (`SITE_BASE_URL=https://<preview>.pages.dev ./build.sh`) self-links interpolated/feed surfaces to the override domain |
 | SC-4 | structural | No other files modified; SOP gate text unchanged |
@@ -33,7 +33,7 @@ Docs + one build script; zero content or template changes. Local/production buil
 ## Approach
 
 1. Register remote + local mirror; persist the spec; run the spec validation loop.
-2. Branch `feature/16-blog-posting-conventions`; edit AGENTS.md, build.sh, docs/cloudflare-facts.md.
+2. Branch `feature/17-blog-posting-conventions`; edit AGENTS.md, build.sh, docs/cloudflare-facts.md.
 3. Verify SC-2/SC-3 with build simulations; serve the site and present the preview (the SOP's pre-PR gate); PR after the presented review.
 
 > Full spec and plan artifacts: https://github.com/Brothertown-Language/brothertown-language-com/tree/issues-data/17/
