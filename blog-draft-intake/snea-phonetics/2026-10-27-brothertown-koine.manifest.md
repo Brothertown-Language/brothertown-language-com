@@ -108,7 +108,13 @@ gate publication):**
   while `page.path` keeps the physical date-prefixed path, so the page's
   {{ page.path }}-referenced image 404'd — the R-9 shape
   (`content/blog/<slug>/`, date from front matter) resolves it; image
-  requests 200-verified on the preview.
+  requests   200-verified on the preview.
+- **Publication status:** `draft = false` set 2026-10-27 on explicit
+  developer instruction ("mark the article draft = false so the preview
+  works") — the publication flip of record for this article; motive of
+  record: Cloudflare PR previews cannot render a draft-flagged article
+  (Workers Builds has no `--drafts` knob). Standing publish rule otherwise
+  governs.
 - **Edits applied to the derivative (and their basis):** front matter authored
   (TOML, bare-`Z` UTC date); byline registry-consistent (above); provenance
   comment block, draft-review italics line, and editor-facing anchors
