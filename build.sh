@@ -45,7 +45,37 @@ cp "$zola_bin" ./zola
 chmod +x ./zola
 
 # Domain-aware build: Workers Builds provides no deployment-URL variable
-# (docs/cloudflare-facts.md F-16 — CF_PAGES_URL is Pages-only). SITE_BASE_URL,
-# when set (dashboard env var or local export), forces the base URL so
-# deployments self-link consistently; unset, build exactly as before.
-./zola build --force ${SITE_BASE_URL:+--base-url "$SITE_BASE_URL"} --output-dir public
+# (docs/cloudflare-facts.md F-16 — CF_PAGES_URL is Pages-only), but it DOES
+# inject the branch name as WORKERS_CI_BRANCH (F-16 default env vars — also
+# git-detectable via `git rev-parse --abbrev-ref HEAD` as fallback).
+# is-production := branch == main. Production builds use the base_url of
+# record (or an absolute SITE_BASE_URL override); preview (non-main) builds
+# are domain-neutral (--base-url /): every template-generated URL (assets,
+# nav, facets, cards, canonical) is root-relative, so any preview hostname
+# serves correctly with zero production-absolute links. Stable mechanism:
+# nothing to set per branch — the behavior follows the branch automatically
+# (site-relative SOP: docs/sop-site-setup.md; verified against the pinned
+# Zola 0.23.6, 2026-10-27). Preview-mode trade, recorded in the SOP: the
+# generated feeds/sitemap emit root-relative URLs on that build.
+# Explicit absolute SITE_BASE_URL (dashboard env var or local export) always
+# wins for both branches; unset and no branch detection (e.g. plain zola
+# builds), build exactly as before (base_url of record).
+if [ -z "${SITE_BASE_URL:-}" ]; then
+  branch="${WORKERS_CI_BRANCH:-}"
+  if [ -z "$branch" ]; then
+    branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
+  fi
+  if [ -n "$branch" ] && [ "$branch" != "main" ]; then
+    echo "is-production: false (branch '$branch') -> domain-neutral preview build"
+    SITE_BASE_URL="relative"
+  elif [ -n "$branch" ]; then
+    echo "is-production: true (branch '$branch')"
+  fi
+fi
+base_args=()
+if [ "${SITE_BASE_URL:-}" = "relative" ]; then
+  base_args=(--base-url "/")
+elif [ -n "${SITE_BASE_URL:-}" ]; then
+  base_args=(--base-url "$SITE_BASE_URL")
+fi
+./zola build --force ${base_args[@]+"${base_args[@]}"} --output-dir public

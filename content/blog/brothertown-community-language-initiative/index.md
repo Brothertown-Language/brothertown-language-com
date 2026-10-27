@@ -11,7 +11,7 @@ tags = ["Brothertown", "Language Revitalization", "SNEA", "Community"]
 +++
 
 <div class="imgfloat">
-  <img src="{{ page.permalink }}Tribal_Territories_Southern_New_England.png" alt="Tribal territories of Southern New England tribes, circa 1600" />
+  <img src="{{ page.path }}Tribal_Territories_Southern_New_England.png" alt="Tribal territories of Southern New England tribes, circa 1600" />
 </div>
 
 *Map: ["Tribal Territories Southern New England" by Nikater (adapted to English by Hydrargyrum)](https://commons.wikimedia.org/wiki/File:Tribal_Territories_Southern_New_England.png) — via Wikimedia Commons, CC BY-SA 3.0 (also licensed under the GNU Free Documentation License 1.2 or later).*

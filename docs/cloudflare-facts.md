@@ -209,6 +209,14 @@ https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/
   record's scope to decide.
 - `./zola check` warning baseline lives with the repo commands of record
   (root `AGENTS.md`); only ERROR lines matter post-setup.
+- **PR-preview builds and the `previews` block** (observed 2026-10-27,
+  Workers Build `43b811c1` for PR #19 — log read via the ops surface):
+  PR build checks execute the deploy command `npx wrangler preview`, and
+  Wrangler **4.153.0** errors without a `previews` block in the Wrangler
+  config (`Your Wrangler configuration is missing a previews block…`). The
+  repo's `wrangler.jsonc` therefore carries a `"previews": {}` block. This
+  is unpinned-Wrangler drift (F-9's no-`package.json` state): production
+  `wrangler deploy` is unaffected.
 - Domain attach: `brothertown-language.com` zone on Cloudflare (F-1).
 
 Verified 2026-10-26 (`build.sh`, `ZOLA_VERSION`, `zola.toml`, `.gitignore`
@@ -279,11 +287,18 @@ and branch name as environment variables in Workers Builds", published
 **No deployment-URL variable exists among them** — `CF_PAGES_URL` is a
 Cloudflare Pages build variable and is not provided by Workers Builds. A
 per-preview domain therefore cannot be derived at build time from the
-platform. The repo's handling: `build.sh` builds with `--base-url
-"$SITE_BASE_URL"` when the optional override is set (dashboard-builds
-environment variable or local export); unset, it builds exactly as before.
-Preview self-linking via the platform is not achievable today on Workers
-Builds — the pre-PR review gate's local serve (SOP: Pre-PR preview review)
-remains the review surface of record. Sources: the changelog entry above;
-`./zola build --help` (pin v0.23.6 supports `--base-url`, verified
-2026-10-27).
+platform. The repo's handling (verified 2026-10-27 against the pinned Zola
+0.23.6, live differential builds + preview probe): `build.sh` derives
+is-production from the branch — `WORKERS_CI_BRANCH` (this section's default
+env var above), `git rev-parse` fallback — and **non-main branches build
+domain-neutral automatically** (`--base-url /`, which Zola 0.23.6 accepts and
+root-relativizes all template-generated URLs: permalinks, `get_url`,
+canonical), so any preview hostname serves correctly with zero
+production-absolute links and nothing to set per branch (branch hostnames
+are not stable). The same preview-mode build emits root-relative
+feeds/sitemap — a preview-surface only trade; main builds keep the
+base_url of record. An explicit absolute `SITE_BASE_URL` (dashboard env var
+or local export) overrides both branches' defaults; unset, unidentifiable
+branch: builds exactly as before. Sources: the changelog entry above;
+`./zola build --help`; the `--base-url /` differential build and the preview
+probe (2026-10-27).
