@@ -3,21 +3,86 @@
 // parameters here — later re-toning touches only this file.
 // SPDX-FileCopyrightText: 2026 Brothertown Language
 // SPDX-License-Identifier: MIT
+
+// ─── Palette of record: Brothertown-derived light/dark pair ──────────────────
+// Issue brothertown-language-com#16; the spec's mapping tables are the palette
+// of record. Anchors extracted live 2026-10-26 from the Brothertown Indian
+// Nation site; method and pixel-share provenance are filed as the issue's
+// color-extraction research artifact (bi-colors-2026-10-26.yaml, on GitHub
+// issue 16).
+// Direct-anchor source classes:
+//   logo-extraction anchors — BI header logo wordmark pixels:
+//     #006973 #007a6f #52b2a6 #00423c
+//   logo-extraction anchors — BI favicon Tribe Icon badge pixels: #0f8176
+//   site-CSS anchors — BI site stylesheets / live customizer values:
+//     #1e2427 #545e69 #e1e7ec #ccd5db #8a949b #2d93c5 #265e88 #cd4335
+// Colors are the only borrowed property — no BI logo asset is copied,
+// recreated, or referenced here or in the built site (spec R-4).
+// Derived values carry per-value derivation notes inline (base anchor +
+// adjustment reason). Floor of record: WCAG 2.1 SC 1.4.3 Level AA, 4.5:1,
+// over the spec's 28 floored pairs (asserted ratios kept in the issue record,
+// 2026-10-27).
 @use '../themes/abridge/sass/abridge' with (
   $abridgeMode: "switcher", // valid values: switcher, auto, dark, light
   $syntax-mode: "auto", // Force syntax mode: auto, dark, light
   $switcherDefault: "dark", // default nojs switcher mode: dark, light (must match js_switcher_default in zola.toml)
 
-  $color: "orange", // color template: orange, blue, blueshade
+  $color: "orange", // color template: orange, blue, blueshade — inert for the
+                    // palette: all 26 role variables below are supplied non-null,
+                    // and the template fills only null roles (no template edit)
 
-  $color-syntax: "abridge", // syntax color template: abridge
+  $color-syntax: "abridge", // syntax color template: abridge — out of scope of
+                            // the palette change, kept stock
   $syntax: true, // syntax highlighting for Code Blocks
 
   $enable-icons: true, // false disables ALL icons
   $ic: true, // true for colorized icons, otherwise #888 is used
 
   $icon-rss: true,
-  $icon-mail: false
+  $icon-mail: false,
+
+  // ── Dark palette (page default → :root:not(.switch)) ──
+  $csd: dark,    // color-scheme flag: mode value, not a color (theme contract)
+  $f1d: #e1e7ec, // BI site CSS — gridline gray, as body text on dark chrome
+  $f2d: #52b2a6, // logo — light aqua: headers, site title, nav
+  $c1d: #1e2427, // BI site CSS — charcoal chrome (titlebar/footer)
+  $c2d: #1a2f30, // DERIVED — base $c1d charcoal tinted toward logo teal #007a6f
+                 //   (channel blend t=0.13): secondary background lighter than
+                 //   $c1d, kept dark enough that $a4d holds ≥4.5:1 on it (R-3;
+                 //   the floored set caps it at L≈0.0254 — this sits at 0.0247)
+  $c3d: #00423c, // logo — deep-teal shading: table rows, blockquote edge, borders
+  $c4d: #8a949b, // BI site CSS — muted gray: disabled, mark background
+  $a1d: #52b2a6, // logo — light aqua: link color
+  $a2d: #6fd4c2, // DERIVED — base $a1d aqua brightened within its logo cluster
+                 //   family (toward the bright end of the #52b2a6 family): a
+                 //   distinct hover/focus tone, ≥4.5:1 on both $c1d and $c2d (R-3)
+  $a3d: #2d93c5, // BI site CSS — blue accent: h1–h2 link hover/focus (≥4.5:1 on $c1d)
+  $a4d: #8a949b, // BI site CSS — muted gray: visited links
+  $cgd: #13a092, // DERIVED — base favicon teal #0f8176 lightened, hue kept
+                 //   (H SL lightness raised): ins/success must clear ≥4.5:1 on
+                 //   $c1d — the raw favicon teal reads only ≈3.3:1 there (R-3)
+  $crd: #d97166, // DERIVED — base BI red #cd4335 lightened, hue kept: del/errors
+                 //   must clear ≥4.5:1 on $c1d — the raw red reads ≈3.3:1 there
+                 //   (R-3)
+
+  // ── Light palette (toggle target → :root.switch) ──
+  $cs: light,    // color-scheme flag: mode value, not a color (theme contract)
+  $f1: #545e69,  // BI site CSS — body slate
+  $f2: #1e2427,  // BI site CSS — headings charcoal
+  $c1: #ffffff,  // BI site CSS — body background
+  $c2: #e1e7ec,  // BI site CSS — gridline gray: table rows, secondary surfaces
+  $c3: #ccd5db,  // BI site CSS — light gray-blue: borders, quote edge
+  $c4: #545e69,  // BI site CSS — body slate: disabled, mark background (the mark
+                 //   pair keeps $c1 text on it — light-on-dark, per spec table)
+  $a1: #006973,  // logo — dark blue-teal: link color
+  $a2: #007271,  // DERIVED — teal between the wordmark teals #006973/#007a6f
+                 //   (channel blend t=0.55): hover/focus tone meeting ≥4.5:1 on
+                 //   both $c1 and $c2 (R-3) — the lighter wordmark teal #007a6f
+                 //   alone fails on $c2 (≈4.2:1)
+  $a3: #265e88,  // BI site CSS — dark blue: h1–h2 link hover/focus
+  $a4: #00423c,  // logo — deep teal: visited links
+  $cg: #0f8176,  // favicon — Tribe Icon badge fill: ins/success (≥4.5:1 on $c1)
+  $cr: #cd4335   // BI site CSS — stylesheet red: del/errors (≥4.5:1 on $c1)
 );
 /* Floated post image (imgfloat shortcode): floats the image left at ~25%
    width so body text wraps beside it, mirroring the source post's layout. */
