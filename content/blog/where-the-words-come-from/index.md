@@ -2,7 +2,7 @@
 title = "Where the words come from"
 description = "The Brothertown Language Project needs words for the teaching materials it is building, and the historical record holds no community language to take them from — how it derives them by selection among recorded forms, and why the derivation lives in public, under review."
 date = 2026-10-27T00:00:00Z
-draft = true
+draft = false
 authors = ["Brothertown Language"]
 
 [taxonomies]
@@ -24,7 +24,7 @@ The derivation is being written up now because it has a first complete statement
 
 <!-- more -->
 
-And it shapes the project's approach from the ground up. Every word the materials use is either recorded in a founder language or generated under published rules — never invented, never averaged between communities — and every generated word keeps its status visibly where it appears. Under the published weights, the contested choices between the founders' languages resolve to the founders' largest and best-recorded side — the language family modern Mohegan belongs to. What remains open — the rules' validity, the weights, which words to carry for meanings where the vocabularies diverged — is named for the linguist to decide, not papered over.
+And it shapes the project's approach from the ground up. Every word the materials use is either recorded in a founder language or generated under published rules — never invented, never averaged between communities — and every generated word keeps its status visibly where it appears. Under the published weights, the contested choices between the founders' languages resolve to the founders' largest and best-recorded side — the language family modern Mohegan belongs to. What remains open — the rules' validity, the weights, which words to carry for meanings where the vocabularies diverged — is named for the project's linguist, Dr. Keith Cunningham, to decide, not papered over.
 
 
 ## The founders and the record
@@ -67,7 +67,7 @@ The koine's only *new* decisions come at the daughter level, where the founders'
 
 ### 4. The founders' records
 
-At the daughter level the founding languages differ in exactly a handful of places — which is itself a finding. The comparative record gives, per selection point, one attested reflex per founder (a *reflex* is where an inherited sound landed in a given language): *r* becomes *y*, *n*, or *r* (above); the laryngeal cluster yields *hš* in nearly every founder; word-final *r* yields *š* everywhere it is on the table; syncope follows a Mohegan-Pequot pattern in one taxonomy and a Wampanoag pattern in another. The donor law tables anchor these — Fielding 2005's ordered 39-law list and segment chart for Mohegan-Pequot (as corrected by the project's linguist), Rudes 1997's Quiripi phonology as the second principal donor table, Williams 1643 as the densest conversational record — and the densities differ by orders of magnitude: hundreds of attested Mohegan-Pequot forms against a near-zero Tunxis record.
+At the daughter level the founding languages differ in exactly a handful of places — which is itself a finding. The comparative record gives, per selection point, one attested reflex per founder (a *reflex* is where an inherited sound landed in a given language): *r* becomes *y*, *n*, or *r* (above); *hx* and *hr* fall together to *hš* in the founder languages; word-final *r* yields *š* everywhere it is on the table; syncope follows a Mohegan-Pequot pattern in one taxonomy and a Wampanoag pattern in another. The donor law tables anchor these — Fielding 2005's ordered 39-law list and segment chart for Mohegan-Pequot (as corrected by the project's linguist), Rudes 1997's Quiripi phonology as the second principal donor table, Williams 1643 as the densest conversational record — and the densities differ by orders of magnitude: hundreds of attested Mohegan-Pequot forms against a near-zero Tunxis record.
 
 The density spread is the reason a weighting is needed at all, and the reason an equal weighting is already ruled out: hundreds of attested words do not "count equally" against a near-zero record.
 
@@ -87,17 +87,19 @@ Seven candidate laws (B1–B7) carry the daughter-level decisions — all marked
 
 1. **Non-final *r* → *y*** (the y-dialect reflex, selected automatically by weighted majority; Narragansett's *n* records as the displaced alternant, not an output).
 2. **Word-final *r* → *š***, with *s* as a minority variant from the late Wampanoag-side emigrants.
-3. **The *hš* cluster surfaces as *hš*** — the reflex of every founding bloc (the Unquachog-type *hs* belongs to the later Wampanoag-area emigrants, outside the founding set).
+3. ***hx* and *hr* fall together to *hš*** — the reflex of every founding bloc (the Unquachog-type *hs* belongs to the later Wampanoag-area emigrants, outside the founding set).
 4. ***k*-palatalization retained** in its simple-palatal (y-dialect) realization.
 5. **Syncope follows the Mohegan-Pequot patterns** (the densest attestation).
 6. **The intrusive nasal and preaspiration carry over unchanged** — every founder has them, so no selection arises.
 7. **The corrected labial and nasal-loss rows carry over as corrected**, applied to the dominant Mohegan-Pequot component.
 
+On the reflex of *r*: PSNEA itself likely retained *r — the profusion of *r reflexes (*y*, *n*, *r*) across the daughter languages is a post-contact development, and the earliest records of Ojibwe, Lenape, and related languages still reflect *r. But that stage sits several centuries removed from Brothertown's founding, so the koine could reasonably diverge from *r to reflect the composition of the community instead.
+
 Where a selection point still has two attested contenders, a four-step tie-breaker ladder decides it in order: weighted majority; then attestation density; then conservative retention (at a true tie, keep the un-innovated PSNEA value — the older side, per the contact-zone finding that neologisms replace older forms on the innovating side); and if that fails, the row is marked *contested* and referred to the linguist. No coin-flips, no averaging — under the computed weights, the first step resolves every contested row, and they resolve y.
 
 ### 7. The worked forms — and the counterfactual published alongside
 
-The worked chain produces concrete demonstration forms in the project's practical orthography (Costa letters with BL's values): teeth → ⟨wipitay⟩ (with ⟨wipitan⟩ the displaced Narragansett-side alternant), person → ⟨uyuniw⟩, house → ⟨wiciwôh⟩, chief/sachem → ⟨sôcimôw⟩, heart → ⟨mutáh⟩, three → ⟨nuhshwi⟩, island → ⟨munahan⟩, and the inanimate plural suffix → ⟨-ash⟩.
+The worked chain produces concrete demonstration forms in the project's practical orthography (Costa letters with BL's values): teeth → ⟨wipitash⟩ (the plural, regardless of reflex of r), person → ⟨iyiniw⟩, house → ⟨wiciw⟩ (Mohegan syncope conventions, whence ⟨wetu⟩), chief/sachem → ⟨sôcimôw⟩, heart → ⟨mutáh⟩, three → ⟨nuhshwi⟩, island → ⟨munahan⟩, and the inanimate plural suffix → ⟨-ash⟩.
 
 Alongside the weighted outcome, the derivation publishes its equal-weight counterfactual — what you would get if every founding bloc counted the same: the sound laws themselves would not change, but every selection point with two attested reflexes would become contested, and the koine would come out doublet-riddled rather than y-shaped. Recording the counterfactual is deliberate: it shows exactly what the weights are doing (deciding selections, not changing laws) — disagreeing with the weights never costs the laws.
 
@@ -119,23 +121,32 @@ The palawa kani program states the principle plainly: "the value of any recordin
 
 Cornish's competing revival orthographies were resolved by a negotiated Standard Written Form, agreed in May 2008 after two years of public negotiation through open conferences, published position statements, and an independent commission — and its specification states the principle behind its base-variety choice (it "leans toward a Middle Cornish base, since in many cases the correct… pronunciation can be deduced from an RMC form, but not vice versa"). The community panels of WLRP and the Kaurna foundation gate new and translated material on standing, named review. This project's analogue is the standing linguist-review gate: the candidate laws, the weighting, and both columns of the weight table are submitted, provisional, and gap-marked pending adjudication — and where a genuinely defensible counterfactual exists (equal weights), it is published alongside rather than buried.
 
+**On the politics of choosing.** A derivation like this one makes choices between the founders' recorded words and forms — and the reclamation record is blunt about what happens when such choices are held privately or by an outside body: the disputes over the Lakota standard's authority (tribal resolutions and bans — Rosebud 2012; Standing Rock 2022), Cornish's two decades of division before its negotiated standard, Breton's book-titled schism. The corrective the unfractured projects share is procedural, not rhetorical: the choice made on stated, reviewable grounds, the displaced rivals recorded rather than erased, and the decision points named for standing review — Mohawk's six-nation standardisation declared that standardising does not mean eliminating dialects; Mutsun's dictionary records every attested rival with its provenance and tells learners which to use. That is this derivation's own discipline: Narragansett's *n* stands recorded as the displaced alternant rather than an output, the equal-weight counterfactual is published alongside the weighted outcome, and the selection points are named for adjudication rather than settled privately.
+
 ## What is claimed, and what stays open
 
 What the derivation does *not* claim: that a distinct Brothertown community language is attested (it is not); that these forms are how the founders spoke (every BL form is generated); or that the weighting is final (it is provisional and adjudication is pending). The decision points named for review are the candidate laws' validity, the weight table's adjudication, the divergent-lexicon selections (which word a given sense-slot should carry), and the morphological expansion path the primer material has only begun to realize.
 
 What the work does claim is narrower and durable: the founding composition and its dialect profile are documented; the shared spine is published comparative history; the daughter-level choices are few, attested on one side or the other, and resolvable under stated rules; the outcome is testable, and its first independent test — the comparison with the modern Mohegan revival — comes back with seven letter-identical rows (six clean anchors plus one kinship-sense note) and a regular-agreement set that traces to the derivation's own recorded patterns. What carries the rest is the discipline already named — marking what is built against what is attested — the very practice the field's most established projects have made standard.
 
+Participation has a channel: the derivation lives in public records — the rules, the weights, and every listed form carry their markings under review — and the discussion thread on this post is where community comments land. Corrections to a listed form, questions about the derivation, or interest in a more pro-active role in the project: the conversation starts there.
+
 ## Sources
 
 **Historical and technical primary sources.** Williams, *A Key into the Language of America* (1643); Love, *Samson Occom and the Christian Indians of New England* (1899), pp. 224, 335–367; Prince & Speck, "Glossary of the Mohegan-Pequot Language" (1904); Goddard, "Eastern Algonquian as a Genetic Subgroup" (1980) and "Massachusett Morphophonemics" (1981); Costa, "The Dialectology of Southern New England Algonquian" (2007); Fielding, *The Phonology of Mohegan-Pequot* (M.A. thesis, 2005) and *A Modern Mohegan Dictionary* (2012); Rudes, "Wampano" (*Anthropological Linguistics*, 1997); Jarvis, *The Brothertown Nation of Indians* (2010).
 
-**Comparable-project practices (public descriptions consulted 2026-10-27).**
+**Comparable-project practices (public descriptions consulted 2026-10-27 and 2026-11-15).**
 
-- Wôpanâak Language Reclamation Project: project history and method — wlrp.org and wlrp.org/project-history; MIT project page (web.mit.edu/norvin/www/wopanaak.html); first new first-language speaker 2004 (The Independent); immersion-school reporting (AP, November 2017).
-- Kaurna: uniform-dialect revival and new-word coinage in consultation with elders — ABC News, 4 August 2022 (abc.net.au/news/2022-08-04/indigenous-language-kaurna-brought-back-to-life-in-dictionary/101301262); Kaurna Warra Pintyanthi (kaurnawarra.org.au).
-- Cornish Standard Written Form, agreed 9 May 2008: MAGA Kernow (magakernow.org.uk); SWF specification (kernowek.net/Specification_Final_Version.pdf).
+- Wôpanâak Language Reclamation Project: project history and method — [wlrp.org](https://wlrp.org) and [wlrp.org/project-history](https://wlrp.org/project-history); [the MIT project page](https://web.mit.edu/norvin/www/wopanaak.html); first new first-language speaker 2004 (The Independent); immersion-school reporting (AP, November 2017).
+- Kaurna: uniform-dialect revival and new-word coinage in consultation with elders — ABC News, 4 August 2022 ([abc.net.au](https://www.abc.net.au/news/2022-08-04/indigenous-language-kaurna-brought-back-to-life-in-dictionary/101301262)); Kaurna Warra Pintyanthi ([kaurnawarra.org.au](https://kaurnawarra.org.au)).
+- Cornish Standard Written Form, agreed 9 May 2008: MAGA Kernow (magakernow.org.uk — currently unresponsive); [the SWF specification](https://kernowek.net/Specification_Final_Version.pdf).
 - Mutsun dictionary (open access): Warner/Butler/Geary, Language Documentation & Conservation Special Publication No. 11 (2016) — attestation flags and "New word made from" marking.
-- palawa kani: Tasmanian Aboriginal Centre program and use policy (tacinc.com.au/programs/palawa-kani).
+- palawa kani: Tasmanian Aboriginal Centre program and use policy ([tacinc.com.au/programs/palawa-kani](https://tacinc.com.au/programs/palawa-kani)).
+- Lakota standard dispute: [NBC News, 3 June 2022](https://www.nbcnews.com/news/us-news/native-american-language-preservation-rcna31396); the record of the disagreement, incl. Rosebud Sioux Resolution 2012-343 ([en.wikipedia.org/wiki/Lakota_language](https://en.wikipedia.org/wiki/Lakota_language)).
+- Mohawk Language Standardisation Project report ([Lazore, August 1993](https://mohawklanguageca.wordpress.com/2021/04/21/the-mohawk-language-standardisation-project/)).
+- Breton orthography history: Wmffre, *Breton Orthographies and Dialects, Volume 2: The Twentieth-Century Orthography War in Brittany* (Peter Lang, 2007).
+
+*Note: the forms as listed in this article have not been finalized yet.*
 
 ---
 
