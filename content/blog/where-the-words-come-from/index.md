@@ -24,7 +24,7 @@ The derivation is being written up now because it has a first complete statement
 
 <!-- more -->
 
-And it shapes the project's approach from the ground up. Every word the materials use is either recorded in a founder language or generated under published rules — never invented, never averaged between communities — and every generated word keeps its status visibly where it appears. Under the published weights, the contested choices between the founders' languages resolve to the founders' largest and best-recorded side — the language family modern Mohegan belongs to. What remains open — the rules' validity, the weights, which words to carry for meanings where the vocabularies diverged — is named for the linguist to decide, not papered over.
+And it shapes the project's approach from the ground up. Every word the materials use is either recorded in a founder language or generated under published rules — never invented, never averaged between communities — and every generated word keeps its status visibly where it appears. Under the published weights, the contested choices between the founders' languages resolve to the founders' largest and best-recorded side — the language family modern Mohegan belongs to. What remains open — the rules' validity, the weights, which words to carry for meanings where the vocabularies diverged — is named for the project's linguist, Dr. Keith Cunningham, to decide, not papered over.
 
 
 ## The founders and the record
@@ -128,6 +128,8 @@ Cornish's competing revival orthographies were resolved by a negotiated Standard
 What the derivation does *not* claim: that a distinct Brothertown community language is attested (it is not); that these forms are how the founders spoke (every BL form is generated); or that the weighting is final (it is provisional and adjudication is pending). The decision points named for review are the candidate laws' validity, the weight table's adjudication, the divergent-lexicon selections (which word a given sense-slot should carry), and the morphological expansion path the primer material has only begun to realize.
 
 What the work does claim is narrower and durable: the founding composition and its dialect profile are documented; the shared spine is published comparative history; the daughter-level choices are few, attested on one side or the other, and resolvable under stated rules; the outcome is testable, and its first independent test — the comparison with the modern Mohegan revival — comes back with seven letter-identical rows (six clean anchors plus one kinship-sense note) and a regular-agreement set that traces to the derivation's own recorded patterns. What carries the rest is the discipline already named — marking what is built against what is attested — the very practice the field's most established projects have made standard.
+
+Participation has a channel: the derivation lives in public records — the rules, the weights, and every listed form carry their markings under review — and the discussion thread on this post is where community comments land. Corrections to a listed form, questions about the derivation, or interest in a more pro-active role in the project: the conversation starts there.
 
 ## Sources
 
