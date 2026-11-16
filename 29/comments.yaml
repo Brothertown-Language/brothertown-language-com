@@ -8,3 +8,8 @@ comments:
   body: 'Revision round: developer-directed addition of R-7/SC-5 (minimal root AGENTS.md
     cross-reference line) — remediated/validated in place; round 3 PASS, zero findings.'
   timestamp: '2026-11-16T16:25:46+00:00'
+- type: internal
+  body: 'Verify pass (fresh-context reviewer, ses_e1acf8): PASS, zero findings — SC-1..SC-5
+    all executed clean; requirement fidelity both directions confirmed. Implementation
+    commit 1e? on feature/29-referenced-projects.'
+  timestamp: '2026-11-16T16:29:11+00:00'
