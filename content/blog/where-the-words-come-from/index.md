@@ -105,7 +105,7 @@ Alongside the weighted outcome, the derivation publishes its equal-weight counte
 
 ### 8. The check against modern Mohegan
 
-The generated BL headwords were compared, word by word, against the modern Mohegan revival's own learner's dictionary — read *only* as a comparison target; the modern dictionary is never an input to generation, which keeps the check honest. Each pair received one of five defined verdicts (a fifth, synonym-split, was retired when PA-chain scrutiny re-unified or re-classified its candidates; no row carries it). Of the 55 rows, 7 are letter-for-letter **identical**, 20 are **regular** (same etymon; the differences trace to patterns the paper already records — lost final *n* from *nin/ni* and *kin/ki*, syncope in *munahan/munhan*, the *miy-* give paradigm), 24 are **divergent** (different etymon or formation — different words kept by the two lineages, analyzed per pair), 1 is a systematic inflectional divergence, and 3 have no counterpart in the partial comparison list.
+The generated BL headwords were compared, word by word, against the modern Mohegan revival's own learner's dictionary — read *only* as a comparison target; the modern dictionary is never an input to generation, which keeps the check honest. Each pair received one of five defined verdicts (a fifth, synonym-split, was retired when PA-chain scrutiny re-unified or re-classified its candidates; no row carries it). Of the 55 rows, 7 are letter-for-letter **identical**, 20 are **regular** (same etymon; the differences trace to patterns the paper already records — the 1sg/2sg pronouns *nin/ni* and *kin/ki* descend from PA *nīθa* (y-dialect *nīy > nī*), syncope in *munahan/munhan*, the *miy-* give paradigm), 24 are **divergent** (different etymon or formation — different words kept by the two lineages, analyzed per pair), 1 is a systematic inflectional divergence, and 3 have no counterpart in the partial comparison list.
 
 Among the seven letter-for-letter identities, six are clean calibration anchors — ⟨awán⟩ 'who', ⟨nuks⟩ 'yes', ⟨nitôp⟩ 'friend', ⟨nohsh⟩ 'my father', ⟨yo⟩ 'this', ⟨mutáh⟩ 'heart' — where the two lineages agree, a Williams-anchored derivation and a living revival produce the same word; the seventh, ⟨nimat⟩ 'my brother', is letter-identical with a recorded kinship-sense difference (the modern chart glosses 'my older brother'). 27 of the 52 comparable words land identical or predictably regular; the divergent remainder are not noise but information — mostly different attested words held by the two vocabularies, a selection history that belongs to whoever adjudicates the lexicon, not to the sound laws.
 
@@ -162,6 +162,10 @@ With respect,
 [#SNEA](https://mastodon.social/tags/snea)
 
 🤖 Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)
+
+### Edited
+
+- **2026-11-16** — Corrected the pronunciation-tracing note for the pronouns *nin/ni* and *kin/ki*: they descend from Proto-Algonquian *nīθa* (y-dialect *nīy > nī*); an earlier phrasing here attributed their modern form to a lost final *n*. Thank you to Dr. Keith Cunningham for the correction.
 
 ### Comment on Mastodon
 
