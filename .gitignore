@@ -15,6 +15,10 @@
 # Wiki checkout (gitignored sub-repo — never a submodule; runbook, issue #3)
 /wiki/
 
+# Referenced-project checkouts (reference only, never dependencies — see referenced-projects/AGENTS.md)
+referenced-projects/*
+!referenced-projects/AGENTS.md
+
 # JetBrains
 /.idea/
 

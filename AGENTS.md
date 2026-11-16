@@ -5,7 +5,7 @@
 
 Public Zola static site for the Brothertown Language project. Current state:
 base site landed (issue 1) and live on Cloudflare Workers Static Assets; home,
-about, and blog sections published. Humans merge PRs; agents never merge.
+about, and blog sections published. Humans merge PRs; agents never merge. Reference checkouts of companion repos live gitignored under `referenced-projects/` — governing registry: `referenced-projects/AGENTS.md`.
 
 ## Site decisions of record (brainstorm with developer, 2026-10-25)
 
