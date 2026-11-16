@@ -52,7 +52,7 @@ Create folder + governing `AGENTS.md` (R-2/R-3/R-5) + `.gitignore` wiring (R-4);
 
 ## Impact
 
-Agents gain a governed reference path; tracked tree gains one file and four ignore lines; build surface unchanged. No dependency introduced, by design.
+Agents gain a governed reference path; the tracked tree gains one file (`referenced-projects/AGENTS.md`) and two `.gitignore` lines; build surface unchanged. No dependency introduced, by design.
 
 ---
 Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)

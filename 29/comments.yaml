@@ -1,0 +1,6 @@
+comments:
+- type: internal
+  body: 'Spec validation loop (fresh-context reviewer): round 1 FAIL (Impact footprint
+    count misstated — four ignore lines vs R-4''s two) — remediated in place; round
+    2 PASS, zero findings.'
+  timestamp: '2026-11-16T15:12:32+00:00'
