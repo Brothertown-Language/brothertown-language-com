@@ -13,7 +13,7 @@ Design choice of record (developer, this session): an **ignored-checkout folder*
 
 ## Scope
 
-This repo only: `referenced-projects/` (folder + governing `AGENTS.md`), `.gitignore` wiring. No checkouts performed by the implementing change; no other repo modified; no submodule created.
+This repo only: `referenced-projects/` (folder + governing `AGENTS.md`), `.gitignore` wiring, and one minimal cross-reference line in the root `AGENTS.md`. No checkouts performed by the implementing change; no other repo modified; no submodule created.
 
 ## Requirements
 
@@ -30,6 +30,7 @@ This repo only: `referenced-projects/` (folder + governing `AGENTS.md`), `.gitig
 - **R-4** `.gitignore` SHALL ignore `referenced-projects/*` with `!referenced-projects/AGENTS.md` — checkouts never tracked, registry tracked.
 - **R-5** The governing file SHALL state the reference-only rules: read-only checkouts (no commits into them), no build against them (build/test route through this repo's `./build.sh` only), the folder's absence is never a build failure, the `glob` false-absence discipline for ignored checkouts, and provenance — any content here derived from a referenced checkout records the source repository and the SHA it was read at, since the checkout carries no pointer identity.
 - **R-6** Registry additions/removals are in-place edits of `referenced-projects/AGENTS.md` through normal PR review; this spec fixes the initial set only, and no further spec is required for registry row edits.
+- **R-7** The repo root `AGENTS.md` SHALL gain one brief, minimal cross-reference line naming `referenced-projects/` and pointing at its `AGENTS.md` as the governing registry, so agents arriving only at the root know the folder exists. The line duplicates no registry content — no URLs, no checkout instructions, no per-project rows.
 
 ## Success criteria
 
@@ -39,20 +40,21 @@ This repo only: `referenced-projects/` (folder + governing `AGENTS.md`), `.gitig
 | SC-2 | structural | Checkouts under `referenced-projects/` ignored; governing file tracked | in a scratch checkout: `git check-ignore referenced-projects/snea-phonetics` exits 0; `git check-ignore referenced-projects/AGENTS.md` exits 1 |
 | SC-3 | content | Governing file states checkout-when-needed, `--depth 1`, gitignored, and all R-5 reference-only rules | read the file |
 | SC-4 | structural | Site build unaffected | `./build.sh` completes; ERROR-class output respected |
+| SC-5 | structural | Root `AGENTS.md` carries the minimal cross-reference (folder named, governing file pointed at, no duplicated registry content) | read the root `AGENTS.md` line; diff confirms it is one line |
 
 ## Out of scope
 
 - Performing any checkout (agents do that at need, guided by the governing file).
 - Submodules or build-time consumption; dictionary/lesson data decisions land separately.
-- Root `AGENTS.md` layout table (untouched); any companion-repo change.
+- Root `AGENTS.md` beyond the single R-7 cross-reference line (no layout-table rewrite, no registry duplication); any companion-repo change.
 
 ## Approach
 
-Create folder + governing `AGENTS.md` (R-2/R-3/R-5) + `.gitignore` wiring (R-4); verify SC-1–SC-4; pre-PR served-preview gate before any PR.
+Create folder + governing `AGENTS.md` (R-2/R-3/R-5) + `.gitignore` wiring (R-4) + root cross-reference line (R-7); verify SC-1–SC-5; pre-PR served-preview gate before any PR.
 
 ## Impact
 
-Agents gain a governed reference path; the tracked tree gains one file (`referenced-projects/AGENTS.md`) and two `.gitignore` lines; build surface unchanged. No dependency introduced, by design.
+Agents gain a governed reference path (discoverable from the root `AGENTS.md`); the tracked tree gains `referenced-projects/AGENTS.md`, two `.gitignore` lines, and one root cross-reference line; build surface unchanged. No dependency introduced, by design.
 
 ---
 Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)

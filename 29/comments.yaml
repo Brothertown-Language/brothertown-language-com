@@ -4,3 +4,7 @@ comments:
     count misstated — four ignore lines vs R-4''s two) — remediated in place; round
     2 PASS, zero findings.'
   timestamp: '2026-11-16T15:12:32+00:00'
+- type: internal
+  body: 'Revision round: developer-directed addition of R-7/SC-5 (minimal root AGENTS.md
+    cross-reference line) — remediated/validated in place; round 3 PASS, zero findings.'
+  timestamp: '2026-11-16T16:25:46+00:00'
