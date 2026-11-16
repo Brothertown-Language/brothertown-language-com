@@ -1,0 +1,40 @@
+# Validation record — brothertown-language-com#28 (YAML)
+artifact: spec
+rounds:
+  - round: 1
+    verdict: FAIL
+    findings: [2]
+    remediation: applied
+  - round: 2
+    verdict: FAIL
+    findings: [remnants]
+    remediation: applied
+  - round: 3
+    verdict: PASS
+    findings: zero
+---
+artifact: spec-revision-2026-11-16
+rounds:
+  - round: 1
+    verdict: FAIL
+    findings:
+      - SC-3/Approach remnants contradicted the added R-6 (byte-exact scope + approach omitted SC-6)
+      - SC-1 instrument (grep) incapable of a meaning-level criterion
+    remediation: applied — SC-1 instrument restated as entry read; SC-3 hunk scope widened to R-6 addition; Approach updated
+  - round: 2
+    verdict: PASS
+    findings: zero
+---
+artifact: plan
+rounds:
+  - round: 1
+    verdict: PASS
+    findings: zero
+    note: duty-of-care pass applied before dispatch
+---
+artifact: deliverable
+rounds:
+  - round: 1
+    verdict: PASS
+    findings: zero
+    grounding: build exit 0 (zero ERROR lines) re-run by reviewer; diff cf2d4a8..31b1092 carries only clause hunk, ### Edited addition, SOP rule 6, AGENTS.md line; SC-1..SC-7 each verified
