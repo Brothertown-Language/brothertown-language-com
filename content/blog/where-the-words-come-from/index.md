@@ -163,11 +163,7 @@ With respect,
 
 🤖 Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)
 
-<!-- GAP: no Mastodon discussion post exists yet for this article — the
-anchor below is the project account profile placeholder; replace with the
-discussion-post URL before publication (intake manifest blocker 2). -->
-
 ### Comment on Mastodon
 
 You can comment on this post via Mastodon:
-[View on Mastodon](https://mastodon.social/@michaelconrad).
+[View on Mastodon](https://mastodon.social/@michaelconrad/117624227198231767).
