@@ -23,7 +23,7 @@ One file: `content/blog/where-the-words-come-from/index.md`. The paper of record
 
 - **R-1** The "20 regular" clause SHALL trace the *nin/ni*–*kin/ki* difference to the pronouns' PA *\*nīθa* derivation (y-dialect *nīy > nī*, no terminal-n loss) and SHALL NOT state a lost final/terminal *n* for these forms; the syncope and *miy-* parts keep their attributions.
 - **R-2** Everything else SHALL be unchanged: front matter (draft state, date, taxonomies/tags), hashtag line, Mastodon section, byline, and all other body text.
-- **R-3** The clause SHALL remain consistent with the sibling spec's corrected paper wording ("patterns the paper already records" stays true of the paper of record); if the paper-side adjudication revises the traced pattern, R-1's wording follows it.
+- **R-3** The clause SHALL attribute only mechanisms the corrected paper of record (per sibling spec snea-phonetics#178) records — the corrected *nīθa* chain for the pronoun pair, syncope in *munahan/munhan*, and the *miy-* give paradigm — and SHALL name no other mechanism (no terminal-n loss anywhere in the clause).
 
 ## Success criteria
 
@@ -33,6 +33,7 @@ One file: `content/blog/where-the-words-come-from/index.md`. The paper of record
 | SC-2 | content | The corrected clause states the PA *\*nīθa → nīy > nī* attribution | read the clause |
 | SC-3 | structural | Everything outside the edited clause preserved | byte-exact diff — only the clause hunks differ |
 | SC-4 | structural | Site builds with the corrected content | `./build.sh` completes; ERROR-class output respected |
+| SC-5 | content | The clause names no mechanism beyond R-3's three surviving attributions | read the clause |
 
 ## Out of scope
 
@@ -41,7 +42,7 @@ One file: `content/blog/where-the-words-come-from/index.md`. The paper of record
 
 ## Approach
 
-Edit the single clause per R-1 after the sibling wording settles; verify SC-1–SC-4; the pre-PR review gate (served preview) applies before any PR.
+Edit the single clause per R-1; verify SC-1–SC-5; the pre-PR review gate (served preview) applies before any PR.
 
 ## Impact
 

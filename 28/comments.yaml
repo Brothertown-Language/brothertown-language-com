@@ -1,1 +1,6 @@
-comments: []
+comments:
+- type: internal
+  body: 'Spec validation loop (fresh-context reviewer): rounds 1-2 FAIL (F-1 either-or
+    R-3 dependent on sibling adjudication; F-2 Approach omitted SC-5) — remediated
+    in place; round 3 PASS, zero findings.'
+  timestamp: '2026-11-16T14:44:21+00:00'
