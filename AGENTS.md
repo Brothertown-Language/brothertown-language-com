@@ -111,7 +111,8 @@ about, and blog sections published. Humans merge PRs; agents never merge.
   Mastodon` section at the very end, after the AI co-authored byline,
   carrying the source site's wording with the plain `[View on Mastodon]` anchor (embeds are rejected); rule
   of record: `docs/sop-site-setup.md` Content rules, rule 5 (adopted
-  2026-10-27).
+  2026-10-27; publication sequence and URL probe of record amended
+  2026-11-15).
 
 ## Git workflow (hooks enforce it)
 

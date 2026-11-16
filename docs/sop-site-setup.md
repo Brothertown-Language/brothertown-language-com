@@ -200,9 +200,28 @@ AGENTS.md):
    source site's wording, kept verbatim: the line
    `You can comment on this post via Mastodon:` followed by the plain
    anchor `[View on Mastodon](<thread-url>)` — the embed's action label as
-   the plain link, never placeholder labels like "thread". A post without a
-   discussion thread omits the section (the rule applies to published posts
-   that have one).
+   the plain link, never placeholder labels like "thread".
+
+   **Publication sequence when the thread does not exist yet (of record
+   2026-11-15 — correcting the earlier omit-the-section clause).** A post
+   whose discussion thread does not exist at flag-release time may publish
+   with the project account's profile URL standing in for `<thread-url>`,
+   with the gap recorded in an HTML comment above the section (the GAP
+   comment, naming the blocker) — only on the developer's explicit
+   flag-release instruction; no silent placeholder. The completion sequence
+   then runs: (1) the agent provides the posting info — the paste-ready
+   toot text (the article link + the site tag set as hashtags), the project
+   account, and the visibility — for the user to post; (2) the user creates
+   the toot; (3) the agent **probes for the correct URL**, signed out — via
+   the Mastodon API's public reads and/or the account feed
+   (`GET …/api/v1/accounts/<id>/statuses`, `<account>.rss`) — confirming
+   the toot's own `url` and its link to the article before any anchor moves
+   (every URL verified before it appears); the agent never requires the
+   user to supply the thread URL; (4) the agent swaps the placeholder for
+   the verified thread URL, strips the GAP comment, build-verifies, and
+   files the follow-up PR; (5) the user merges; cleanup follows. The
+   section's wording never changes in the sequence — only the anchor's
+   target and the removal of the gap record.
 
 ## Vendored theme provenance
 
