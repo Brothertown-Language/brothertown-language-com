@@ -222,6 +222,14 @@ AGENTS.md):
    files the follow-up PR; (5) the user merges; cleanup follows. The
    section's wording never changes in the sequence — only the anchor's
    target and the removal of the gap record.
+6. **Edited/changelog provenance (recorded 2026-11-16).** Whenever an
+   already-published blog entry is updated, the updated entry carries an
+   `### Edited` provenance section recording the update, dated — placed
+   after the article's closing sections (sign-off, byline) and before the
+   `### Comment on Mastodon` section — stating the correction or change as
+   an edit of record. The section references a superseded wording only to
+   note it was corrected; it never restates the superseded error as fact.
+   (First applied: issue `brothertown-language-com#28`.)
 
 ## Vendored theme provenance
 
