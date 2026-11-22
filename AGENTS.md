@@ -116,7 +116,13 @@ about, and blog sections published. Humans merge PRs; agents never merge. Refere
   carrying the source site's wording with the plain `[View on Mastodon]` anchor (embeds are rejected); rule
   of record: `docs/sop-site-setup.md` Content rules, rule 5 (adopted
   2026-10-27; publication sequence and URL probe of record amended
-  2026-11-15).
+  2026-11-15). Widget amendment (2026-11-21, issue `#32`): entry pages
+  additionally render the thread's public replies beneath the section via a
+  client-side widget that derives the thread from the entry's existing
+  anchor and fetches at view time — no commentary is imported into the blog
+  or the repo, reply content renders only as text, and every failure
+  degrades silently to the exact current form; the rule-5 wording of record
+  is preserved verbatim.
 
 ## Git workflow (hooks enforce it)
 
