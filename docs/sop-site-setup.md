@@ -202,6 +202,23 @@ AGENTS.md):
    anchor `[View on Mastodon](<thread-url>)` — the embed's action label as
    the plain link, never placeholder labels like "thread".
 
+   **Widget amendment (2026-11-21).** The section's enhancement of record is
+   the client-side Mastodon thread-reply widget (issue
+   `brothertown-language-com#32`): on every blog entry page, a site-level
+   script derives the thread target from the entry's existing `View on
+   Mastodon` anchor, fetches the thread's public replies from the Mastodon
+   public API at view time (`GET /api/v1/statuses/:id/context`, call
+   originating from the visitor's browser), and renders them as text beneath
+   the section. Binding constraints: **no commentary is imported into the
+   blog or the repository** — no reply text, JSON, or derived thread content
+   may be committed anywhere; reply content is rendered only as text nodes,
+   never inserted as HTML; every failure path (JS disabled, API failure or
+   timeout, malformed anchor, script error) degrades silently to the exact
+   current form — heading, the mandated lines, and the anchor. The embed
+   rejection above stands unchanged. The widget is included via the
+   site-level `templates/page.html` override (content-detection conditional
+   load); the wording of record in this rule is preserved verbatim.
+
    **Publication sequence when the thread does not exist yet (of record
    2026-11-15 — correcting the earlier omit-the-section clause).** A post
    whose discussion thread does not exist at flag-release time may publish
