@@ -97,8 +97,8 @@ constraint.
 - Posting or composing UI on the site — comments happen on Mastodon, the
   venue of record.
 - Moderation tooling — instance-side moderation remains the venue's mechanism.
-- Quote-post capture — the context endpoint returns replies only; a named
-  platform limitation of this form, recorded as an edge case.
+- Quote-post capture — the context endpoint returns replies only; quote
+  posts are a platform limitation of this form, not a deliverable behavior.
 - Official embed markup (blockquote + `embed.js` / iframe) — the rejected
   class; reopening that rejection is outside this spec.
 - Build-time commentary baking — violates the stated constraint.
@@ -152,7 +152,7 @@ constraint.
 |----|-----------|-------|-----------|
 | SC-1 | Every blog entry page renders its thread conversation beneath the section | behavioral | run `./build.sh`; enumerate `content/blog/*/index.md`; serve `public/`; playwright-probe each entry page: the network log records the context API request for that entry's thread status id issued from the page, and every rendered-content assertion is scoped to the widget's own rendered container (the element the script creates beneath the section; the plan fixes a stable container selector): on the one-reply entry (`…/117624227198231767`) the known reply's stable text substring ("Corrected the pronunciation-tracing note for the pronouns") matches **within that container only** — the same wording exists elsewhere on that page (the entry's `### Edited` section), so a match outside the container is not evidence; on the zero-reply entry (`…/115971090611921901`, verified 2026-11-21) the fetch completes (HTTP 200) with zero rendered reply items and the section unchanged |
 | SC-2 | Non-entry pages show no widget and issue no Mastodon call | behavioral | playwright-probe the served home, about, and blog-index pages: no widget markup, no request to any `mastodon.social` API path |
-| SC-3 | Enhancement unavailability degrades to the exact current form | behavioral | playwright probes on a served entry page: (a) route-intercept the context API to fail → no error UI, no layout change, anchor intact; (b) JavaScript disabled → the section renders unchanged |
+| SC-3 | Enhancement unavailability degrades to the exact current form | behavioral | playwright probes on a served entry page — every arm asserts the same invariant (no error UI, no layout change, the anchor intact, and for fetch-triggering arms no rendered widget content): (a) JavaScript disabled; (b) the context API route-intercepted to a failure status; (c) the context API route-intercepted to a never-resolving (hanging) response; (d) the page document route-intercepted with the anchor's href rewritten to a non-status URL; (e) the context API route-intercepted to HTTP 200 with a non-JSON body |
 | SC-4 | No thread content committed anywhere in the repo | structural | scope check: `git diff`-equivalent inspection of the change (staged or trunk diff) lists only the widget asset, the template override, and the two docs files; grep of the changed set for the known reply text and for reply-shaped JSON finds none |
 | SC-5 | Built entry pages render the mandated section wording verbatim | structural | built-output check per entry page: the three mandated elements are present with exact strings (`Comment on Mastodon`; `You can comment on this post via Mastodon:`; the `View on Mastodon` anchor to the entry's thread URL) — exact-string form because preservation of the wording of record is the stated requirement |
 | SC-6 | Reply content inserted only as text, never as HTML | structural | code check of the widget asset: no `innerHTML`, `insertAdjacentHTML`, `document.write`, or template-literal HTML construction consumes API-derived content; text-node construction only (escapes/`textContent`) |
@@ -237,11 +237,12 @@ least one SC; no orphans in either direction.
 - **Condition:** the thread status is deleted or the context endpoint returns
   404/non-200 or times out. **Expected:** widget stays inert; no error UI; the
   anchor remains the sole affordance. **Resolution:** fail-silent per KD-3.
-- **Condition:** the thread exceeds the anonymous context cap (60
-  descendants, verified platform limit). **Expected:** the widget renders the
-  first replies and truncates with a short note linking the thread for the
-  remainder. **Resolution:** named platform cap; the note keeps the full
-  conversation reachable.
+- **Condition:** a thread's reply volume reaches the platform's anonymous
+  context bound (60 descendants, verified platform limit). **Expected:** the
+  widget renders the replies the context endpoint returns — the platform
+  itself bounds the response volume; the anchor remains the link to the full
+  thread. **Resolution:** the bound is platform-side; no widget-side
+  truncation machinery is specified.
 - **Condition:** a thread has zero replies (the founding entry's verified
   state, 2026-11-21). **Expected:** the fetch completes with zero rendered
   reply items; the section renders unchanged. **Resolution:** nothing to
@@ -258,7 +259,7 @@ least one SC; no orphans in either direction.
 
 ## Completion gate
 
-Every success criterion SC-1 through SC-9 passes before the deliverable is
+Every success criterion SC-1 through SC-10 passes before the deliverable is
 complete; partial implementation is not permitted.
 
 *Co-authored with AI: OpenCode (ollama-cloud/glm-5.3-flash)*

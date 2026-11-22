@@ -7,3 +7,11 @@ rounds:
       - incapable-instrument (class 5) — SC-1 probe: the known-reply text substring is byte-identical to the one-reply entry's own `### Edited` section text (content/blog/where-the-words-come-from/index.md line 168), so a page-level text assertion passes with zero widget-rendered items; R-1's rendering behavior unverified on the only thread carrying a reply
       - layout non-conformance (class 9) + decomposition — SC-7 composite: class label "structural + behavioral" outside the prescribed vocabulary; two materially different mandates bundled, mirrored in R-7 and the traceability row
     remediation: applied — SC-1 rewritten (network-log observation + container-scoped assertion; match outside the widget container is not evidence); R-7/SC-7 split into structural R-7/SC-7 (scope containment) and behavioral R-10/SC-10 (build success), traceability and cost frame updated
+  - round: 2
+    verdict: FAIL
+    findings:
+      - internal contradiction — completion gate read "SC-1 through SC-9" while the criteria table had gained SC-10, making completeness achievable with a criterion unpassed
+      - gap analysis / incapable instrument — R-4 named five degradation triggers but SC-3 exercised only two (JS-disabled, API failure); timeout, malformed-anchor, and widget-script-error paths asserted never demonstrated
+      - gap analysis — the context-cap edge case stated widget-side truncation behavior (with a note) that no criterion could exercise, and that the platform's own server-side 60-descendant bound makes unreachable in reality
+      - cross-reference sufficiency — Not Included's quote-post bullet cited "recorded as an edge case" with no such edge case present
+    remediation: applied — completion gate restated to SC-1 through SC-10; SC-3 instrument extended to five arms exercising R-4's triggers one-to-one (JS disabled, failure status, hanging response, rewritten anchor href document-intercept, HTTP 200 non-JSON body); cap edge case restated to the honest form (platform-side bound, render what the endpoint returns, anchor links the full thread — no widget-side truncation machinery specified); quote-post bullet's dangling cite removed
