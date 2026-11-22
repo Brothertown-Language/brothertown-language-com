@@ -1,11 +1,11 @@
 title: 'Blog: client-side Mastodon thread-reply widget (item D)'
-status: open
+status: closed
 labels:
 - needs-approval
 - enhancement
 - spec
 body: ''
 created_at: '2026-11-22T04:36:47+00:00'
-updated_at: '2026-11-22T05:01:11+00:00'
+updated_at: '2026-11-22T05:01:43+00:00'
 github_url: https://github.com/Brothertown-Language/brothertown-language-com/issues/32
-phase: pr
+phase: done
