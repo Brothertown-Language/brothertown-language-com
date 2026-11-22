@@ -42,7 +42,7 @@ Session context: developer question about the current widget — `### Comment on
 
 - The question was scoped to the `Comment on Mastodon` **widget form**; no platform-strategy discussion was requested.
 - **Competition check (the reason for the question):** the developer asked whether the Mastodon setup competes with any other comments system the site already uses. Verified this session: the site runs **no other comments system** — grep of `content/` (2026-11-21) shows the Mastodon thread back-links are the only comments affordance anywhere on the site. Nothing competes with anything.
-- **Stated requirement:** commentary is not imported into the blog. Forms D (client-side replies display) and E (build-time baked replies) are inconsistent with that requirement as stated. (A prior edit of this card overstated this as an emphatic permanent ruling; corrected in place 2026-11-21 — it is the developer's stated want, not a posture filing.)
+- **Stated requirement (as given, 2026-11-21):** "no commentary imported into the blog" and "no commentary imported into the repo." Combined: no Mastodon thread commentary may appear on rendered pages at runtime or land in the repository in any form. Forms D (client-side replies display — renders onto the page) and E (build-time baked replies — writes commentary data into repo content) are both inconsistent with that requirement as stated. (A prior edit of this card overstated this as an emphatic permanent ruling; corrected in place 2026-11-21 — it is the developer's stated want, not a posture filing.)
 
 ## Synthesis (amended per the ruling above; original options kept for the record)
 
