@@ -137,27 +137,29 @@ constraint.
   the 2026-11-21 no-commentary-import constraint; `AGENTS.md`'s Mastodon
   back-link bullet gains the mirror wording in the same PR.
 - **R-7** — The build of record SHALL not be modified: `build.sh` and the
-  build-relevant `zola.toml` keys are untouched, and `./build.sh` succeeds
-  producing the built pages plus the widget asset.
+  build-relevant `zola.toml` keys remain untouched.
 - **R-8** — The widget SHALL be present only on blog entry pages; home,
   about, the blog index, and section pages SHALL render unchanged and SHALL
   issue no Mastodon API call.
 - **R-9** — Vendored theme files (`themes/abridge/**`) SHALL remain
   unmodified.
+- **R-10** — The build of record SHALL succeed with the change in place,
+  producing the built entry pages and the widget asset.
 
 ## Success criteria
 
 | ID | Criterion | Class | Instrument |
 |----|-----------|-------|-----------|
-| SC-1 | Every blog entry page renders its thread conversation beneath the section | behavioral | run `./build.sh`; enumerate `content/blog/*/index.md`; serve `public/`; playwright-probe each entry page: on the entry whose thread is `…/117624227198231767` the known reply's stable text substring ("Corrected the pronunciation-tracing note for the pronouns") renders as page text; on the zero-reply entry (`…/115971090611921901`, verified 2026-11-21) the widget's context fetch completes (HTTP 200) with zero rendered reply items and the section unchanged |
+| SC-1 | Every blog entry page renders its thread conversation beneath the section | behavioral | run `./build.sh`; enumerate `content/blog/*/index.md`; serve `public/`; playwright-probe each entry page: the network log records the context API request for that entry's thread status id issued from the page, and every rendered-content assertion is scoped to the widget's own rendered container (the element the script creates beneath the section; the plan fixes a stable container selector): on the one-reply entry (`…/117624227198231767`) the known reply's stable text substring ("Corrected the pronunciation-tracing note for the pronouns") matches **within that container only** — the same wording exists elsewhere on that page (the entry's `### Edited` section), so a match outside the container is not evidence; on the zero-reply entry (`…/115971090611921901`, verified 2026-11-21) the fetch completes (HTTP 200) with zero rendered reply items and the section unchanged |
 | SC-2 | Non-entry pages show no widget and issue no Mastodon call | behavioral | playwright-probe the served home, about, and blog-index pages: no widget markup, no request to any `mastodon.social` API path |
 | SC-3 | Enhancement unavailability degrades to the exact current form | behavioral | playwright probes on a served entry page: (a) route-intercept the context API to fail → no error UI, no layout change, anchor intact; (b) JavaScript disabled → the section renders unchanged |
 | SC-4 | No thread content committed anywhere in the repo | structural | scope check: `git diff`-equivalent inspection of the change (staged or trunk diff) lists only the widget asset, the template override, and the two docs files; grep of the changed set for the known reply text and for reply-shaped JSON finds none |
 | SC-5 | Built entry pages render the mandated section wording verbatim | structural | built-output check per entry page: the three mandated elements are present with exact strings (`Comment on Mastodon`; `You can comment on this post via Mastodon:`; the `View on Mastodon` anchor to the entry's thread URL) — exact-string form because preservation of the wording of record is the stated requirement |
 | SC-6 | Reply content inserted only as text, never as HTML | structural | code check of the widget asset: no `innerHTML`, `insertAdjacentHTML`, `document.write`, or template-literal HTML construction consumes API-derived content; text-node construction only (escapes/`textContent`) |
-| SC-7 | Build of record not modified; build succeeds with the widget asset | structural + behavioral | diff check: `build.sh` and build-relevant `zola.toml` keys unchanged; run `./build.sh` → exit 0; `public/` contains the entry pages and the widget asset |
+| SC-7 | Build-of-record scope: `build.sh` and build-relevant `zola.toml` keys unchanged | structural | diff check of the change: `build.sh` and the build-relevant `zola.toml` keys are untouched |
 | SC-8 | Docs of record amended, dated | structural | content check: `docs/sop-site-setup.md` rule 5 carries the dated amendment recording the widget form of record and the 2026-11-21 no-commentary-import constraint; `AGENTS.md` carries the mirror wording |
 | SC-9 | Vendored theme files untouched | structural | `git status` + diff: no modifications under `themes/abridge/` |
+| SC-10 | Build succeeds with the widget asset | behavioral | run `./build.sh` → exit 0; `public/` contains the built entry pages and the widget asset |
 
 ## Dependencies
 
@@ -184,6 +186,7 @@ constraint.
 | R-7 | SC-7 |
 | R-8 | SC-2 |
 | R-9 | SC-9 |
+| R-10 | SC-10 |
 
 Every SC traces to at least one requirement; every requirement traces to at
 least one SC; no orphans in either direction.
@@ -220,8 +223,10 @@ least one SC; no orphans in either direction.
   floor form (anchor) could be altered or hidden by the widget's DOM work.
 - **SC-6** — acting: asset code review; skipping: an HTML-injection surface
   from untrusted fediverse content ships with the widget.
-- **SC-7** — acting: one build run + diff; skipping: the build of record
-  silently gains or loses behavior.
+- **SC-7** — acting: one diff check; skipping: build-time machinery could
+  enter the build of record (a commentary-import route by another door).
+- **SC-10** — acting: one build run; skipping: a broken template or asset
+  could ship undetected.
 - **SC-8** — acting: two file reads; skipping: the form and constraint are
   unrecorded — a future session re-derives or contradicts them.
 - **SC-9** — acting: one git check; skipping: vendored-theme drift enters the

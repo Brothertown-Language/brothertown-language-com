@@ -1,0 +1,9 @@
+# Validation record — brothertown-language-com#32 (YAML)
+artifact: spec
+rounds:
+  - round: 1
+    verdict: FAIL
+    findings:
+      - incapable-instrument (class 5) — SC-1 probe: the known-reply text substring is byte-identical to the one-reply entry's own `### Edited` section text (content/blog/where-the-words-come-from/index.md line 168), so a page-level text assertion passes with zero widget-rendered items; R-1's rendering behavior unverified on the only thread carrying a reply
+      - layout non-conformance (class 9) + decomposition — SC-7 composite: class label "structural + behavioral" outside the prescribed vocabulary; two materially different mandates bundled, mirrored in R-7 and the traceability row
+    remediation: applied — SC-1 rewritten (network-log observation + container-scoped assertion; match outside the widget container is not evidence); R-7/SC-7 split into structural R-7/SC-7 (scope containment) and behavioral R-10/SC-10 (build success), traceability and cost frame updated
